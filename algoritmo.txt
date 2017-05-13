@@ -1,0 +1,4 @@
+criptografar ".txt" ".csv" ".wav" ".exe" ".jpeg" ".jpg" ".mp3" ".mp4" ".doc" ".xlex" ".zip"
+
+conecta ao servidor para saber a chave publica que vai criptografar os arquivos ???????
+depois de pagar o ransom receber a chave privada pra descriptografar ??????
