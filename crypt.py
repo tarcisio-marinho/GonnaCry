@@ -12,8 +12,8 @@ f.close()
 
 obj_chave_publica=RSA.importKey(chave_publica)
 
-arquivo='teste.png'
-novo_arquivo='teste.png.encript'
+arquivo='requeriments.txt'
+novo_arquivo='requeriments.txt.encript'
 
 # leu o arquivo
 f=open(arquivo,'rb')
@@ -23,5 +23,5 @@ f.close()
 # criou novo arquivo
 f=open(novo_arquivo,'wb')
 enc = obj_chave_publica.encrypt(conteudo,'x')[0]
-f.write(conteudo_criptografado)
+f.write(enc)
 f.close()
