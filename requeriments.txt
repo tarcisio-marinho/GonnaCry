@@ -1,0 +1,2 @@
+pycrypto
+requests

@@ -1,1 +1,0 @@
-#!/bin/bash/env python# coding=UTF-8# by Tarcisio marinho# github.com/tarcisio-marinho# quando o servidor receber uma conexão vai mandar para o usuario a chave que será usada para criptografar a porra todadef cria_chave():    
