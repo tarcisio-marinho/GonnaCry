@@ -1,4 +1,7 @@
-from Crypto.PublicKey import RSA
+from Crypto.Cipher import AES
+from Crypto import Random
+
+
 
 chave=RSA.generate(2048)
 chave_privada=chave.exportKey('DER')
