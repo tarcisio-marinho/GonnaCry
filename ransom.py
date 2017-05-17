@@ -11,10 +11,15 @@ def derive_key_and_iv(password, salt, key_length, iv_length):
     return d[:key_length], d[key_length:key_length+iv_length]
 
 def encrypt(in_file, out_file, password, key_length=32):
-    bs = AES.block_size
-    salt = Random.new().read(bs - len('Salted__'))
+    bs = AES.block_size # 16 -> int
+    salt = Random.new().read(bs - len('Salted__')) # '\xabs-\xea\x98\x13`\xf2' -> string
     key, iv = derive_key_and_iv(password, salt, key_length, bs)
+
+    # key = '\x96\xc2\xce\xd9Z\x0b\xe8\xecA\x9bO\x97~\x80\x0b\xca6\xd2\x10\x93\xf8W\x1e\x82\x10\x1eB\xe49\xe6\xe2('
+    # iv = '\xbd\xbd\xd2\xdcX3j$F\xc4\xf8\x07v\x8c\xf8\x08'
+
     cipher = AES.new(key, AES.MODE_CBC, iv)
+    # cipher = <Crypto.Cipher.AES.AESCipher instance at 0x7f13dbe818c0>
     out_file.write('Salted__' + salt)
     finished = False
     while not finished:

