@@ -2,6 +2,7 @@
 # coding=UTF-8
 # by Tarcisio marinho
 # github.com/tarcisio-marinho
+
 #from AES.crypt import *
 import os
 
@@ -22,20 +23,24 @@ def menu():
     print('Partindo de: '+str(home))
     # lista com todos os arquivos #
     retorno=listar(home)
-    print(str(retorno).replace("',",'\n').replace("'",'').replace('[','').replace(']',''))
+    print(retorno)
+    #print(str(retorno).replace("',",'\n').replace("'",'').replace('[','').replace(']',''))
 
 
 def listar(diretorio):
-
     # cria uma lista onde será adicionado o nome dos arquivos #
     arquivos=[]
     for caminho, diretorio, arquivo in os.walk(diretorio):
         for arq in arquivo:
             a=caminho+'/'+arq
-            txt=os.path.splitext(a)
-            if(txt[1]=='.pdf'):
+            extensao=os.path.splitext(a)
+            if(extensao[1]=='.pdf' or
+                extensao[1]=='.txt' or
+                extensao[1]=='.jpeg' or
+                extensao[1]=='.jpg' or
+                extensao[1]=='.png' or
+                extensao[1]=='.jpeg'):
                 arquivos.append(a)
-
     return arquivos
 
 

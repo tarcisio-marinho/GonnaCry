@@ -39,7 +39,7 @@ def decrypt(in_file, out_file, password, key_length=32):
             chunk = chunk[:-padding_length]
             finished = True
         out_file.write(chunk)
-with open('FB_IMG_1495038132603.jpg', 'rb') as in_file, open('FB_IMG_1495038132603.jpg.crypto', 'wb') as out_file:
+with open('teste.mp3', 'rb') as in_file, open('teste.mp3.crypto', 'wb') as out_file:
     encrypt(in_file, out_file, 'password')
-with open('FB_IMG_1495038132603.jpg.crypto', 'rb') as in_file, open('FB_IMG_1495038132603.jpg', 'wb') as out_file:
-    decrypt(in_file, out_file, "password")
+#with open('teste.png.crypto', 'rb') as in_file, open('teste.png', 'wb') as out_file:
+#    decrypt(in_file, out_file, "password")
