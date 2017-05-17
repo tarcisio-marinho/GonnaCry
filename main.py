@@ -23,8 +23,8 @@ def menu():
     print('Partindo de: '+str(home))
     # lista com todos os arquivos #
     retorno=listar(home)
-    #print(str(retorno).replace("',",'\n').replace("'",'').replace('[','').replace(']',''))
-
+    for arquivo in retorno:
+        print(arquivo)
 
 def listar(diretorio):
     # cria uma lista onde será adicionado o nome dos arquivos #
@@ -105,6 +105,7 @@ def listar(diretorio):
                 extensao[1]=='.xml' or
                 extensao[1]=='.pl' or
                 extensao[1]=='.json'):
+                a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                 arquivos.append(a)
     return arquivos
 
