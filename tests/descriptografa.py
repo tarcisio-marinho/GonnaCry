@@ -47,7 +47,7 @@ def descriptografa(caminho_arquivo):
     with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
         decrypt(in_file, out_file, "password")
 
-os.chdir('/home/tarcisio/Desktop/Projetos/Ransomware/tests/teste')
+os.chdir(os.getcwd()+'/teste')
 listagem=os.listdir(os.getcwd())
 for arquivo in listagem:
     if(os.path.splitext(arquivo)[1]=='.cripto'):

