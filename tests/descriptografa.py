@@ -2,6 +2,7 @@
 from hashlib import md5
 from Crypto.Cipher import AES
 from Crypto import Random
+import os
 
 def derive_key_and_iv(password, salt, key_length, iv_length):
     d = d_i = ''
@@ -40,10 +41,16 @@ def decrypt(in_file, out_file, password, key_length=32):
             finished = True
         out_file.write(chunk)
 
-def criptografa(caminho_arquivo):
-    with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
-        encrypt(in_file, out_file, 'password')
-
 def descriptografa(caminho_arquivo):
-    with open('teste.png.crypto', 'rb') as in_file, open('teste.png', 'wb') as out_file:
+    print('descriptografando ~> '+ caminho_arquivo)
+    novo_nome=caminho_arquivo.replace('.cripto','')
+    with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
         decrypt(in_file, out_file, "password")
+
+os.chdir('/home/tarcisio/Desktop/Projetos/Ransomware/tests/teste')
+listagem=os.listdir(os.getcwd())
+for arquivo in listagem:
+    if(os.path.splitext(arquivo)[1]=='.cripto'):
+        print(arquivo)
+        descriptografa(arquivo)
+        os.remove(arquivo)
