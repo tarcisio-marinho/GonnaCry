@@ -43,7 +43,14 @@ def decrypt(in_file, out_file, password, key_length=32):
 def criptografa(caminho_arquivo):
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, 'password')
+        
+def criptografa(caminho_arquivo):
+    print('criptografando ~> '+ caminho_arquivo)
+    with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
+        encrypt(in_file, out_file, 'password')
 
 def descriptografa(caminho_arquivo):
-    with open('teste.png.crypto', 'rb') as in_file, open('teste.png', 'wb') as out_file:
+    print('descriptografando ~> '+ caminho_arquivo)
+    novo_nome=caminho_arquivo.replace('.cripto','')
+    with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
         decrypt(in_file, out_file, "password")

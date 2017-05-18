@@ -5,7 +5,7 @@
 
 #from AES.crypt import *
 import os
-
+import crypt
 
 '''
     COMUNICA COM O SERVIDOR ENVIANDO O SEU ID
@@ -115,11 +115,3 @@ def listar(diretorio):
 if __name__=="__main__":
     print('começando')
     menu()
-
-
-
-'''with open('', 'rb') as in_file, open('', 'wb') as out_file:
-    encrypt(in_file, out_file, 'password')
-with open('FB_IMG_1495038132603.jpg.crypto', 'rb') as in_file, open('FB_IMG_1495038132603.jpg', 'wb') as out_file:
-    decrypt(in_file, out_file, "password")
-'''
