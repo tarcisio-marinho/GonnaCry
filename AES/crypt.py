@@ -41,10 +41,6 @@ def decrypt(in_file, out_file, password, key_length=32):
         out_file.write(chunk)
 
 def criptografa(caminho_arquivo):
-    with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
-        encrypt(in_file, out_file, 'password')
-        
-def criptografa(caminho_arquivo):
     print('criptografando ~> '+ caminho_arquivo)
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, 'password')
