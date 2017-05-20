@@ -7,7 +7,7 @@
 import os
 import socket
 from random import choice
-
+from threading import Thread
 from gera_chaves_RSA import *
 
 
@@ -46,9 +46,15 @@ def menu():
     # diretorios no caminho de partida
     diretorios=os.listdir(home)
     tam=len(diretorios)
+    a=0
+    while(a<tam):
+        i=Thread(target=listar,args=[diretorios[a],tipos])
+        i.start()
+        a+=1
+
     # CRIAR UMA THREAD PARA CADA DIRETORIO
     # CADA THREAD LISTAR DIRETORIO
-    retorno=listar(home,tipos)
+    #retorno=listar(home,tipos)
 
 
 def listar(diretorio, tipos):
@@ -62,7 +68,7 @@ def listar(diretorio, tipos):
                 if(extensao[1]==ext):
                     a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                     arquivos.append(a)
-    return (arquivos)
+                    print (arquivos)
 
 def client(IP_serv):
 
