@@ -1,4 +1,4 @@
-# Rasonware awareness --- NOT READY
+# GonnaCry Rasonware --- NOT READY
 still working on!
 
 Se voce quiser testar: https://github.com/tarcisio-marinho/Ransomware/blob/master/tests/README.md
