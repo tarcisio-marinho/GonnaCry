@@ -20,5 +20,5 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 - A chave privada do Ransomware é criptografada com a chave pública do servidor(única e imutável).
 
 # Para descriptografar:
-- Para descriptografar os arquivos, é necessário da chave AES, esta, que está criptografada por uma chave privada. A mesma chave privada está criptografada com uma chave pública do servidor. Para reverter os dados da vítma, é necessário a chave privada do servidor, para descriptografar a chave privada do Ransomware, com a chave privada do Ransomware, é possível descriptografar a chave AES. Por fim, utilizar a chave AES para descriptografar os arquivos da vítma.
-- Pode parecer confuso, muitas "criptografa", "descriptografa", "chaves" kkkkk
+- Para descriptografar os arquivos, é necessário da chave AES, esta, que só pode ser criptografada por uma chave privada. A mesma chave privada está criptografada com uma chave pública do servidor. Para reverter os dados da vítma, é necessário a chave privada do servidor, para descriptografar a chave privada do Ransomware, com a chave privada do Ransomware, é possível descriptografar a chave AES. Por fim, utilizar a chave AES para descriptografar os arquivos da vítma.
+- Pode parecer confuso, muitas "criptografa", "descriptografa" e "chaves" kkkkk
