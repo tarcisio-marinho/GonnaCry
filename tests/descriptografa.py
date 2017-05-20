@@ -45,7 +45,7 @@ def descriptografa(caminho_arquivo):
     print('descriptografando ~> '+ caminho_arquivo)
     novo_nome=caminho_arquivo.replace('.cripto','')
     with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
-        decrypt(in_file, out_file, "password")
+        decrypt(in_file, out_file, "h/u-at!j*7=t,*cofp@.-p7jlchx4!")
 
 os.chdir(os.getcwd()+'/teste')
 listagem=os.listdir(os.getcwd())
