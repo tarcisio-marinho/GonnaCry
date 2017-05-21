@@ -5,7 +5,7 @@
 
 # roda apenas 1 vez para achar as chaves
 
-import random
+import random, os
 
 def totient(number): # compute the totient of a prime number
     if(prime(number)==True):
@@ -62,6 +62,37 @@ def private_key(toti,e):
         d=d+1
     return d
 
+def cipher(words,n,e):
+    tam=len(words)
+    i=0
+    lista=[]
+    while(i<tam):
+        letter=words[i]
+        k=ord(letter)
+        k=k**e
+        d=mod(k,n)
+        lista.append(d)
+        i=i+1
+    return lista
+
+def descifra(cifra,n):
+    arquivo2=open('keys/chave_privada.txt','r')
+    d=arquivo2.readline()
+    d=int(d)
+
+    lista=[]
+    i=0
+    tamanho=len(cifra)
+    # texto=cifra ^ d mod n
+    while i<tamanho:
+        cifra[i]=int(cifra[i])
+        result=cifra[i]**d
+        texto=mod(result,n)
+        letra=chr(texto)
+        lista.append(letra)
+        i=i+1
+    return lista
+
 def gerador():
     # chave publica
     p=generate_prime() # generates random P
@@ -73,15 +104,43 @@ def gerador():
     e=generate_E(totient_de_N) # generate E
     public_key=[n,e]
 
-    arquivo=open('chave_publica.txt','w')
-    arquivo=open('chave_publica.txt','a')
+    try:
+        arquivo=open('keys/chave_publica.txt','w')
+        arquivo=open('keys/chave_publica.txt','a')
+    except IOError:
+        os.mkdir('keys')
+    arquivo=open('keys/chave_publica.txt','w')
+    arquivo=open('keys/chave_publica.txt','a')
     arquivo.write(str(n)+'\n')
     arquivo.write(str(e)+'\n')
+    arquivo.close()
 
 
     # chave privada
     d=private_key(totient_de_N,e)
 
-    arquivo=open('chave_privada.txt','w')
-    arquivo=open('chave_privada.txt','a')
+    arquivo=open('keys/chave_privada.txt','w')
+    arquivo=open('keys/chave_privada.txt','a')
     arquivo.write(str(d)+'\n')
+    arquivo.close()
+
+def valida():
+    while True: # TESTE PARA GERAR CHAVES CORRETAS
+        try:
+            palavra_teste='oi'
+            gerador()
+            arquivo1=open('keys/chave_publica.txt','r')
+            n=arquivo1.readline()
+            n=int(n)
+            e=arquivo1.readline()
+            e=int(e)
+            criptografado=cipher(palavra_teste,n,e)
+            descriptografado=descifra(criptografado,n)
+            novo=str(descriptografado)
+            novo=novo.replace(']','').replace('[','').replace("'","").replace(',','').replace(' ','')
+            if(novo==palavra_teste): # achou as chaves corretas
+                break
+            else:
+                continua_while=0
+        except ValueError as e:
+            continua_while=0
