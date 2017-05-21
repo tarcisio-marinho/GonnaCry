@@ -14,7 +14,7 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 - [ ] Programa completo
 
 
-# Geramento de Chaves
+# Geraçao de Chaves
 - O servidor gera sua chave privada e pública (RSA). Únicas, imutáveis, que serão utilizadas para criptografar a chave AES, gerada pelo Ransomware.
 
 - Ao cliente ser infectado, o Ransomware gera 3 chaves:
