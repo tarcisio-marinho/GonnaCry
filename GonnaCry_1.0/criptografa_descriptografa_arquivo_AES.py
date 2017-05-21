@@ -2,6 +2,7 @@
 from hashlib import md5
 from Crypto.Cipher import AES
 from Crypto import Random
+import os
 
 def derive_key_and_iv(password, salt, key_length, iv_length):
     d = d_i = ''
@@ -44,9 +45,11 @@ def criptografa(caminho_arquivo):
     print('criptografando ~> '+ caminho_arquivo)
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, 'password')
+    os.remove(caminho_arquivo)
 
 def descriptografa(caminho_arquivo):
     print('descriptografando ~> '+ caminho_arquivo)
     novo_nome=caminho_arquivo.replace('.cripto','')
     with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
         decrypt(in_file, out_file, "password")
+    os.remove(caminho_arquivo)

