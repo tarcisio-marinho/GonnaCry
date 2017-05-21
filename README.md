@@ -6,6 +6,9 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 
 ~$ sudo pip install -r requeriments.txt
 
+
+- [x] Run in Background (or not)
+
 # Geramento de Chaves
 - O servidor gera sua chave privada e pública (RSA). Únicas, imutáveis, que serão utilizadas para criptografar a chave AES, gerada pelo Ransomware.
 
