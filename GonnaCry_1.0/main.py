@@ -138,12 +138,12 @@ def descriptografa_chave_AES():
 
 # MAIN
 AES_key=gera_chave_AES()
-print('chave AES gerada')
+print('[*] chave AES gerada')
 # chave publica servidor
 serv_RSA=[1121,655]
 # gera_chaves_RSA.py
 valida()
-print('chaves publicas e privada do cliente geradas')
+print('[*] chaves publicas e privada do cliente geradas')
 #menu() # -> criptografa tudo
 criptografa_chave_AES(serv_RSA)
 
