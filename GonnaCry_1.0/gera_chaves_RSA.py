@@ -75,6 +75,22 @@ def cipher(words,n,e):
         i=i+1
     return lista
 
+def descifra_AES(cifra,n,d):
+    lista=[]
+    i=0
+    tamanho=len(cifra)
+    d=int(d)
+    # texto=cifra ^ d mod n
+    while i<tamanho:
+        result=cifra[i]**d
+        texto=mod(result,n)
+        print(texto)
+        letra=chr(texto)
+        lista.append(letra)
+        i=i+1
+    return lista
+
+
 def descifra(cifra,n):
     arquivo2=open('keys/chave_privada.txt','r')
     d=arquivo2.readline()

