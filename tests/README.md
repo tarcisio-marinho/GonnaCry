@@ -1,8 +1,9 @@
 # Repositório para teste do ransomware
 não afeta o seu computador.
+
     Arquivos do teste:
     Um txt, mp3, jpeg e um png para serem testados
-* Para criptografa-los *
+* Para criptografa-los
 
     ~$ python criptografa.py
 

