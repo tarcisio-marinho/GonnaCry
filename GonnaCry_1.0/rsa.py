@@ -11,10 +11,10 @@ def AES_to_RSA():
     original='keys/AES.txt'
     novo='keys/AES.txt.enc'
     f=open(original,'rb')
-    chave=f.read()
+    conteudo=f.read()
     f.close()
     f=open(novo,'wb')
-    enc=chave_publica_objeto.encrypt(chave,'x')[0]
+    enc=chave_publica_objeto.encrypt(conteudo,'x')[0]
     f.write(enc)
     f.close()
     os.remove(original)
