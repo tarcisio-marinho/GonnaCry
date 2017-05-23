@@ -8,9 +8,9 @@ import socket
 from random import choice
 import multiprocessing
 
-from criptografa_descriptografa_arquivo_AES import *
-from rsa import *
-from desc_rsa import *
+from AES import *
+from RSA import *
+from SRSA import *
 '''
 
     COMUNICA COM O SERVIDOR ENVIANDO O SEU ID
@@ -109,7 +109,7 @@ def gera_chave_AES():
 
 
 # MAIN
-AES_key=gera_chave_AES()
+#AES_key=gera_chave_AES()
 #print('[*] chave AES gerada')
 #menu() # -> criptografa tudo
 
