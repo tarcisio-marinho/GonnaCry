@@ -30,7 +30,7 @@ def conexao(meuIP):
         print(recebido)
 
 def gera_chaves():
-    chave = RSA.generate(2048)
+    chave = RSA.generate(1024)
     chave_privada=chave.exportKey('DER')
     chave_publica=chave.publickey().exportKey('DER')
     f=open('chave_privada.txt','wb')
@@ -39,7 +39,7 @@ def gera_chaves():
     f=open('chave_publica.txt','wb')
     f.write(chave_publica)
     f.close()
-    
+
 
 
 

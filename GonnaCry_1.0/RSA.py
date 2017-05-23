@@ -2,7 +2,7 @@ from Crypto.PublicKey import RSA
 import os
 def AES_to_RSA():
     # CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
-    chave = RSA.generate(2048)
+    chave = RSA.generate(1024)
     chave_privada=chave.exportKey('DER')
     chave_publica=chave.publickey().exportKey('DER')
     f=open('keys/chave_privada_cliente.txt','wb')
