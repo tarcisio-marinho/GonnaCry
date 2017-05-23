@@ -36,11 +36,13 @@ def gera_chaves():
     f=open('chave_privada.txt','wb')
     f.write(chave_privada)
     f.close()
-
-
-
-
+    f=open('chave_publica.txt','wb')
+    f.write(chave_publica)
+    f.close()
     
+
+
+
 gera_chaves()
 
 #conexao('127.0.0.1')
