@@ -2,7 +2,10 @@
 # coding=UTF-8
 # by Tarcisio marinho
 # github.com/tarcisio-marinho
-import os, subprocess, random, socket
+import subprocess, random, socket
+
+from Crypto.PublicKey import RSA
+import os
 
 def conexao(meuIP):
     # servidor
@@ -26,5 +29,18 @@ def conexao(meuIP):
 
         print(recebido)
 
+def gera_chaves():
+    chave = RSA.generate(2048)
+    chave_privada=chave.exportKey('DER')
+    chave_publica=chave.publickey().exportKey('DER')
+    f=open('chave_privada.txt','wb')
+    f.write(chave_privada)
+    f.close()
 
-conexao('127.0.0.1')
+
+
+
+    
+gera_chaves()
+
+#conexao('127.0.0.1')

