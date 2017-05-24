@@ -1,7 +1,17 @@
 # NESTE REPOSITÓRIO, CONTÉM O CODIGO DO SERVIDOR E SUAS CHAVES
-    esta pasta deve ficar separado da maquina infectada, em um cenário real.
-    As chaves que eu utilizei aqui, foram geradas pelo meu algoritmo RSA, se quiser saber como foram criadas: https://medium.com/@tarcisiomarinho/algoritmo-de-criptografia-assim%C3%A9trica-rsa-c6254a3c7042
-    se quiser ver o código que foi usado para gera-las: https://github.com/tarcisio-marinho/SSH/tree/master/RSA
+    esta pasta deve ficar separado da maquina infectada, como em um cenário real.
+    
+    As chaves que eu utilizei aqui devem ser mudadas apenas 1 vez.
+    
+    Altere o código do servidor-> comente a linha da conexão: #conexao('localhost')
+    
+    Descomente a linha de gera_chaves()
+    
+    Gere apenas uma vez as chaves. 
+    
+    O usuario deve ter a chave pública, então copie o arquivo: CHAVE_PUBLICA_SERVIDOR.txt, e salve na pasta keys, dentro da pasta GonnaCry_1.0.
+    
+    Ficando assim: Ransomware/GonnaCry_1.0/keys/CHAVE_PUBLICA_SERVIDOR.txt
 
 # Cuidados com a chave privada.
     manter o segredo da chave privada do servidor, é fundamental para o funcionamento do ransom.
