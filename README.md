@@ -4,6 +4,8 @@ GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem vol
 GonnaCry não deve ser usado para prejudicar ninguém, é apenas um programa acadêmico, feito para gerar estudo e aprendizado.
 Não está totalmente completo, nem tem todas as funcionalidades do WannaCry2.0, porém, contém algumas das suas características.
 
+Cuidado com uso do GonnaCry. Não rode em seu computador.
+
 # O que é um ransomware?
 Ransonware é um tipo de virus que impede o uso do computador da pessoa infectada.
 
