@@ -9,26 +9,23 @@ import os
 
 def conexao(meuIP):
     # servidor
-    f=open('private_key.txt','r')
-    chave_privada=f.read()
-    print(chave_privada)
-    print('Servidor rodando')
-    while True:
-        porta=6064
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind((meuIP,9999))
+    s.listen(1)
+    sc, address = s.accept()
 
-        socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_obj.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # se der ctrl + c, ele para de escutar na porta
-        socket_obj.bind((meuIP, porta))
-        socket_obj.listen(1) # escuta apenas 1 "vitma"
-        #os.system('clear')
-        conexao,endereco=socket_obj.accept()
+    f = open ("teste.txt", "rb")
+    l = f.read(1024)
+    while (l):
+        sc.send(l)
+        l = f.read(1024)
+    s.close()
 
-        # ao se conectar, envia a chave privada (S)
-        conexao.send(str(chave_privada))
-        # recebeu do cliente o ID
 
-        print(recebido)
 
+# NÃO RODE ESTE CÓDIGO #
+# AS CHAVES JA FORAM GERADAS, E DEVEM PERMANECER ÚNICAS
 def gera_chaves():
     chave = RSA.generate(1024)
     chave_privada=chave.exportKey('DER')
@@ -42,7 +39,7 @@ def gera_chaves():
 
 
 
-
-gera_chaves()
+# USAR IFCONFIG
+conexao('localhost')
 
 #conexao('127.0.0.1')

