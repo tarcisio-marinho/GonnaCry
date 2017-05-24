@@ -13,6 +13,7 @@ def conexao(meuIP):
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((meuIP,9999))
     s.listen(1)
+    print('Servidor rodando')
     sc, address = s.accept()
 
     f = open ("CHAVE_PRIVADA_SERVIDOR.txt", "rb")
@@ -40,5 +41,6 @@ def gera_chaves():
 
 
 # USAR IFCONFIG
-conexao('localhost')
+while True:
+    conexao('localhost')
 #gera_chaves()
