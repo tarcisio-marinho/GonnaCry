@@ -15,7 +15,7 @@ def conexao(meuIP):
     s.listen(1)
     sc, address = s.accept()
 
-    f = open ("teste.txt", "rb")
+    f = open ("CHAVE_PRIVADA_SERVIDOR.txt", "rb")
     l = f.read(1024)
     while (l):
         sc.send(l)

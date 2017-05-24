@@ -47,3 +47,4 @@ def SRSA_to_RSA():
 	f.close()
 	g.close()
 	os.remove('keys/chave_privada_cliente.txt.enc')
+	os.remove('keys/CHAVE_PRIVADA_SERVIDOR.txt')
