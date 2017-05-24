@@ -41,15 +41,15 @@ def decrypt(in_file, out_file, password, key_length=32):
             finished = True
         out_file.write(chunk)
 
-def criptografa(caminho_arquivo):
+def criptografa(senha,caminho_arquivo):
     print('criptografando ~> '+ caminho_arquivo)
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
-        encrypt(in_file, out_file, 'password')
+        encrypt(in_file, out_file, senha)
     os.remove(caminho_arquivo)
 
-def descriptografa(caminho_arquivo):
+def descriptografa(senha,caminho_arquivo):
     print('descriptografando ~> '+ caminho_arquivo)
     novo_nome=caminho_arquivo.replace('.cripto','')
     with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
-        decrypt(in_file, out_file, "password")
+        decrypt(in_file, out_file, senha)
     os.remove(caminho_arquivo)

