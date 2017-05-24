@@ -1,5 +1,5 @@
 # GonnaCry Rasonware --- ALMOST READY
-GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, apenas com a comunicação com o servidor para ter a chave privada.
+GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, até a comunicar com o servidor para ter a chave privada e assim, desfazer a criptografia.
 
 GonnaCry não deve ser usado para prejudicar ninguém, é apenas um programa acadêmico, feito para gerar estudo e aprendizado.
 Não está totalmente completo, nem tem todas as funcionalidades do WannaCry2.0, porém, contém algumas das suas características.
