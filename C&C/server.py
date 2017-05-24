@@ -41,5 +41,4 @@ def gera_chaves():
 
 # USAR IFCONFIG
 conexao('localhost')
-
-#conexao('127.0.0.1')
+#gera_chaves()
