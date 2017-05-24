@@ -23,6 +23,7 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 # Objetivos:
 - [x] Criptografar todos os arquivos com AES-256-CBC.
 - [x] Criptografar dispositivos periféricos: pendrives/HD's.
+- [x] Funciona mesmo sem o infectado ter comunicação com a internet
 - [x] Comunicação com o servidor para pedir chave privada.
 - [x] Criptografar chave AES com RSA-1024.
 - [x] Criptografar a chave privada com RSA-1024 do servidor.
