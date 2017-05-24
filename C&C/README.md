@@ -1,5 +1,5 @@
-# NESTE REPOSITÓRIO, CONTÉM O CODIGO DO SERVIDOR E SUAS CHAVES
-    esta pasta deve ficar separado da maquina infectada, como em um cenário real.
+# NESTE DIRETÓRIO, CONTÉM O CODIGO DO SERVIDOR E SUAS CHAVES
+    Esta pasta deve ficar separado da maquina infectada, como em um cenário real.
     
     As chaves que eu utilizei aqui devem ser mudadas apenas 1 vez.
     
@@ -14,5 +14,10 @@
     Ficando assim: Ransomware/GonnaCry_1.0/keys/CHAVE_PUBLICA_SERVIDOR.txt
 
 # Cuidados com a chave privada.
-    manter o segredo da chave privada do servidor, é fundamental para o funcionamento do ransom.
-    Caso a chave privada for vazada, todos os infectados terão como descriptografar seus arquivos. Ela é única possível de descriptografar tudo de todos.
+    Manter o segredo da chave privada do servidor, é fundamental para o funcionamento do ransom.
+    
+    Caso a chave privada for vazada, todos os infectados terão como descriptografar seus arquivos.
+    
+    Ela é única possível de descriptografar tudo de todos.
+    
+    Altere a chave privada, seguindo o passo a passo acima.
