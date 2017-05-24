@@ -1,5 +1,16 @@
-# GonnaCry Rasonware --- NOT READY
-still working on!
+# GonnaCry Rasonware --- ALMOST READY
+GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, apenas com a comunicação com o servidor para ter a chave privada.
+
+GonnaCry não deve ser usado para prejudicar ninguém, é apenas um programa acadêmico, feito para gerar estudo e aprendizado.
+Não está totalmente completo, nem tem todas as funcionalidades do WannaCry2.0, porém, contém algumas das suas características.
+
+# O que é um ransomware?
+Ransonware é um tipo de virus que impede o uso do computador da pessoa infectada.
+
+Alguns Ransomwares bloqueiam a tela do usuario, não permitindo o seu uso, já outros criptografam todos os arquivos importantes do usuário.
+
+
+
 
 Se voce quiser testar: https://github.com/tarcisio-marinho/Ransomware/blob/master/tests/README.md
 este teste não afeta os arquivos do seu computador, apenas os arquivos dentro da pasta /teste que eu os coloquei exatamente para testar.
