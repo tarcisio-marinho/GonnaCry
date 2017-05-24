@@ -10,7 +10,7 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 # Objetivos:
 - [x] Criptografar todos os arquivos com AES-256-CBC
 - [ ] Comunicação com o servidor para pedir chave privada
-- [x] uso de criptografia assimétrica e simétrica (RSA e AES)
+- [x] criptografar chave AES com RSA-1024
 - [ ] Programa completo
 
 
