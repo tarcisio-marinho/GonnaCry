@@ -25,8 +25,10 @@ def conexao(meuIP):
 
 
 
-# NÃO RODE ESTE CÓDIGO #
-# AS CHAVES JA FORAM GERADAS, E DEVEM PERMANECER ÚNICAS
+# Código para gerar as chaves.
+# Se você rodar ele, copie a chave publica gerada, para a pasta GonnaCry_1.0
+# pois o cliente deve ter a chave pública do servidor
+# assim criptografando mesmo quando o usuario não tem conexão com a internet
 def gera_chaves():
     chave = RSA.generate(1024)
     chave_privada=chave.exportKey('DER')
