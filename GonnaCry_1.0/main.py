@@ -59,7 +59,6 @@ def listar(chave_AES,diretorio, tipos_arq, modo):
                             ignorar=1
                         else:
                             a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                            print(a)
                             try:
                                 criptografa(chave_AES,a)
                             except:
