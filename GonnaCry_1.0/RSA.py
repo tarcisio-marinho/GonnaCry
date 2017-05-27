@@ -1,5 +1,6 @@
 from Crypto.PublicKey import RSA
 import os
+
 def AES_to_RSA():
     # CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
     chave = RSA.generate(1024)
