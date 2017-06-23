@@ -31,12 +31,12 @@ def conexao(meuIP):
 # assim criptografando mesmo quando o usuario não tem conexão com a internet
 def gera_chaves():
     chave = RSA.generate(1024)
-    chave_privada=chave.exportKey('DER')
-    chave_publica=chave.publickey().exportKey('DER')
-    f=open('chave_privada.txt','wb')
+    chave_privada = chave.exportKey('DER')
+    chave_publica = chave.publickey().exportKey('DER')
+    f = open('chave_privada.txt','wb')
     f.write(chave_privada)
     f.close()
-    f=open('chave_publica.txt','wb')
+    f = open('chave_publica.txt','wb')
     f.write(chave_publica)
     f.close()
 
