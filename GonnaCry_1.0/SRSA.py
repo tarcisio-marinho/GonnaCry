@@ -6,11 +6,11 @@ def RSA_to_SRSA():
 	# CRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
 	readsize = 127
 	writesize = 128
-	f=open('keys/chave_privada_cliente.txt','rb')
-	p=open('keys/chave_privada_cliente.txt.enc','wb')
-	g=open('keys/CHAVE_PUBLICA_SERVIDOR.txt','rb')
-	chave_publica=g.read()
-	chave_publica_objeto=RSA.importKey(chave_publica)
+	f = open('keys/chave_privada_cliente.txt','rb')
+	p = open('keys/chave_privada_cliente.txt.enc','wb')
+	g = open('keys/CHAVE_PUBLICA_SERVIDOR.txt','rb')
+	chave_publica = g.read()
+	chave_publica_objeto = RSA.importKey(chave_publica)
 
 	while True:
 		data = f.read(readsize)
@@ -29,11 +29,11 @@ def SRSA_to_RSA():
 	# DESCRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PRIVADA DO SERVIDOR
 	readsize = 127
 	writesize = 128
-	f=open('keys/chave_privada_cliente.txt.enc','rb')
-	p=open('keys/chave_privada_cliente.txt','wb')
-	g=open('keys/CHAVE_PRIVADA_SERVIDOR.txt','rb')
-	chave_privada=g.read()
-	chave_privada_objeto=RSA.importKey(chave_privada)
+	f = open('keys/chave_privada_cliente.txt.enc','rb')
+	p = open('keys/chave_privada_cliente.txt','wb')
+	g = open('keys/CHAVE_PRIVADA_SERVIDOR.txt','rb')
+	chave_privada = g.read()
+	chave_privada_objeto = RSA.importKey(chave_privada)
 
 	while True:
 		length = f.read(1)

