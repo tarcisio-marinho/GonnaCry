@@ -1,3 +1,7 @@
+#!/bin/bash/env python
+# coding=UTF-8
+# by Tarcisio marinho
+# github.com/tarcisio-marinho
 # got from here: http://stackoverflow.com/questions/16761458/how-to-aes-encrypt-decrypt-files-using-python-pycrypto-in-an-openssl-compatible
 from hashlib import md5
 from Crypto.Cipher import AES
