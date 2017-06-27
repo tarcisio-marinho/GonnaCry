@@ -1,3 +1,7 @@
+#!/bin/bash/env python
+# coding=UTF-8
+# by Tarcisio marinho
+# github.com/tarcisio-marinho
 from Crypto.PublicKey import RSA
 import os
 # CODIGO PARA CRIPTOGRAFAR A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
