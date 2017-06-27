@@ -15,27 +15,6 @@ from AES import *
 from RSA import *
 from SRSA import *
 
-'''
-def shred(file_name,  passes):
-    try:
-        if not os.path.isfile(file_name):
-            print(file_name + " is not a file.")
-            return False
-
-        ld = os.path.getsize(file_name)
-        fh = open(file_name,  "w")
-        for _ in range(int(passes)):
-            data = generate_data(ld)
-            fh.write(data)
-            fh.seek(0,  0)
-
-        fh.close()
-        os.remove(file_name)
-        return True
-
-    except:
-        return False
-'''
 
 # ponto de partida da criptografia
 def menu(senha_AES,modo):

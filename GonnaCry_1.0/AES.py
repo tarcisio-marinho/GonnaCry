@@ -3,6 +3,8 @@ from hashlib import md5
 from Crypto.Cipher import AES
 from Crypto import Random
 import os
+import string
+import random
 
 def derive_key_and_iv(password, salt, key_length, iv_length):
     d = d_i = ''
@@ -41,11 +43,31 @@ def decrypt(in_file, out_file, password, key_length=32):
             finished = True
         out_file.write(chunk)
 
+# got from here: https://ubuntuforums.org/showthread.php?t=2299355
+def generate_data(length):
+    chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
+    return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
+
+def shred(file_name,  passes):
+    if not os.path.isfile(file_name):
+        print(file_name + " is not a file.")
+        return False
+
+    ld = os.path.getsize(file_name)
+    fh = open(file_name,  "w")
+    for _ in range(int(passes)):
+        data = generate_data(ld)
+        fh.write(data)
+        fh.seek(0,  0)
+
+    fh.close()
+    os.remove(file_name)
+
 def criptografa(senha,caminho_arquivo):
     print('criptografando ~> '+ caminho_arquivo)
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, senha)
-    os.remove(caminho_arquivo)
+    shred(caminho_arquivo,1) # deixa o arquivo ilegível e depois o deleta
 
 def descriptografa(senha,caminho_arquivo):
     print('descriptografando ~> '+ caminho_arquivo)
