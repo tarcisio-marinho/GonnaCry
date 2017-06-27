@@ -30,6 +30,7 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 - [x] Comunicação com o servidor para pedir chave privada.
 - [x] Criptografar chave AES com RSA-1024.
 - [x] Criptografar a chave privada com RSA-1024 do servidor.
+- [x] Trocar wallpaper do computador.
 - [ ] Programa completo
 
 # Funcionamento do GonnaCry: 
