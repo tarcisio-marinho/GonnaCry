@@ -5,6 +5,25 @@
 from Crypto.PublicKey import RSA
 import os
 
+def generate_data(length):
+    chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
+    return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
+
+def shred(file_name,  passes):
+    if not os.path.isfile(file_name):
+        print(file_name + " is not a file.")
+        return False
+
+    ld = os.path.getsize(file_name)
+    fh = open(file_name,  "w")
+    for _ in range(int(passes)):
+        data = generate_data(ld)
+        fh.write(data)
+        fh.seek(0,  0)
+
+    fh.close()
+    os.remove(file_name)
+
 def AES_to_RSA():
     # CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
     chave = RSA.generate(1024)
@@ -23,7 +42,7 @@ def AES_to_RSA():
     enc = chave_publica_objeto.encrypt(conteudo,'x')[0]
     f.write(enc)
     f.close()
-    os.remove(original)
+    shred(original)
 
 def RSA_to_AES():
     # DESCRIPTOGRAFA A CHAVE AES, COM A CHAVE PRIVADA DO CLIENTE
