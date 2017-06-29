@@ -4,11 +4,14 @@
 # github.com/tarcisio-marinho
 from Crypto.PublicKey import RSA
 import os
+import string
+import random
 
 def generate_data(length):
     chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
     return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
 
+# destroi o arquivo original e depois exclui, não podendo recupera-lo com buscas na memória
 def shred(file_name,  passes):
     if not os.path.isfile(file_name):
         print(file_name + " is not a file.")
@@ -24,8 +27,9 @@ def shred(file_name,  passes):
     fh.close()
     os.remove(file_name)
 
+
+# CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
 def AES_to_RSA():
-    # CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
     chave = RSA.generate(1024)
     chave_privada = chave.exportKey('DER')
     chave_publica = chave.publickey().exportKey('DER')
@@ -44,8 +48,8 @@ def AES_to_RSA():
     f.close()
     shred(original)
 
+# DESCRIPTOGRAFA A CHAVE AES, COM A CHAVE PRIVADA DO CLIENTE
 def RSA_to_AES():
-    # DESCRIPTOGRAFA A CHAVE AES, COM A CHAVE PRIVADA DO CLIENTE
     file_enc = 'keys/AES.txt.enc'
     novo = 'keys/AES.txt'
     file_priv = 'keys/chave_privada_cliente.txt'

@@ -4,12 +4,14 @@
 # github.com/tarcisio-marinho
 from Crypto.PublicKey import RSA
 import os
-# CODIGO PARA CRIPTOGRAFAR A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
+import string
+import random
 
 def generate_data(length):
     chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
     return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
 
+# destroi o arquivo original e depois exclui, não podendo recupera-lo com buscas na memória
 def shred(file_name,  passes):
     if not os.path.isfile(file_name):
         print(file_name + " is not a file.")
@@ -25,8 +27,9 @@ def shred(file_name,  passes):
     fh.close()
     os.remove(file_name)
 
+# CODIGO PARA CRIPTOGRAFAR A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
+
 def RSA_to_SRSA():
-	# CRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
 	readsize = 127
 	writesize = 128
 	f = open('keys/chave_privada_cliente.txt','rb')
@@ -48,8 +51,8 @@ def RSA_to_SRSA():
 	g.close()
 	shred('keys/chave_privada_cliente.txt',1)
 
+# DESCRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PRIVADA DO SERVIDOR
 def SRSA_to_RSA():
-	# DESCRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PRIVADA DO SERVIDOR
 	readsize = 127
 	writesize = 128
 	f = open('keys/chave_privada_cliente.txt.enc','rb')

