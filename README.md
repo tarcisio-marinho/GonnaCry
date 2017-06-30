@@ -25,13 +25,14 @@ este teste não afeta os arquivos do seu computador, apenas os arquivos dentro d
 # Objetivos:
 - [x] Criptografar todos os arquivos com AES-256-CBC.
 - [x] Criptografar dispositivos periféricos: pendrives/HD's.
-- [x] Geração aleatória de chaves AES para cada infectado
-- [x] Funciona mesmo sem o infectado ter comunicação com a internet
+- [x] Geração aleatória de chaves AES para cada infectado.
+- [x] Funciona mesmo sem o infectado ter comunicação com a internet.
 - [x] Comunicação com o servidor para pedir chave privada.
 - [x] Criptografar chave AES com RSA-1024.
 - [x] Criptografar a chave privada com RSA-1024 do servidor.
 - [x] Trocar wallpaper do computador.
-- [ ] Programa completo
+- [x] Destruir arquivos originais, sem possibilidade de recuperação.
+- [ ] Programa completo.
 
 # Funcionamento do GonnaCry: 
 **Geração de Chaves**
