@@ -16,7 +16,6 @@ from SRSA import *
 
 
 # ponto de partida da criptografia
-
 def menu(senha_AES):
     # caminho de partida
     home = os.environ['HOME']
@@ -60,7 +59,7 @@ def gera_chave_AES():
         caminho_correto = caminho
     elif(os.path.isdir(caminho2)):
         caminho_correto = caminho2
-        
+
     tamanho = 256 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''

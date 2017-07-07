@@ -27,32 +27,18 @@ def shred(file_name,  passes):
     fh.close()
     os.remove(file_name)
 
-
-# CRIPTOGRAFA A CHAVE AES, COM A CHAVE PUBLICA DO CLIENTE
-def AES_to_RSA():
-    chave = RSA.generate(1024)
-    chave_privada = chave.exportKey('DER')
-    chave_publica = chave.publickey().exportKey('DER')
-    f = open('keys/chave_privada_cliente.txt','wb')
-    f.write(chave_privada)
-    f.close()
-    chave_publica_objeto = RSA.importKey(chave_publica)
-    original = 'keys/AES.txt'
-    novo = 'keys/AES.txt.enc'
-    f = open(original,'rb')
-    conteudo = f.read()
-    f.close()
-    f = open(novo,'wb')
-    enc = chave_publica_objeto.encrypt(conteudo,'x')[0]
-    f.write(enc)
-    f.close()
-    shred(original)
-
 # DESCRIPTOGRAFA A CHAVE AES, COM A CHAVE PRIVADA DO CLIENTE
 def RSA_to_AES():
-    file_enc = 'keys/AES.txt.enc'
-    novo = 'keys/AES.txt'
-    file_priv = 'keys/chave_privada_cliente.txt'
+    caminho = os.environ['HOME']+'/Desktop/'
+    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    if(os.path.isdir(caminho)):
+        caminho_correto = caminho
+    elif(os.path.isdir(caminho2)):
+        caminho_correto = caminho2
+
+    file_enc = caminho_correto + 'AES.txt.enc'
+    novo = caminho_correto + 'AES.txt'
+    file_priv = caminho_correto + 'chave_privada_cliente.txt'
     f = open(file_priv,'rb')
     chave_privada = f.read()
     f.close()

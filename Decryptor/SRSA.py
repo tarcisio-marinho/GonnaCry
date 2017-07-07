@@ -28,36 +28,20 @@ def shred(file_name,  passes):
     os.remove(file_name)
 
 
-    # CODIGO PARA CRIPTOGRAFAR A CHAVE PRIVADA DO CLIENTE COM A CHAVE PUBLICA DO SERVIDOR
-def RSA_to_SRSA():
-	readsize = 127
-	writesize = 128
-	f = open('keys/chave_privada_cliente.txt','rb')
-	p = open('keys/chave_privada_cliente.txt.enc','wb')
-	g = open('keys/CHAVE_PUBLICA_SERVIDOR.txt','rb')
-	chave_publica = g.read()
-	chave_publica_objeto = RSA.importKey(chave_publica)
-
-	while True:
-		data = f.read(readsize)
-		if not data:
-			break
-		enc_data = chave_publica_objeto.encrypt(data, 32)[0]
-
-		p.write(chr(len(enc_data)))
-		p.write(enc_data)
-	p.close()
-	f.close()
-	g.close()
-	shred('keys/chave_privada_cliente.txt',1)
-
 # DESCRIPTOGRAFA A CHAVE PRIVADA DO CLIENTE COM A CHAVE PRIVADA DO SERVIDOR
 def SRSA_to_RSA():
+    caminho = os.environ['HOME']+'/Desktop/'
+    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    if(os.path.isdir(caminho)):
+        caminho_correto = caminho
+    elif(os.path.isdir(caminho2)):
+        caminho_correto = caminho2
+
 	readsize = 127
 	writesize = 128
-	f = open('keys/chave_privada_cliente.txt.enc','rb')
-	p = open('keys/chave_privada_cliente.txt','wb')
-	g = open('keys/CHAVE_PRIVADA_SERVIDOR.txt','rb')
+	f = open(caminho_correto + 'chave_privada_cliente.txt.enc','rb')
+	p = open(caminho_correto + 'chave_privada_cliente.txt','wb')
+	g = open(caminho_correto + 'CHAVE_PRIVADA_SERVIDOR.txt','rb')
 	chave_privada = g.read()
 	chave_privada_objeto = RSA.importKey(chave_privada)
 
@@ -72,5 +56,5 @@ def SRSA_to_RSA():
 	p.close()
 	f.close()
 	g.close()
-	os.remove('keys/chave_privada_cliente.txt.enc')
-	os.remove('keys/CHAVE_PRIVADA_SERVIDOR.txt')
+	os.remove(caminho_correto + 'chave_privada_cliente.txt.enc')
+	os.remove(caminho_correto + 'CHAVE_PRIVADA_SERVIDOR.txt') 
