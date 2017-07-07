@@ -37,7 +37,7 @@ Brincadeira, apenas digite 1.
 '''
 
 def bitcoin_addr():
-    a = 0
+    pass
 
 '''
 >>> shutil.copytree('Ransomware','~/Desktop/GonnaCry')

