@@ -60,7 +60,7 @@ def gera_chave_AES():
     elif(os.path.isdir(caminho2)):
         caminho_correto = caminho2
 
-    tamanho = 30 # bytes
+    tamanho = 128 # bytes
     caracters = '0123456789abcdefghijlmnopqrstuwvxz-/*&#@!=-.,'
     senha = ''
     for char in xrange(tamanho):
