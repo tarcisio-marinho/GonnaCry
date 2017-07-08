@@ -35,7 +35,7 @@ skull = '''
 
 
 
-def bitcoin_addr():
+def checar_pagamento_btc():
     pass
 
 def decrypt_all():

