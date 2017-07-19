@@ -1,5 +1,5 @@
 # GonnaCry Rasonware --- ALMOST READY
-[EN]GonnaCry is a linux Ransomware that cryptographs all user files.
+[EN] GonnaCry is a linux Ransomware that cryptographs all user files.
 GonnaCry should not be used to harm people, it's just a academic ransomware made for learning and awareness about secutiry.
 The program isn't complete nor all the funcionalities are working.
 **Be aware running GonnaCry/main.py in your computer.
@@ -26,7 +26,7 @@ This test only affect the files in the test directory.
 - [ ] Program completed.
 
 
-[BR]GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, até a comunicar com o servidor para ter a chave privada e assim, desfazer a criptografia.
+[BR] GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, até a comunicar com o servidor para ter a chave privada e assim, desfazer a criptografia.
 
 GonnaCry não deve ser usado para prejudicar ninguém, é apenas um programa acadêmico, feito para gerar estudo e aprendizado.
 Não está totalmente completo, nem tem todas as funcionalidades do WannaCry2.0, porém, contém algumas das suas características.
