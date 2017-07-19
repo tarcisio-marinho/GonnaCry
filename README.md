@@ -2,7 +2,8 @@
 [EN] GonnaCry is a linux Ransomware that cryptographs all user files.
 GonnaCry should not be used to harm people, it's just a academic ransomware made for learning and awareness about secutiry.
 The program isn't complete nor all the funcionalities are working.
-**Be aware running GonnaCry/main.py in your computer.
+
+**Be aware running GonnaCry/main.py in your computer.**
 
 # What's a Ransomware?
 Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking de screen to the user.
