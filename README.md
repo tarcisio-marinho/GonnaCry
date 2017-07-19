@@ -26,6 +26,12 @@ This test only affect the files in the test directory.
 - [ ] Daemon waiting to new files to be cryptographed.
 - [ ] Program completed.
 
+# Folders:
+    - C&C -> Server side application to send server-private-key.
+    - Decryptor -> Client side Decryptor app to decrypt files
+    - GonnaCry_1.0 -> Ransomware
+    - tests -> folder to test the ransomware
+
 
 [BR] GonnaCry é um Ransomware que criptografa todos os arquivos do usuário, sem volta, até a comunicar com o servidor para ter a chave privada e assim, desfazer a criptografia.
 
