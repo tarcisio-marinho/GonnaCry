@@ -1,4 +1,7 @@
 # Repositório para teste do ransomware
+
+GonnaCry tests. Doesn't harm your computer
+
 não afeta o seu computador.
 
     Arquivos do teste:
