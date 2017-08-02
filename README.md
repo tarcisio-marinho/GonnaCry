@@ -23,7 +23,8 @@ This test only affect the files in the test directory.
 - [x] Cryptograph AES key with client-public-key RSA-1024.
 - [x] Cryptograph client-private-key with RSA-1024 server-public-key.
 - [x] Change computer wallpaper.
-- [ ] Daemon waiting to new files to be cryptographed.
+- [ ] Decryptor GUI.
+- [ ] Daemon waiting to new files/HD's to be cryptographed // Decryptor program.
 - [ ] Program completed.
 
 # Folders:
