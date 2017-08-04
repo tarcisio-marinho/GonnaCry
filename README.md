@@ -35,7 +35,7 @@ This test only affect the files in the test directory.
 
 # Testing:
 
-** doesnt affect your computer **
+- doesnt affect your computer 
 
 Youtube video: https://www.youtube.com/watch?v=sAby5y6tZt4&feature=share
 
