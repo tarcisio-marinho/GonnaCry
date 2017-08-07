@@ -33,6 +33,17 @@ This test only affect the files in the test directory.
     - GonnaCry_1.0 -> Ransomware
     - tests -> folder to test the ransomware
 
+# Testing:
+
+- doesnt affect your computer 
+
+Youtube video: https://www.youtube.com/watch?v=sAby5y6tZt4&feature=share
+
+    cd /tests
+    python criptografa.py
+    python descriptografa.py
+    
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
