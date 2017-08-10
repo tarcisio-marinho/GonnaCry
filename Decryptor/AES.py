@@ -57,7 +57,7 @@ def shred(file_name,  passes):
 
 # chama a função decrypt, descriptografa e remove o arquivo criptografado
 def descriptografa(senha, caminho_arquivo):
-    print('descriptografando ~> '+ caminho_arquivo)
+    print('Decrypting ~> '+ caminho_arquivo)
     novo_nome=caminho_arquivo.replace('.cripto','')
     with open(caminho_arquivo, 'rb') as in_file, open(novo_nome, 'wb') as out_file:
         decrypt(in_file, out_file, senha)

@@ -56,7 +56,7 @@ def shred(file_name,  passes):
 
 # chama a função encrypt. criptografa e remove o arquivo
 def criptografa(senha,caminho_arquivo):
-    print('criptografando ~> '+ caminho_arquivo)
+    print('Encrypting ~> '+ caminho_arquivo)
     with open(caminho_arquivo, 'rb') as in_file, open(caminho_arquivo+'.cripto', 'wb') as out_file:
         encrypt(in_file, out_file, senha)
     shred(caminho_arquivo,1) # deixa o arquivo ilegível e depois o deleta

