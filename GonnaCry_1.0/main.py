@@ -217,6 +217,9 @@ def crypto_all():
 '''
 
 def persistence():
+    def generate_decryptor():
+        pass
+
     def generate_script():
         script = '''
             # script will be here base64encoded
