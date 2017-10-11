@@ -1,4 +1,9 @@
-# GonnaCry Rasonware --- ALMOST READY
+# GonnaCry Rasonware 
+[UPDATES] Since I started working in this ransomware with python, I kept wondering if I would be capable of doing in C ANSI.
+I finally decided to try writing the C code of the ransomware. The code will actually be inside the C-Version directory.
+No new updates in the python code will come until finished with the C code.
+Feel free to contribute to the code :) .
+
 [EN] GonnaCry is a linux Ransomware that encrypt all user files.
 GonnaCry should not be used to harm people, it's just a academic ransomware made for learning and awareness about secutiry.
 The program isn't complete nor all the funcionalities are working.
