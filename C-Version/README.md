@@ -1,7 +1,7 @@
 # C WannaCry version
      
      I want to try making the WannaCry in C ANSI, so I just started this C-Version repo.
-     The python version of WannaCry istill works, but right now i'm focusing on this C version.
+     The python version of WannaCry still works, but right now i'm focusing on this C version.
      No new updates in the python code will come until finished with the C code.
      
      
