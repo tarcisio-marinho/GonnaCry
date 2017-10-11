@@ -1,19 +1,22 @@
-# WaterRansomware
-
-This is a water drinking awareness Ransomware
-You should drink 1.5 - 2 galons of water every day!
-Have you already drunk ?
-
+# C WannaCry version
+     
+     I want to try making the WannaCry in C ANSI, so I just started this C-Version repo.
+     
 # dependencies
 
-     libssl-dev
+- Debian and derivates:
 
+sudo apt-get install libssl-dev
 
-# compiling yourself
+- fedora:
 
-    gcc main.c lib/func.c lib/struct.c  -o ransom -lcrypto
+sudo dnf install openssl-devel
 
-# features
+# Compiling
+     
+     gcc main.c lib/func.c lib/struct.c  -o ransom -lcrypto 
+
+# Features
 
   [x] Encrypt all files with AES-CBC 256.
   [x] Decrypt all files.
