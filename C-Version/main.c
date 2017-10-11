@@ -9,7 +9,6 @@
  * JSON
  * {"path":"/home/tarcisio/arquivo.enc", "key":"chave de criptografia", "iv":"vetor de inicializacao"}
  */
-char * get_start_path();
 
 int main(){
     List *files = NULL;
@@ -25,16 +24,4 @@ int main(){
     //destroy_encrypted_list(&encrypted);
     
     return 0;
-}
-
-char * get_start_path(){
-    char* start_path;
-    char username[100];
-    getlogin_r(username, 100);
-    start_path = (char *)malloc(strlen("/home/") + strlen(username) + 3);
-    memset(start_path, 0, strlen(start_path));
-    strcat(start_path, "/home/");
-    strcat(start_path, username);
-    strcat(start_path, "/");
-    return start_path;
 }
