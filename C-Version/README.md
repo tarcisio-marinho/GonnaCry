@@ -9,11 +9,11 @@
 
 - Debian and derivates:
 
-sudo apt-get install libssl-dev
+    sudo apt-get install libssl-dev
 
 - fedora:
 
-sudo dnf install openssl-devel
+    sudo dnf install openssl-devel
 
 # Compiling
      
