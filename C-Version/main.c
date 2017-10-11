@@ -23,7 +23,6 @@ int main(){
     //read_from_file_encrypted_files(&encrypted, start_path);
     //destroy(&files);
     //destroy_encrypted_list(&encrypted);
-    //free(key); // muito importante desalocar a senha kkkkk
     
     return 0;
 }

