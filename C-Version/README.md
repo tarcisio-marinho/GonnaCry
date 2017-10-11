@@ -23,7 +23,7 @@
 
 - [x] Encrypt all files with AES-CBC 256.
   
-- [ ] shred file before removing.
+- [ ] Shred file before removing.
   
 - [x] Decrypt all files.
   
