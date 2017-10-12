@@ -1,5 +1,7 @@
 #include"crypto.h"
 #include"struct.h"
+#include"func.h"
+#include"func.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<openssl/evp.h>
@@ -34,16 +36,16 @@ void encrypt_files(List *files, EncList **encrypted, List **not_encrypted){
 
             iv = generate_key(16);
             key = generate_key(32);
-            
-            
+
+
             //encrypt(old, new, key, iv);
-            append_encrypted(encrypted, files->path, key, iv);
+            append_encrypted(encrypted, new_name, key, iv);
             //fclose(new);
             fclose(old);
             free(key);
             free(iv);
             //remove(files->path); // delete the original file
-            
+
         }else    append(not_encrypted, files->path);
 
         files = files->prox;
@@ -93,7 +95,7 @@ void encrypt(FILE *in, FILE *out, char *key, char *iv){
 }
 
 /**
- * This function will decrypt the content from encrypted file and save on the 
+ * This function will decrypt the content from encrypted file and save on the
  * out (FILE).
  * @param in -> type = FILE
  * @param out -> type = FILE
