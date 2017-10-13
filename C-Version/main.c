@@ -9,12 +9,17 @@
 /*
  * char * strings[3] -> strings[0] = key, strings[1] = iv , strings[2] = path
  * dessa forma não precisa criar uma nova estrutura
+ * 
+ * writing:
  * fwrite(List, sizeof(List), 1, file);
  * 
  * typedef struct no{
  *      char *strings[3];
  *      struct no *prox;
  * }List;
+ * 
+ * reading :
+ * fread(&List, sizeof(List), 1, file);
  */
 
 int main(){
