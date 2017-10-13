@@ -5,9 +5,16 @@
 #include"lib/func.h"
 #include"lib/struct.h"
 
+
 /*
- * JSON
- * {"path":"/home/tarcisio/arquivo.enc", "key":"chave de criptografia", "iv":"vetor de inicializacao"}
+ * char * strings[3] -> strings[0] = key, strings[1] = iv , strings[2] = path
+ * dessa forma não precisa criar uma nova estrutura
+ * fwrite(List, sizeof(List), 1, file);
+ * 
+ * typedef struct no{
+ *      char *strings[3];
+ *      struct no *prox;
+ * }List;
  */
 
 int main(){

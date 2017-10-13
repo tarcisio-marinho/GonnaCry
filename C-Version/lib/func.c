@@ -109,7 +109,7 @@ void read_from_file_encrypted_files(EncList **l, char * start_path){ // funcao p
     int status;
     ssize_t read;
     size_t len = 0;
-    strcat(start_path, "/Desktop/enc_files.json");
+    strcat(start_path, "enc_files.json");
     if(*l != NULL){
         destroy_encrypted_list(l);
     }else if(*l == NULL){
