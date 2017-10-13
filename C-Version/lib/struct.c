@@ -4,7 +4,7 @@
 #include<stdio.h>
 
 /**
- * This function will append the path to the l(List).
+ * This function will append the path, key and iv to the l(List).
  * It's a simple Linked List.
  * @param l -> type = List
  * @param file_path -> type = char * (String)

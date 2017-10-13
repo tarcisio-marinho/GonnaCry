@@ -24,7 +24,7 @@
 
 int main(){
     List *files = NULL;
-    EncList *encrypted = NULL;
+    List *encrypted = NULL;
     List *not_encrypted = NULL;
     //char* start_path = get_start_path();
     char *start_path = "/home/tarcisio/Desktop/";

