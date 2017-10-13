@@ -114,7 +114,7 @@ void read_from_file_encrypted_files(List **l, char * start_path){
                         return;
                     }
                 }
-                append(l, temp[2], temp[0], temp[1]);
+                append(l, temp->info[2], temp->info[0], temp->info[1]);
                 free(temp);
             }
             
