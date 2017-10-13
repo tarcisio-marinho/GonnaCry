@@ -1,24 +1,19 @@
 #ifndef STRUCTS
 #define STRUCTS
 
+
+/**
+ * info[0] = key
+ * info[1] = iv
+ * info[2] = path
+ */
 typedef struct node{
     struct node *prox;
-    char *path;
+    char * info[3];
 }List;
 
-typedef struct encryptedNode{
-    struct encryptedNode *prox;
-    char *path;
-    char *key;
-    char *iv;
-}EncList;
-
-void append(List **l, char *file_path);
-void append_encrypted(EncList **l, char *file_path, char *key, char *iv);
+void append(List **l, char *file_path, char *key, char *iv);
 void destroy(List **l);
-void destroy_encrypted_list(EncList **l);
 void print(List *l);
-void print_encrypted_list(EncList *l);
 int length(List *l);
-int length_encrypted_list(EncList *l);
 #endif
