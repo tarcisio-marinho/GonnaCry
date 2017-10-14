@@ -72,15 +72,19 @@ void find_files(List **files, char* start_path){
  */
 void save_into_file_encrypted_list(List *l, char * start_path){
     FILE *f;
-    strcat(start_path, "enc_files.gc");
-    f = fopen(start_path, "wb");
+    char * new_file;
+    new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
+    strcpy(new_file, start_path);
+    strcat(new_file, "enc_files.gc");
+    f = fopen(new_file, "wb");
     int status;
-    
+
     while(l != NULL){
-        
+
         status = fwrite(l, sizeof(List), 1, f);
         l = l->prox;
     }
+    free(new_file);
     fclose(f);
 }
 
@@ -91,22 +95,22 @@ void save_into_file_encrypted_list(List *l, char * start_path){
  * This list will be used to decrypt the files.
  * @param l -> type = EncList
  */
-void read_from_file_encrypted_files(List **l, char * start_path){ 
+void read_from_file_encrypted_files(List **l, char * start_path){
     FILE *f;
     List *temp;
     int status;
     char *key, *iv, *path;
     strcat(start_path, "enc_files.gc");
-    
+
     if(*l != NULL){
         destroy(l);
-        
+
     }else if(*l == NULL){
         f = fopen(start_path, "rb");
         if(f != NULL){
-            
+
             while(1){
-                
+
                 status = fread(&temp, sizeof(List), 1, f);
                 if(status != 1){
                     if(feof(f)){
@@ -117,7 +121,7 @@ void read_from_file_encrypted_files(List **l, char * start_path){
                 append(l, temp->info[2], temp->info[0], temp->info[1]);
                 free(temp);
             }
-            
+
             fclose(f);
         }
     }

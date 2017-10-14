@@ -11,16 +11,16 @@
  */
 void append(List **l, char *file_path, char *key, char *iv){
     List *aux = NULL;
-    
+
     if(key == NULL && iv == NULL){
- 
+
         int len = strlen (file_path);
         aux = (List*)malloc(sizeof(List));
         aux->info[2] = (char*)malloc(sizeof(char)* (len+1));
         strcpy(aux->info[2], file_path);
-    
+
     }else{
-        
+
         int len = strlen (file_path);
         aux = (List*)malloc(sizeof(List));
         aux->info[0] = (char *)malloc(sizeof(char) * 33);
@@ -29,9 +29,9 @@ void append(List **l, char *file_path, char *key, char *iv){
         strcpy(aux->info[0], key);
         strcpy(aux->info[1], iv);
         strcpy(aux->info[2], file_path);
-        
+
     }
-    
+
     /*Linked List*/
     if(*l == NULL){
         (*l) = aux;
@@ -64,7 +64,7 @@ void destroy(List **l){
 void print(List *l){
     while(l != NULL){
         if(l->info[0] == NULL){
-            printf("%s\n", l->info[3]);
+            printf("%s\n", l->info[2]);
         }else{
             printf("KEY = %s IV = %s PATH = %s\n", l->info[0], l->info[1], l->info[2]);
         }
