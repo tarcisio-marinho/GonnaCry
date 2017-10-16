@@ -160,14 +160,30 @@ const char *get_filename_ext(const char *filename) {
  */
 char * get_start_path(){
     char* start_path;
+    int tam;
     char username[100];
     getlogin_r(username, 100);
-    start_path = (char *)malloc(strlen("/home/") + strlen(username) + 3);
-    memset(start_path, 0, strlen(start_path));
+    tam = strlen(username);
+    start_path = (char *)malloc(9 + tam);
+    memset(start_path, 0, 9 + tam);
     strcat(start_path, "/home/");
     strcat(start_path, username);
     strcat(start_path, "/");
     return start_path;
+}
+
+/**
+ * This function get the thrash path
+ * @param start_path
+ * @return 
+ */
+char * get_trash_path(char * start_path){
+    char *trash ;
+    trash = (char *)malloc(strlen(start_path) + 21);
+    memset(trash, 0, strlen(trash));
+    strcpy(trash, start_path);
+    strcat(trash , ".local/share/Trash/");
+    return trash;
 }
 
 /**
