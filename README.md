@@ -23,7 +23,7 @@ This test only affect the files in the test directory.
 - [x] Cryptograph all user's file with AES-256-CBC.
 - [x] Cryptograph other devices conected to the machine such as: pendrives/ External HD's.
 - [x] Random AES key seed for each new infection.
-- [x] Works even if computer isn't connected to the internet.
+- [x] Works even if computer internet connection down.
 - [x] Communication with the server to get Servers-private-key.
 - [x] Cryptograph AES key with client-public-key RSA-1024.
 - [x] Cryptograph client-private-key with RSA-1024 server-public-key.
