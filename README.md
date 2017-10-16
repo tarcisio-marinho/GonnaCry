@@ -34,6 +34,7 @@ This test only affect the files in the test directory.
 - [ ] Program completed.
 
 # Folders:
+    - C-Versio -> C version of the GonnaCry Ransomware
     - C&C -> Server side application to send server-private-key.
     - Decryptor -> Client side Decryptor app to decrypt files
     - GonnaCry_1.0 -> Ransomware
