@@ -6,7 +6,9 @@
 #include<time.h>
 #include<stdlib.h>
 #include<dirent.h>
+#include<unistd.h>
 #include<stdio.h>
+#include <pwd.h>
 #include<openssl/aes.h>
 #include<openssl/evp.h>
 
@@ -78,11 +80,12 @@ void save_into_file_encrypted_list(List *l, char * start_path){
     List aux;
     aux.info[0] = (char *)malloc(33);
     aux.info[1] = (char *)malloc(17);
-    new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
+    //new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
+    new_file = "/home/tarcisio/Desktop/enc_files.gc";
     //strcpy(new_file, start_path);
     //strcat(new_file, "enc_files.gc");
-    strcpy(new_file,"/home/tarcisio/Desktop/enc_files.gc");
-    f = fopen(new_file, "wb");
+    //strcpy(new_file,"/home/tarcisio/Desktop/enc_files.gc");
+    f = fopen(new_file, "w");
 
     while(l != NULL){
         tam = strlen(l->info[2]);
@@ -158,32 +161,71 @@ const char *get_filename_ext(const char *filename) {
  * /home/ + active user/
  * @return -> type = char * (String)
  */
-char * get_start_path(){
-    char* start_path;
-    int tam;
-    char username[100];
-    getlogin_r(username, 100);
-    tam = strlen(username);
-    start_path = (char *)malloc(9 + tam);
-    memset(start_path, 0, 9 + tam);
-    strcat(start_path, "/home/");
-    strcat(start_path, username);
-    strcat(start_path, "/");
-    return start_path;
+char * get_home_enviroment(){
+    struct passwd *pw;
+    char * home;
+    uid_t uid;
+    uid_t NO_UID = -1;
+    uid = getuid();
+
+    pw = (uid == NO_UID && 0? NULL: getpwuid(uid));
+    home = (char*)malloc(strlen(pw->pw_dir));
+    strcpy(home, pw->pw_dir);
+    strcat(home, "/");
+    return home;
+}
+
+/**
+ * This function return the logged username
+ * @return -> type = char * (String)
+ */
+char * get_username(){
+    struct passwd *pw;
+    uid_t uid;
+    uid_t NO_UID = -1;
+    uid = getuid();
+
+    pw = (uid == NO_UID && 0? NULL: getpwuid(uid));
+    return pw->pw_name;
 }
 
 /**
  * This function get the thrash path
  * @param start_path
- * @return 
+ * @return
  */
-char * get_trash_path(char * start_path){
+char * get_trash_path(char * home){
     char *trash ;
-    trash = (char *)malloc(strlen(start_path) + 21);
+    trash = (char *)malloc(strlen(home) + 21);
     memset(trash, 0, strlen(trash));
-    strcpy(trash, start_path);
+    strcpy(trash, home);
     strcat(trash , ".local/share/Trash/");
     return trash;
+}
+
+/**
+ * This function get the path to the HD/pendrives
+ * @param username -> type = char * (String)
+ * @return -> type = char * (String)
+ */
+char * get_media_path(char * username){
+    char * path = (char *)malloc(strlen(username) + 9);
+    strcpy(path, "/media/");
+    strcat(path, username);
+    strcat(path, "/");
+    return path;
+}
+
+/**
+ * This function get the path to the desktop
+ * @param home -> type = char * (String)
+ * @return -> type = char * (String)
+ */
+char * get_desktop_enviroment(char *home){
+    char * path = (char *)malloc(strlen(home) + 9);
+    strcpy(path, home);
+    strcat(path, "Desktop/");
+    return path;
 }
 
 /**

