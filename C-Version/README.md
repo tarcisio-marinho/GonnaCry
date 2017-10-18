@@ -27,7 +27,7 @@
 
 - [x] Encrypt all files with AES-CBC 256.
   
-- [ ] Shred file before removing.
+- [x] Shred file before removing.
   
 - [x] Decrypt all files.
   
@@ -35,6 +35,6 @@
   
 - [ ] Encrypt this file with RSA 1024 or 2048.
   
-- [ ] Decrypt this file and read to get the path, key and iv from the file.
+- [x] Decrypt this file and read to get the path, key and iv from the file.
   
 - [ ] Change wallpaper -> still figuring out how to salve the img on the code.
