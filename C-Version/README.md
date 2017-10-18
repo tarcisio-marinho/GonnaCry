@@ -17,7 +17,11 @@
 
 # Compiling
      
-     gcc main.c lib/func.c lib/struct.c  -o ransom -lcrypto 
+     ~$ sh comp.sh
+     
+     or 
+     
+     ~$ gcc main.c lib/func.c lib/struct.c  -o ransom -lcrypto 
 
 # Features
 
