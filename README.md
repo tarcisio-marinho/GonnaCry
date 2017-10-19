@@ -1,7 +1,10 @@
 # GonnaCry Rasomware 
+Original Repository of the GonnaCry Ransomware.
+This repository is OpenSource, feel free to use, study and/or send pull request.
+GonnaCry is a linux Ransomware that encrypt all user files.
+There is two versions of the Ransomware Code: C and Python.
+Actually I'm working on the C code.
 
-
-[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Stars)](https://github.com/tarcisio-marinho/GonnaCry)
 [![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
 [![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
 [![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/tarcisio-marinho/GonnaCry)
@@ -10,15 +13,13 @@
 -------------
 
 # Disclaimer
-This repository is OpenSource, feel free to use, study and/or send pull request.
 This Ransomware musn't be used to harm/threat/hurt other person's computer.
-It's purpose is only to share knowledge and awareness about virus/Operating Sistems.
+It's purpose is only to share knowledge and awareness about Computer virus/Operating Sistems/Programming.
+GonnaCry is a academic ransomware made for learning and awareness about secutiry.
+The program isn't complete nor all the funcionalities are working.
 
 Knowledge is power!
 
-[EN] GonnaCry is a linux Ransomware that encrypt all user files.
-GonnaCry should not be used to harm people, it's just a academic ransomware made for learning and awareness about secutiry.
-The program isn't complete nor all the funcionalities are working.
 
 **Be aware running C/bin/GonnaCry or Python/GonnaCry/main.py in your computer, it may harm.**
 
@@ -26,13 +27,8 @@ The program isn't complete nor all the funcionalities are working.
 
 # What's a Ransomware?
 Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking de screen to the user.
-
-GonnaCry only cryptograph files.
-If you want to run a test in your computer : https://github.com/tarcisio-marinho/Ransomware/blob/master/tests/README.md
-This test only affect the files in the test directory.
-
-~$ sudo pip install -r requeriments.txt
-
+It forces the victim to pay a ransom in order to get the files/computer back.
+GonnaCry only cryptograph the user files.
 
 -------------
 
@@ -43,19 +39,13 @@ This test only affect the files in the test directory.
 -------------
 
 # Objectives:
-- [x] Cryptograph all user's file with AES-256-CBC.
-- [x] Cryptograph other devices conected to the machine such as: pendrives/ External HD's.
-- [x] Random AES key seed for each new infection.
-- [x] Works even if computer internet connection down.
-- [x] Communication with the server to get Servers-private-key.
-- [x] Cryptograph AES key with client-public-key RSA-1024.
-- [x] Cryptograph client-private-key with RSA-1024 server-public-key.
-- [x] Change computer wallpaper.
-- [x] Still work's if victim is offline.
-- [ ] Decryptor GUI.
-- [ ] Daemon waiting to new files/HD's to be cryptographed // Decryptor program.
-- [ ] Program completed.
+The general objective is to encrypt the files and get it back.
+See each code version Features/Objectives:
+C
+https://github.com/tarcisio-marinho/GonnaCry/blob/master/C/README.md#features
 
+Python
+https://github.com/tarcisio-marinho/GonnaCry/blob/master/Python/README.md#objectives
 -------------
 
 # Sub-Dirs:
