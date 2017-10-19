@@ -33,7 +33,7 @@ Knowledge is power!
 -------------
 
 # What's a Ransomware?
-Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking de screen to the user.
+Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking the screen to the user use.
 
 It forces the victim to pay a ransom in order to get the files/computer back.
 
