@@ -1,4 +1,4 @@
-# C GannaCry version
+# C GonnaCry version
      
      I want to try making the WannaCry in C ANSI, so I just started this C-Version repo.
      The python version of GonnaCry still works, but right now i'm focusing on this C version.
