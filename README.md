@@ -1,4 +1,6 @@
-# GonnaCry Rasonware 
+# GonnaCry Rasomware 
+
+
 
 [![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
 [![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
@@ -20,6 +22,8 @@ The program isn't complete nor all the funcionalities are working.
 
 **Be aware running C/bin/GonnaCry or Python/GonnaCry/main.py in your computer, it may harm.**
 
+-------------
+
 # What's a Ransomware?
 Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking de screen to the user.
 
@@ -29,9 +33,14 @@ This test only affect the files in the test directory.
 
 ~$ sudo pip install -r requeriments.txt
 
+
+-------------
+
 # Walkthrough
 
 
+
+-------------
 
 # Objectives:
 - [x] Cryptograph all user's file with AES-256-CBC.
@@ -46,6 +55,8 @@ This test only affect the files in the test directory.
 - [ ] Decryptor GUI.
 - [ ] Daemon waiting to new files/HD's to be cryptographed // Decryptor program.
 - [ ] Program completed.
+
+-------------
 
 # Sub-Dirs:
     - C -> C version of the GonnaCry Ransomware.
