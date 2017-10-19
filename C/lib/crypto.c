@@ -35,7 +35,7 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
 
         old = fopen(files->info[2], "rb");
         if(old != NULL){
-            new_name = (char*) malloc(strlen(files->info[2]) + strlen(".water") + 2);
+            new_name = (char*) malloc(sizeof(char) * (strlen(files->info[2]) + 6));
             strcpy(new_name, files->info[2]);
             strcat(new_name, ".gc");
             new = fopen(new_name, "wb");
@@ -63,37 +63,47 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
  * and decrypt the files.
  * @param encrypted -> type = EncList
  */
-void decrypt_files(List **encrypted){
+void decrypt_files(List *encrypted){
     int status;
+    int tam;
     FILE *old, *new;
-    char* new_name;
-    char *iv;
-    char *key;
-    while(files != NULL){
+    char *new_name;
+    char *iv = (char *)malloc(sizeof(char) * 17);
+    char *key = (char *)malloc(sizeof(char) * 33);
 
-        old = fopen(files->info[2], "rb");
+    while(encrypted != NULL){
+
+        old = fopen(encrypted->info[2], "rb");
         if(old != NULL){
-            new_name = (char*) malloc(strlen(files->info[2]) + strlen(".water") + 2);
-            strcpy(new_name, files->info[2]);
-            strcat(new_name, ".gc");
-            new = fopen(new_name, "wb");
+            printf("abriu\n");
+            tam = strlen(encrypted->info[2]);
+            new_name = (char*) malloc(sizeof(char) * (tam + 6));
+            strcpy(new_name, encrypted->info[2]);
+            //new_name[tam-3] = '\0';
+            free(new_name);
+            //new = fopen(new_name, "wb");
 
-            iv = generate_key(16);
-            key = generate_key(32);
+            //strcpy(iv, encrypted->info[1]);
+            //strcpy(key, encrypted->info[0]);
 
 
-            encrypt(old, new, key, iv);
-            append(encrypted, new_name, key, iv);
-            fclose(new);
-            fclose(old);
-            free(key);
-            free(iv);
-            remove(files->info[2]);
+            //decrypt(old, new, key, iv);
+            //memset(iv, 0, 17);
+            //memset(key, 0, 33);
 
-        }else    append(not_encrypted, files->info[2], NULL, NULL);
+            //fclose(new);
+            //fclose(old);
+            //remove(encrypted->info[2]);
 
-        files = files->prox;
+        }else{
+            printf("nao abriu \n");
+        }
+
+        encrypted = encrypted->prox;
     }
+    free(key);
+    free(iv);
+
 }
 
 /**
