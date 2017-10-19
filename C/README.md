@@ -1,7 +1,7 @@
 # C GonnaCry version
 This directory contains the C code of the GonnaCry Ransomware
 
-**Be aware running bin/GonnaCry in your computer, it may harm. **
+**Be aware running bin/GonnaCry in your computer, it may harm.**
 
 # Features
 - [x] Encrypt all user files with AES-CBC 256.
