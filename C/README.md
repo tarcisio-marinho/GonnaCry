@@ -1,11 +1,32 @@
 # C GonnaCry version
-     
-     I want to try making the WannaCry in C ANSI, so I just started this C-Version repo.
-     The python version of GonnaCry still works, but right now i'm focusing on this C version.
-     No new updates in the python code will come until finished with the C code.
-     
-     
-# dependencies
+This directory contains the C code of the GonnaCry Ransomware
+
+** Be aware running bin/GonnaCry in your computer, it may harm. **
+
+# Features
+- [x] Encrypt all user files with AES-CBC 256.
+  
+- [x] Encrypt HD/pendrive on the victim machine.
+
+- [x] Shred file before removing (Zeroing).
+  
+- [x] Decrypt all files.
+  
+- [x] Generate unique Key and IV for each file.
+
+- [x] Save path, key and iv from each file on the desktop (recover file).
+  
+- [ ] Communicate with the server to exchange private key.
+
+- [ ] Encrypt recover file with RSA 1024 or 2048.
+  
+- [ ] Decrypt recover file and read to get the path, key and iv from the file.
+  
+- [ ] Change wallpaper -> still figuring out how to save the img on the code.
+
+
+# Dependencies
+GonnaCry requires openssl Library, instalation below
 
 - Debian and derivates:
 
@@ -21,20 +42,5 @@
      
      or 
      
-     ~$ gcc main.c lib/func.c lib/struct.c  -o ransom -lcrypto 
+     ~$ gcc main.c lib/func.c lib/struct.c lib/crypto.c -o bin/GonnaCry -lcrypto 
 
-# Features
-
-- [x] Encrypt all files with AES-CBC 256.
-  
-- [x] Shred file before removing.
-  
-- [x] Decrypt all files.
-  
-- [x] Save path, key and iv from each file on the desktop.
-  
-- [ ] Encrypt this file with RSA 1024 or 2048.
-  
-- [x] Decrypt this file and read to get the path, key and iv from the file.
-  
-- [ ] Change wallpaper -> still figuring out how to salve the img on the code.
