@@ -1,7 +1,7 @@
 # GonnaCry Rasomware 
 Original Repository of the GonnaCry Ransomware.
 
-This repository is OpenSource, feel free to use, study and/or send pull request.
+This project is OpenSource, feel free to use, study and/or send pull request.
 
 GonnaCry is a linux Ransomware that encrypt all user files.
 
