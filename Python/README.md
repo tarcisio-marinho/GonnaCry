@@ -3,7 +3,7 @@ This directory contains the Python original code of the GonnaCry ransomware
 
 **Be aware running GonnaCry/main.py in your computer, it may harm.**
 
-If you want to run a test in your computer : https://github.com/tarcisio-marinho/Ransomware/blob/master/tests/README.md
+If you want to run a test in your computer : https://github.com/tarcisio-marinho/GonnaCry/blob/master/Python/tests/README.md
 This test only affect the files in the test directory.
 
 
