@@ -29,7 +29,7 @@ GonnaCry requires the pycrypto library, installation below
 # Sub-Dirs:
     - C&C -> Server side application to send server-private-key (NOT WORKING)/(ACEPPTING PULL REQUESTS).
     - Decryptor -> Client side Decryptor app to decrypt files(INCOMPLETE)
-    - GonnaCry_1.0 -> Ransomware (WORKING BUT COMMENTED PARTS)
+    - GonnaCry -> Ransomware crypto code (WORKING BUT COMMENTED SOME PARTS)
     - tests -> directory to test the ransomware (TEST ZONE)
 
 # Testing:
