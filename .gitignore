@@ -17,6 +17,7 @@ Makefile
 .Python
 env/
 build/
+dist/
 nbproject/
 develop-eggs/
 downloads/
