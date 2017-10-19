@@ -1,7 +1,7 @@
 # GonnaCry Rasonware 
 
 
-asdakm
+a@protonmail.com>`_.
 
 .. image:: https://travis-ci.org/k4m4/kickthemout.svg?branch=master
     :target: https://travis-ci.org/k4m4/kickthemout
