@@ -1,14 +1,9 @@
 # GonnaCry Rasonware 
 
-
-.. image:: https://img.shields.io/travis/rust-lang/rust/master.svg
-    :target: https://github.com/tarcisio-marinho/GonnaCry
-.. image:: https://img.shields.io/cran/l/devtools.svg
-    :target: https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE
-.. image:: https://img.shields.io/badge/made%20with-%3C3-red.svg
-    :target: https://github.com/tarcisio-marinho/GonnaCry
-.. image:: https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg
-    :target: https://github.com/tarcisio-marinho/GonnaCry/stargazers
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
+[![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
+[![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/tarcisio-marinho/GonnaCry)
+[![Travis branch](https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg)](https://github.com/tarcisio-marinho/GonnaCry/stargazers)
     
 -------------
 
