@@ -1,16 +1,14 @@
 # GonnaCry Rasonware 
 
 
-a@protonmail.com>`_.
-
-.. image:: https://travis-ci.org/k4m4/kickthemout.svg?branch=master
-    :target: https://travis-ci.org/k4m4/kickthemout
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg
-    :target: https://github.com/k4m4/kickthemout/blob/master/LICENSE
+.. image:: https://img.shields.io/travis/rust-lang/rust/master.svg
+    :target: https://github.com/tarcisio-marinho/GonnaCry
+.. image:: https://img.shields.io/cran/l/devtools.svg
+    :target: https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE
 .. image:: https://img.shields.io/badge/made%20with-%3C3-red.svg
-    :target: https://nikolaskama.me/kickthemoutproject
+    :target: https://github.com/tarcisio-marinho/GonnaCry
 .. image:: https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg
-    :target: https://github.com/k4m4/kickthemout/stargazers
+    :target: https://github.com/tarcisio-marinho/GonnaCry/stargazers
     
 -------------
 
