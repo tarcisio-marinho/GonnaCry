@@ -245,6 +245,13 @@ char * get_desktop_enviroment(char *home){
     return path;
 }
 
+char * get_test_path(char * desktop){
+    char *path = (char *)malloc((sizeof(char) * strlen(desktop) + 7));
+    strcpy(path, desktop);
+    strcat(path, "tests/");
+    return path;
+}
+
 /**
  * This function will generate random string to be saved as key and iv.
  * @param length -> type = integer

