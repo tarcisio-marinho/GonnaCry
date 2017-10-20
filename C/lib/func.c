@@ -76,6 +76,11 @@ void save_into_file_encrypted_list(List *l, char * desktop){
     FILE *f;
     char * new_file;
     char *line;
+    
+    if(l == NULL){
+        return;
+    }
+
     new_file = (char*)malloc(sizeof(char)*(strlen(desktop) + 13));
     strcpy(new_file, desktop);
     strcat(new_file, "enc_files.gc");

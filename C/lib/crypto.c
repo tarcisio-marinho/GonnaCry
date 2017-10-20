@@ -73,7 +73,7 @@ void decrypt_files(List *encrypted){
 
     while(encrypted != NULL){
 
-        old = fopen(encrypted->info[2], "rb");
+        old = fopen(encrypted->info[2], "rb"); // n ta abrindo
         if(old != NULL){
             printf("abriu\n");
             tam = strlen(encrypted->info[2]);
