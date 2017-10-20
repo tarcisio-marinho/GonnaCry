@@ -43,8 +43,27 @@ GonnaCry only cryptograph the user files.
 -------------
 
 # Walkthrough
+The first step of the ransomware is to declare some enviroment/path variables, 
+such as home, desktop, username, etc...
 
+Then the find_files function will seach all the filetypes that matches with the extension
+and append to the files List.
 
+The encrypt_files function will walkthrough this List and generate randomly, unique Key and IV 
+for each file. Then append the Key, IV and path to the new file inside a new List, Encrypted.
+
+The encrypt function is called by encrypt_files, as he walkthrough the found files.
+
+After encrypting, the file is shred(Filled with zeros) and deleted. This will protect against
+recovery tools from getting the original file back.
+
+The save_into_file_encrypted_list will get the Encrypted List, that contains the key, iv and path from each file
+and save on the user's desktop as the file: enc_files.gc. This file will be used to decrypt the files.
+
+All the memory allocated is released by functions such as destroy, and inside each function the strings allocated
+are desalocated as well.
+
+This make the ransomware to not consume much RAM memory.
 
 -------------
 
