@@ -72,11 +72,11 @@ The general objective is to encrypt the files and get it back.
 
 See each code version Features/Objectives:
 
-**C
+** C
 
 https://github.com/tarcisio-marinho/GonnaCry/blob/master/C/README.md#features
 
-**Python
+** Python
 
 https://github.com/tarcisio-marinho/GonnaCry/blob/master/Python/README.md#objectives
 
