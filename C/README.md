@@ -38,6 +38,7 @@ GonnaCry requires openssl Library, instalation below
 
 # Compiling
      
+     ~$ cd GonnaCry/C
      ~$ make
      
      or 
@@ -45,5 +46,6 @@ GonnaCry requires openssl Library, instalation below
      ~$ gcc main.c lib/func.c lib/struct.c lib/crypto.c -o bin/GonnaCry -lcrypto 
      
 # Deleting
+
     ~$ make clean
 
