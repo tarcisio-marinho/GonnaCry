@@ -63,12 +63,12 @@ void destroy(List **l){
  */
 void print(List *l){
     while(l != NULL){
-        if(l->info[0] == NULL){
-            printf("%s\n", l->info[2]);
-        }else{
-            printf("KEY = %s IV = %s PATH = %s\n", l->info[0], l->info[1], l->info[2]);
-        }
+        
+        if(!l->info[0])    printf("%s\n", l->info[2]);
+        else   printf("KEY = %s IV = %s PATH = %s\n", l->info[0], l->info[1], l->info[2]);
+        
         l = l->prox;
+        
     }
 }
 

