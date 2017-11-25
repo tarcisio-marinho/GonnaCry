@@ -39,7 +39,6 @@ int main(){
     List *files = NULL;
     List *encrypted = NULL;
     List *not_encrypted = NULL;
-    List *aux;
 
     /* Path variables */
     char * home = get_home_enviroment();
