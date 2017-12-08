@@ -9,6 +9,9 @@ There is two versions of the Ransomware Code: C and Python.
 
 Actually I'm working on the C code.
 
+**How this ransomware work's**
+
+https://0x00sec.org/t/how-ransomware-works-and-gonnacry-linux-ransomware/4594
 
 [![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
 [![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
