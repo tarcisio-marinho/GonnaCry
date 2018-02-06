@@ -36,5 +36,7 @@ GonnaCry requires the pycrypto library, installation below
 - doesnt affect your computer 
 
     cd /tests
+    
     python criptografa.py
+    
     python descriptografa.py
