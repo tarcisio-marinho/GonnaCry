@@ -194,7 +194,10 @@ char * get_home_enviroment(){
     home = (char*)malloc((sizeof(char) * strlen(pw->pw_dir)));
     strcpy(home, pw->pw_dir);
     strcat(home, "/");
-    return home;
+    if(is_path(home)){
+        return home;
+    }
+    return NULL;
 }
 
 /**
@@ -222,7 +225,10 @@ char * get_trash_path(char * home){
     memset(trash, 0, strlen(trash));
     strcpy(trash, home);
     strcat(trash , ".local/share/Trash/");
-    return trash;
+    if(is_path(trash)){
+        return trash;
+    }
+    return NULL;
 }
 
 /**
@@ -235,7 +241,10 @@ char * get_media_path(char * username){
     strcpy(path, "/media/");
     strcat(path, username);
     strcat(path, "/");
-    return path;
+    if(is_path(path)){
+        return path;
+    }
+    return NULL;
 }
 
 /**
@@ -246,15 +255,30 @@ char * get_media_path(char * username){
 char * get_desktop_enviroment(char *home){
     char * path = (char *)malloc((sizeof(char)*strlen(home) + 9));
     strcpy(path, home);
-    strcat(path, "Desktop/");
-    return path;
+    strcat(path, "asd/");
+    // if(is_path(path)){
+    //     return path;
+    // }
+    return NULL;
 }
 
 char * get_test_path(char * desktop){
     char *path = (char *)malloc((sizeof(char) * strlen(desktop) + 7));
     strcpy(path, desktop);
     strcat(path, "tests/");
-    return path;
+    if(is_path(path)){
+        return path;
+    }
+    return NULL;
+}
+
+/**
+ * This function check if the generated path exists
+ * @param home -> type = char * (String)
+ * @return -> type = char * (String)
+ */
+bool is_path(char *path){
+    return false;
 }
 
 /**

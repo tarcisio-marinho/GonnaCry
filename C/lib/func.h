@@ -3,6 +3,8 @@
 #define FUNC
 
 #include<stdio.h>
+#include<stdbool.h>
+#include<stdlib.h>
 #include "struct.h"
 void find_files(List **files, char* start_path);
 void create_files_desktop(List *encrypted, List *files, char * desktop);
@@ -17,4 +19,5 @@ char * get_media_path(char * username);
 char * get_desktop_enviroment(char *home);
 char * generate_key(int length);
 char * get_test_path(char * desktop);
+bool is_path(char *path);
 #endif

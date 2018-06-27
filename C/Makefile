@@ -3,20 +3,20 @@ CFLAGS=-lcrypto
 OUTPUT=bin/gonnacry
 RM=rm
 
-out: gonnacry.o lib/crypto.o lib/struct.o lib/func.o
-	$(CC) gonnacry.o lib/crypto.o lib/struct.o lib/func.o -o $(OUTPUT) $(CFLAGS) 
+out: main.o crypto.o struct.o func.o
+	$(CC) gonnacry.o crypto.o struct.o func.o -o $(OUTPUT) $(CFLAGS) 
 
-main: gonnacry.c 
-	$(CC) -c gonnacry.c 
+main.o: gonnacry.c 
+	$(CC) -c gonnacry.c -o gonnacry.o
 
-crypto: lib/crypto.c lib/crypto.h
-	$(CC) -c lib/crypto.c
+crypto.o: lib/crypto.c lib/crypto.h
+	$(CC) -c lib/crypto.c -o crypto.o
 
-func: lib/func.c lib/func.h
-	$(CC) -c lib/func.c
+func.o: lib/func.c lib/func.h
+	$(CC) -c lib/func.c -o func.o
 
-struct: lib/struct.c lib/struct.h
-	$(CC) -c lib/struct.c
+struct.o: lib/struct.c lib/struct.h
+	$(CC) -c lib/struct.c -o struct.o
 
 clean:
-	$(RM) *.o bin/gonnacry lib/*.o
+	$(RM) *.o bin/gonnacry

