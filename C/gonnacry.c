@@ -6,6 +6,7 @@
 #include"lib/crypto.h"
 #include"lib/struct.h"
 
+// -lcrypto -lz -ldl -static-libgcc
 
 
 int main(){
