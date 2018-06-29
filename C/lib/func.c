@@ -152,7 +152,6 @@ void save_into_file_encrypted_list(List *l, char * desktop){
     free(line);
     free(new_file);
     fclose(f);
-
 }
 
 /**
