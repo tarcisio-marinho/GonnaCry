@@ -5,13 +5,18 @@
 #include <string.h>
 
 #define KEY_LENGTH  2048
-#define PUB_EXP     3
-#define PRINT_KEYS
-#define WRITE_TO_FILE
+#define PUB_EXP     3 // >=1024 -> maximum number of permitted primes -> modulus bit length
+
+
+typedef struct Key_par{
+    char *public_key, *private_key;
+}RSAKeys;
+
 
 int main(void) {
     size_t pri_len;            // Length of private key
     size_t pub_len;            // Length of public key
+    RSAKeys *keys = NULL;
     char   *pri_key;           // Private key
     char   *pub_key;           // Public key
     char   msg[KEY_LENGTH/8];  // Message to encrypt
@@ -19,6 +24,7 @@ int main(void) {
     char   *decrypt = NULL;    // Decrypted message
     char   *err;               // Buffer for any error messages
 
+    keys = malloc(sizeof(RSAKeys));
     // Generate key pair
     printf("Generating RSA (%d bits) keypair...", KEY_LENGTH);
     fflush(stdout);
@@ -34,25 +40,26 @@ int main(void) {
     pri_len = BIO_pending(pri);
     pub_len = BIO_pending(pub);
 
-    pri_key = malloc(pri_len + 1);
-    pub_key = malloc(pub_len + 1);
+    keys->private_key = malloc(pri_len + 1);
+    keys->public_key = malloc(pub_len + 1);
 
-    BIO_read(pri, pri_key, pri_len);
-    BIO_read(pub, pub_key, pub_len);
+    BIO_read(pri, keys->private_key, pri_len);
+    BIO_read(pub, keys->public_key, pub_len);
 
-    pri_key[pri_len] = '\0';
-    pub_key[pub_len] = '\0';
+    keys->private_key[pri_len] = '\0';
+    keys->public_key[pub_len] = '\0';
 
-    #ifdef PRINT_KEYS
-        printf("\n%s\n%s\n", pri_key, pub_key);
-    #endif
-    printf("done.\n");
 
+    // access the keys
+    printf("\n%s\n%s\n", keys->private_key, keys->public_key);
+
+    
     // Get the message to encrypt
     printf("Message to encrypt: ");
     fgets(msg, KEY_LENGTH-1, stdin);
     msg[strlen(msg)-1] = '\0';
 
+    
     // Encrypt the message
     encrypt = malloc(RSA_size(keypair));
     int encrypt_len;
@@ -65,6 +72,7 @@ int main(void) {
         goto free_stuff;
     }
 
+    
     // Write the encrypted message to a file
     FILE *out = fopen("out.bin", "w");
     fwrite(encrypt, sizeof(*encrypt),  RSA_size(keypair), out);
@@ -73,6 +81,7 @@ int main(void) {
     free(encrypt);
     encrypt = NULL;
 
+    
     // Read it back
     printf("Reading back encrypted message and attempting decryption...\n");
     encrypt = malloc(RSA_size(keypair));
@@ -80,6 +89,7 @@ int main(void) {
     fread(encrypt, sizeof(*encrypt), RSA_size(keypair), out);
     fclose(out);
 
+    
     // Decrypt it
     decrypt = malloc(encrypt_len);
     if(RSA_private_decrypt(encrypt_len, (unsigned char*)encrypt, (unsigned char*)decrypt,
@@ -89,14 +99,19 @@ int main(void) {
         fprintf(stderr, "Error decrypting message: %s\n", err);
         goto free_stuff;
     }
+    
+    // original content
     printf("Decrypted message: %s\n", decrypt);
 
+
+    // dealocate memory 
     free_stuff:
     RSA_free(keypair);
     BIO_free_all(pub);
     BIO_free_all(pri);
-    free(pri_key);
-    free(pub_key);
+    free(keys->private_key);
+    free(keys->public_key);
+    free(keys);
     free(encrypt);
     free(decrypt);
     free(err);
