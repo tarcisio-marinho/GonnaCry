@@ -19,8 +19,8 @@ class assymetric():
     # This function will generate RSA keys
     def generate_keys(self):
         self.key = RSA.generate(self.bit_len)
-        self.private_key_PEM = self.key.exportKey('DER')
-        self.public_key_PEM = self.key.publickey().exportKey('DER')
+        self.private_key_PEM = self.key.exportKey('PEM')
+        self.public_key_PEM = self.key.publickey().exportKey('PEM')
         
     
     def encrypt(self, data):

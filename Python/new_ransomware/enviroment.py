@@ -17,7 +17,7 @@ def get_desktop_path():
 
 
 def get_username():
-    return pwd.getpwuid( os.getuid() )[0]
+    return pwd.getpwuid(os.getuid())[0]
 
 
 def get_unique_machine_id():
@@ -29,3 +29,4 @@ def get_unique_machine_id():
 
 def get_home_path():
     return os.path.expanduser('~')
+
