@@ -23,6 +23,8 @@ def get_username():
 def get_unique_machine_id():
     with open("/etc/machine-id") as f :
         id = f.read()
+        if('\n' in id):
+            id = id.replace('\n', '')
     
     return id
 
