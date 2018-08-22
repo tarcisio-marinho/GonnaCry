@@ -18,9 +18,12 @@ class AESCipher(object):
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return base64.b64encode(iv + cipher.encrypt(raw))
 
-    def decrypt(self, enc):
+    def decrypt(self, enc, decryption_key=None):
         enc = base64.b64decode(enc)
         iv = enc[:AES.block_size]
+        if(decryption_key):
+            self.key = hashlib.sha256(decryption_key.encode()).digest()
+            
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return self._unpad(cipher.decrypt(enc[AES.block_size:]))
 
@@ -31,12 +34,12 @@ class AESCipher(object):
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
-# a = AESCipher('ola')
-# with open('priv.key', 'rb') as f:
-#     content = f.read()
+a = AESCipher('ola')
+with open('server_keys/priv.key', 'rb') as f:
+    content = f.read()
 
-# enc = a.encrypt(content)
-# back = a.decrypt(enc)
+enc = a.encrypt(content)
+back = a.decrypt(enc, 'ola')
 
-# with open('decrypted', 'wb') as f:
-#     f.write(back)
+with open('decrypted', 'wb') as f:
+    f.write(back)
