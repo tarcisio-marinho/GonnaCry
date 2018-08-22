@@ -43,10 +43,10 @@ class assymetric():
             content_file.write(self.public_key_PEM)
 
 
-if __name__ == "__main__":
-    a = assymetric()
-    a.generate_keys()
-    # enc = a.encrypt("ola tudo bem? ")
-    # print(enc)
-    # print(a.decrypt(enc))
-    a.save_to_file("server_keys/")
+# if __name__ == "__main__":
+#     a = assymetric()
+#     a.generate_keys()
+#     # enc = a.encrypt("ola tudo bem? ")
+#     # print(enc)
+#     # print(a.decrypt(enc))
+#     a.save_to_file("server_keys/")

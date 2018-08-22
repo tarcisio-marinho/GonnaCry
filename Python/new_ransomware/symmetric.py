@@ -34,12 +34,12 @@ class AESCipher(object):
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
-a = AESCipher('ola')
-with open('server_keys/priv.key', 'rb') as f:
-    content = f.read()
+# a = AESCipher('ola')
+# with open('server_keys/priv.key', 'rb') as f:
+#     content = f.read()
 
-enc = a.encrypt(content)
-back = a.decrypt(enc, 'ola')
+# enc = a.encrypt(content)
+# back = a.decrypt(enc, 'ola')
 
-with open('decrypted', 'wb') as f:
-    f.write(back)
+# with open('decrypted', 'wb') as f:
+#     f.write(back)
