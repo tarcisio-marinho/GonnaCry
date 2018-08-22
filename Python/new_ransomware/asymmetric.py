@@ -1,6 +1,6 @@
 #!/bin/bash/env python
 # coding=UTF-8
-
+import os
 from os import chmod
 from Crypto.PublicKey import RSA
 
@@ -32,8 +32,8 @@ class assymetric():
 
     
     def save_to_file(self, path):
-        self.private_key_path = path + "priv.key"
-        self.public_key_path = path + "public.key"
+        self.private_key_path = os.path.join(path, "priv.key")
+        self.public_key_path = os.path.join(path, "public.key")
 
         with open(self.private_key_path, 'w') as content_file:
             chmod(self.private_key_path, 0600) # -rw------- permissions 
@@ -43,10 +43,10 @@ class assymetric():
             content_file.write(self.public_key_PEM)
 
 
-# if __name__ == "__main__":
-#     a = assymetric()
-#     a.generate_keys()
-#     enc = a.encrypt("ola tudo bem? ")
-#     print(enc)
-#     print(a.decrypt(enc))
-#     a.save_to_file("./")
+if __name__ == "__main__":
+    a = assymetric()
+    a.generate_keys()
+    # enc = a.encrypt("ola tudo bem? ")
+    # print(enc)
+    # print(a.decrypt(enc))
+    a.save_to_file("server_keys/")

