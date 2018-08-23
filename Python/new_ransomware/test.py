@@ -44,15 +44,34 @@ eSopcx2e09eODLXAxOpi+f6K2mxJVMjxhvIthnad4vhtJjaBojaMG23+uOpX9Gj/
 u7KSAN0pGuIw57saMWU1KFy2POKHI8+PP4rGeJhKx6isAt+3ZFk=
 -----END RSA PRIVATE KEY-----"""
 
+line = "ola"
+n = 127
+x = [line[i:i+n] for i in range(0, len(line), n)]
 
-
-message = server_private_key
 key = RSA.importKey(server_public_key)
 cipher = PKCS1_OAEP.new(key)
-ciphertext = cipher.encrypt(message)
+cifrado = ""
+for i in x:
+    ciphertext = cipher.encrypt(i)
+    cifrado +=ciphertext
+
+
+print(cifrado)    
+
+
+
 
 key = RSA.importKey(server_private_key)
 cipher = PKCS1_OAEP.new(key)
-message = cipher.decrypt(ciphertext)
 
-print(message)
+line = cifrado
+n = 127
+x = [line[i:i+n] for i in range(0, len(line), n)]
+decifrado = ""
+for i in x:
+    ciphertext = cipher.decrypt(i)
+    decifrado +=ciphertext
+
+
+
+print(decifrado)
