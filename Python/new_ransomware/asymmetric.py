@@ -3,6 +3,9 @@
 import os
 from os import chmod
 from Crypto.PublicKey import RSA
+from Crypto.Hash import SHA
+from Crypto import Random
+from Crypto.Cipher import PKCS1_OAEP
 
 class assymetric():
     
