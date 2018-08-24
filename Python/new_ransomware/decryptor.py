@@ -39,7 +39,7 @@ def send_to_server_encrypted_private_key(id, private_encrypted_key):
     
     try:
         retorno = requests.post(address, encoded)
-    except as e:
+    except Exception as e:
         raise e
 
     private_key = retorno.text()
