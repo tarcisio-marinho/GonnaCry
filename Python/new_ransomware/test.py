@@ -5,6 +5,8 @@ from Crypto.Hash import SHA
 from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
+import pickle
+
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxF5BOX3N5UN1CsHpnfuU
@@ -56,16 +58,21 @@ for i in x:
     cifrado.append(ciphertext)
 
 
+with open('company_data.pkl', 'wb') as output:
+    pickle.dump(cifrado, output, pickle.HIGHEST_PROTOCOL)
+
+
+with open('company_data.pkl', 'rb') as input:
+    ola = pickle.load(input)
 
 
 key = RSA.importKey(server_private_key)
 cipher = PKCS1_OAEP.new(key)
 
+
 decifrado = ""
-for i in cifrado:
+for i in ola:
     ciphertext = cipher.decrypt(i)
     decifrado += ciphertext
 
-
-
-print(decifrado == server_private_key)
+print(decifrado, decifrado == server_private_key)
