@@ -1,7 +1,6 @@
 from Crypto.Cipher import PKCS1_v1_5
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA
-from Crypto.Hash import SHA
 from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.PublicKey import RSA
@@ -46,33 +45,37 @@ eSopcx2e09eODLXAxOpi+f6K2mxJVMjxhvIthnad4vhtJjaBojaMG23+uOpX9Gj/
 u7KSAN0pGuIw57saMWU1KFy2POKHI8+PP4rGeJhKx6isAt+3ZFk=
 -----END RSA PRIVATE KEY-----"""
 
-line = server_private_key
-n = 127
-x = [line[i:i+n] for i in range(0, len(line), n)]
+def encrypt(msg):
+    line = msg
+    n = 127
+    x = [line[i:i+n] for i in range(0, len(line), n)]
 
-key = RSA.importKey(server_public_key)
-cipher = PKCS1_OAEP.new(key)
-cifrado = []
-for i in x:
-    ciphertext = cipher.encrypt(i)
-    cifrado.append(ciphertext)
+    key = RSA.importKey(server_public_key)
+    cipher = PKCS1_OAEP.new(key)
+    cifrado = []
+    for i in x:
+        ciphertext = cipher.encrypt(i)
+        cifrado.append(ciphertext)
+    return cifrado
 
+def decrypt(enc):
+    key = RSA.importKey(server_private_key)
+    cipher = PKCS1_OAEP.new(key)
 
-with open('company_data.pkl', 'wb') as output:
+    decifrado = ""
+    for i in enc:
+        ciphertext = cipher.decrypt(i)
+        decifrado += ciphertext
+    return decifrado
+
+cifrado = encrypt(server_private_key)
+with open('encrypted_private_key.key', 'wb') as output:
     pickle.dump(cifrado, output, pickle.HIGHEST_PROTOCOL)
 
 
-with open('company_data.pkl', 'rb') as input:
-    ola = pickle.load(input)
+with open('encrypted_private_key.key', 'rb') as input:
+    enc = pickle.load(input)
 
+decoded = decrypt(enc)
 
-key = RSA.importKey(server_private_key)
-cipher = PKCS1_OAEP.new(key)
-
-
-decifrado = ""
-for i in ola:
-    ciphertext = cipher.decrypt(i)
-    decifrado += ciphertext
-
-print(decifrado, decifrado == server_private_key)
+print(decoded, decoded == server_private_key)
