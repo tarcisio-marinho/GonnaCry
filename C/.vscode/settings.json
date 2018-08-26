@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "unistd.h": "c",
+        "bitsperlong.h": "c",
+        "string.h": "c",
+        "func.h": "c"
+    }
+}
