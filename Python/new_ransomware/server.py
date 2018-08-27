@@ -16,7 +16,7 @@ import json
 from sys import argv
 import base64
 from Crypto.PublicKey import RSA
-
+from Crypto.Cipher import PKCS1_OAEP
 
 server_private_key = """-----BEGIN RSA PRIVATE KEY-----
 MIIEogIBAAKCAQEAxF5BOX3N5UN1CsHpnfuU58lOw0+scQ39hOn6Q/QvM6aTOnYZ
@@ -63,10 +63,15 @@ DQIDAQAB
 class S(BaseHTTPRequestHandler):
 
 
-    def decrypt(msg):
-        private_key_obj = RSA.importKey(server_private_key)
-        decrypted = private_key_obj.decrypt(msg)
-        return decrypted
+    def decrypt(self, enc):
+        key = RSA.importKey(server_private_key)
+        cipher = PKCS1_OAEP.new(key)
+
+        decifrado = ""
+        for i in enc:
+            ciphertext = cipher.decrypt(i)
+            decifrado += ciphertext
+        return decifrado
 
 
     def logg(self):
@@ -91,10 +96,12 @@ class S(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length']) 
         
         # Gets the encrypted data
-        encrypted = self.rfile.read(content_length) 
+        base64_encrypted = self.rfile.read(content_length) 
+        object_encrypted = base64.b64decode(base64_encrypted)
+        lista = eval(object_encrypted)
         
         # decrypt the data
-        decrypted = decrypt(decrypted)
+        decrypted = self.decrypt(lista)
 
         # self.logg()
         # print("\nMSG [{}]".format(post_data))
