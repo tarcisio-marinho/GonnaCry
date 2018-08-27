@@ -2,6 +2,8 @@
 # coding=UTF-8
 
 import os
+import string
+import random
 import asymmetric
 import get_files
 import symmetric
