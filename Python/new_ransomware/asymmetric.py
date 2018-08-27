@@ -27,11 +27,13 @@ class assymetric():
         
     
     def encrypt(self, data):
-        return self.key.encrypt(data, 'x')[0]
+        cipher = PKCS1_OAEP.new(key)
+        return cipher.encrypt(data)
 
 
     def decrypt(self, data):
-        return self.key.decrypt(data)
+        cipher = PKCS1_OAEP.new(key)
+        return cipher.decrypt(data)
 
     
     def save_to_file(self, path):

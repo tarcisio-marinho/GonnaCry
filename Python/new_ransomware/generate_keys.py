@@ -5,8 +5,8 @@ import Crypto.Random
 import base64
 
 def generate_key(bits, encode=False):
-    a = Crypto.Random.OSRNG.posix.DevURandomRNG()
-    content = a.read(bits)
+    generated = Crypto.Random.OSRNG.posix.DevURandomRNG()
+    content = generated.read(bits)
     
     if(encode):
         return base64.b64encode(content)

