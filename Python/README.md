@@ -2,7 +2,7 @@
 
 This directory contains the Python original code of the GonnaCry ransomware
 
-**Be aware running GonnaCry/main.py in your computer, it may harm.**
+**Be aware running GonnaCry/main.py GonnaCry/bin/gonnacry in your computer, it may harm.**
 
 
 # Requeriments 
