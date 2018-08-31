@@ -37,16 +37,28 @@ GonnaCry is a academic ransomware made for learning and awareness about secutiry
 -------------
 
 # What's a Ransomware?
-Ransomware is a computer virus that prevent's people of using the computer either cryptographing the files or blocking the screen to the user use.
 
-It forces the victim to pay a ransom in order to get the files/computer back.
+A ransomware is a form of malware that prevent legitimate users from accessing
+their device or data and asks for a payment in exchange for the stolen functionality.
+They have been used for mass extortion in various forms, but the
+most successful seem to be encrypting ransomware: most of the user data are
+encrypted and the key can be retrieved with a payment to the attacker.
+To be widely successful a ransomware must fulfill three properties:
 
-GonnaCry only encrypt the user files.
+**Property 1**: The hostile binary code must not contain any secret (e.g. deciphering
+keys). At least not in an easily retrievable form, indeed white box cryptography
+can be applied to ransomware.
+
+**Property 2**: Only the author of the attack should be able to decrypt the
+infected device.
+
+**Property 3**: Decrypting one device can not provide any useful information
+for other infected devices, in particular the key must not be shared among them.
 
 -------------
 
 # Objectives:
-The general objective is to encrypt the files and get it back.
+The general objective is to encrypt the files and get it back securily.
 
 See each code version Features/Objectives:
 
