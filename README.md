@@ -7,13 +7,13 @@ GonnaCry is a linux Ransomware that encrypt all user files.
 
 There is two versions of the Ransomware Code: C and Python.
 
-**How this ransomware works: **
+**How this ransomware works:**
 
 https://0x00sec.org/t/how-ransomware-works-and-gonnacry-linux-ransomware/4594
 
 https://medium.com/@tarcisiomarinho/how-ransomware-works-and-gonnacry-linux-ransomware-17f77a549114
 
-**How this ransomware encryption scheme works: **
+**How this ransomware encryption scheme works:**
 
 https://medium.com/@tarcisiomarinho/ransomware-encryption-techniques-696531d07bb9
 
