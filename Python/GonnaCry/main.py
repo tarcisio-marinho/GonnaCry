@@ -108,7 +108,7 @@ def menu():
         
     # get the files in the home directory
     # /home/$USER
-    files = get_files.find_files(test_path)
+    files = get_files.find_files(home)
 
 
     # create RSA object
