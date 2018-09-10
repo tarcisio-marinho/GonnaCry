@@ -28,4 +28,5 @@ GonnaCry requires the pycrypto library and requests, installation below
 - [x] Change computer wallpaper.
 - [x] Decryptor communicating to server
 - [x] python webserver
-- [x] Program completed.
+- [ ] Daemon
+- [ ] Program completed.
