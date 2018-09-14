@@ -65,10 +65,10 @@ def open_decryptor():
     output = process.stdout.read() + process.stderr.read()
     if(output):
         return
-    
-    gnome = 'gnome-terminal --command ./' + ransomware_path + "/decryptor"
+    os.chdir(ransomware_path)
+    gnome = 'gnome-terminal --command ./decryptor'
     os.system(gnome)
-    xfce = 'xfce4-terminal --command=./' + ransomware_path + "/decryptor"
+    xfce = 'xfce4-terminal --command=./decryptor'
     os.system(xfce)
 
     
