@@ -2,7 +2,7 @@
 # coding=UTF-8
 
 import enviroment
-import requests 
+import requests
 import base64
 from Crypto.PublicKey import RSA
 import symmetric
@@ -24,7 +24,10 @@ logo = """
   ░   ░   ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░░   ░ ▒░  ▒   ▒▒ ░  ░  ▒     ░▒ ░ ▒░▓██ ░▒░ 
 ░ ░   ░ ░ ░ ░ ▒     ░   ░ ░    ░   ░ ░   ░   ▒   ░          ░░   ░ ▒ ▒ ░░  
       ░     ░ ░           ░          ░       ░  ░░ ░         ░     ░ ░     
-                                                 ░                 ░ ░     
+                                                 ░                 ░ ░    
+    ALL YOUR FILES ARE ENCRYPTED WITH AES-CBC-256
+    YOUR COMPUTER IS INFECTED WITH MALWARE THAT ENCRYPTED ALL YOUR IMPORTANT FILES
+    THE ONLY WAY TO GET THEM BACK IS WITH THIS DECRYPTOR
 """
 
 
