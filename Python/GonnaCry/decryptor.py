@@ -46,8 +46,8 @@ machine_id = enviroment.get_unique_machine_id()
 def kill_daemon():
     process = subprocess.Popen("pidof daemon", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = process.stdout.read() + process.stderr.read()
-    if(output):
-        os.system("killall daemon")
+    os.system("killall daemon")
+    os.system('killall gonnacry')
 
 
 def decrypt_aes_keys(enc, key):
