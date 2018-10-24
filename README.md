@@ -18,6 +18,7 @@ https://medium.com/@tarcisiomarinho/how-ransomware-works-and-gonnacry-linux-rans
 https://medium.com/@tarcisiomarinho/ransomware-encryption-techniques-696531d07bb9
 
 **Mentions:**
+
 https://www.sentinelone.com/blog/sentinelone-detects-prevents-wsl-abuse/
 
 https://hackingvision.com/2017/07/18/gonnacry-linux-ransomware/
