@@ -23,6 +23,8 @@ https://www.sentinelone.com/blog/sentinelone-detects-prevents-wsl-abuse/
 
 https://hackingvision.com/2017/07/18/gonnacry-linux-ransomware/
 
+https://www.youtube.com/watch?v=gSfa2L158Uw
+
 
 
 [![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
