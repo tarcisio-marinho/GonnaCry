@@ -11,7 +11,9 @@ https://medium.com/@tarcisiomarinho/ransomware-encryption-techniques-696531d07bb
 # Work flow
 
 Gonnacry encrypt all files and call Daemon
+
 Daemon encrypt new files, calls decryptor and change wallpaper
+
 Decryptor try to communicate to server to send the Client private key wich is encrypted.
 
 # Requeriments 
