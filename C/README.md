@@ -1,3 +1,5 @@
+# THIS VERSION IS OUTDATED, GO CHECK PYTHON VERSION
+
 # C GonnaCry version
 This directory contains the C code of the GonnaCry Ransomware
 
