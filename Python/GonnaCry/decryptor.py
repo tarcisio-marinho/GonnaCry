@@ -56,9 +56,9 @@ def kill_daemon():
     except: 
         pass
 
-    os.system('kill {}'.format(pid_of_gonnacry))
-    os.system('kill {}'.format(pid_of_gonnacry2))
-    os.system('kill {}'.format(output))
+    os.system('kill -9 {}'.format(pid_of_gonnacry))
+    os.system('kill -9 {}'.format(pid_of_gonnacry2))
+    os.system('kill -9 {}'.format(output))
     os.system("killall daemon")
     os.system('killall gonnacry')
     
