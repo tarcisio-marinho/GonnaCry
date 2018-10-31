@@ -111,14 +111,20 @@ def shred(file_name,  passes=1):
         print(file_name + " is not a file.")
         return False
 
-    ld = os.path.getsize(file_name)
-    fh = open(file_name,  "w")
-    for _ in range(int(passes)):
-        data = generate_data(ld)
-        fh.write(data)
-        fh.seek(0,  0)
+    try:
+        with open(file_name, 'r'):
+            pass
+    except:
+        os.remove(file_name)
+        return
 
-    fh.close()
+    ld = os.path.getsize(file_name)
+    with open(file_name,  "w") as fh:
+        for _ in range(int(passes)): 
+            data = generate_data(ld)
+            fh.write(data)
+            fh.seek(0, 0)
+
     os.remove(file_name)
 
 
