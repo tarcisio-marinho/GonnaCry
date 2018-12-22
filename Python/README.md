@@ -40,4 +40,5 @@ GonnaCry requires the pycrypto library and requests, installation below
 - [x] Decryptor communicating to server
 - [x] python webserver
 - [x] Daemon
+- [ ] Dropper
 - [ ] Program completed.
