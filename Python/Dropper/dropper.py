@@ -82,5 +82,14 @@ def menu():
         pass
 
 
+# download from server gonnacry
+def download_gonnacry():
+    pass
+
+
+#download decryptor from server
+def download_decryptor():
+    pass
+
 if __name__ == "__main__":
     pass

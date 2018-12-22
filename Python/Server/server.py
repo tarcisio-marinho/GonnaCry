@@ -117,6 +117,16 @@ def run(server_class=HTTPServer, handler_class=S, port=80):
     print 'Starting web server...'
     httpd.serve_forever()
 
+
+# server send to victim the gonnacry
+def get_gonnacry():
+    pass 
+
+# server send decryptor to victim
+def get_decryptor():
+    pass
+
+    
 if __name__ == "__main__":
     if len(argv) == 2:
         run(port=int(argv[1]))
