@@ -61,7 +61,8 @@ def kill_daemon():
     os.system('kill -9 {}'.format(output))
     os.system("killall daemon")
     os.system('killall gonnacry')
-    
+    os.system('killall ./gonnacry')
+    os.system('killall ./daemon')
 
 
 def decrypt_aes_keys(enc, key):
@@ -175,12 +176,4 @@ def menu():
 
 if __name__ == "__main__": 
     print(logo)
-    while True:
-        password = "na beira do rio"
-        passs = raw_input('Enter the key: {}'.format(MAGENTA))
-        if(passs == password):
-            menu()
-            break
-        else:
-            print('{}wrong password{}'.format(RED, WHITE))
-            continue
+    menu()
