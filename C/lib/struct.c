@@ -11,16 +11,15 @@
  */
 void append(List **l, char *file_path, char *key, char *iv){
     List *aux = NULL;
+    
 
     if(key == NULL && iv == NULL){
-
         int len = strlen (file_path);
         aux = (List*)malloc(sizeof(List));
         aux->info[2] = (char*)malloc(sizeof(char)* (len+1));
         strcpy(aux->info[2], file_path);
 
     }else{
-
         int len = strlen (file_path);
         aux = (List*)malloc(sizeof(List));
         aux->info[0] = (char *)malloc(sizeof(char) * 33);
@@ -29,17 +28,20 @@ void append(List **l, char *file_path, char *key, char *iv){
         strcpy(aux->info[0], key);
         strcpy(aux->info[1], iv);
         strcpy(aux->info[2], file_path);
-
     }
 
     /*Linked List*/
     if(*l == NULL){
+        (*l)->size = 0;
         (*l) = aux;
         (*l)->prox = NULL;
     }else{
         aux->prox = *l;
         (*l) = aux;
     }
+
+    // Increment the size of the list
+    (*l)->size++;
 }
 
 /**
@@ -52,6 +54,14 @@ void destroy(List **l){
     while(*l != NULL){
         aux = *l;
         *l = aux->prox;
+        
+        // Clean the keys
+        for(int i; i < 3; i++){
+            // overwrite old memory
+            *aux->info[i] = "random_string";
+            free(aux->info[i]);
+        }
+
         free(aux);
     }
 }
@@ -78,10 +88,5 @@ void print(List *l){
  * @return -> type = integer
  */
 int length(List *l){
-    int len = 0;
-    while(l != NULL){
-        l = l->prox;
-        len++;
-    }
-    return len;
+    return l->size;
 }

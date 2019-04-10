@@ -10,6 +10,7 @@
 typedef struct node{
     struct node *prox;
     char * info[3];
+    int size;
 }List;
 
 void append(List **l, char *file_path, char *key, char *iv);
