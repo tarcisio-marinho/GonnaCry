@@ -31,4 +31,3 @@ def get_unique_machine_id():
 
 def get_home_path():
     return os.path.expanduser('~')
-
