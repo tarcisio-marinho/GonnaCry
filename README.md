@@ -85,5 +85,5 @@ https://github.com/tarcisio-marinho/GonnaCry/blob/master/Python/README.md#object
 -------------
 
 # Sub-Dirs:
-    - C -> C version of the GonnaCry Ransomware.
-    - Python -> Python version of the GonnaCry Ransomware.
+- C -> C version of the GonnaCry Ransomware.
+- Python -> Python version of the GonnaCry Ransomware.
