@@ -5,7 +5,7 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 
 GonnaCry is a linux Ransomware that encrypt all user files.
 
-There is two versions of the Ransomware Code: C and Python.
+There is two versions of the Ransomware Code: <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/C">C</a> and <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/Python">Python</a>.
 
 **How this ransomware works:**
 
