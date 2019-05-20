@@ -68,22 +68,15 @@ for other infected devices, in particular the key must not be shared among them.
 -------------
 
 # Objectives:
-The general objective is to encrypt the files and get it back securily.
 
-See each code version Features/Objectives:
-
-**C**
-
-
-https://github.com/tarcisio-marinho/GonnaCry/blob/master/C/README.md#features
-
-**Python**
-
-
-https://github.com/tarcisio-marinho/GonnaCry/blob/master/Python/README.md#objectives
-
--------------
-
-# Sub-Dirs:
-- C -> C version of the GonnaCry Ransomware.
-- Python -> Python version of the GonnaCry Ransomware.
+- [x] encrypt all user files with AES-256-CBC.
+- [x] Random AES key and IV for each file.
+- [x] Works even without internet connection.
+- [x] Communication with the server to decrypt Client-private-key.
+- [x] encrypt AES key with client-public-key RSA-2048.
+- [x] encrypt client-private-key with RSA-2048 server-public-key.
+- [x] Change computer wallpaper -> Gnome, LXDE, KDE, XFCE.
+- [x] Decryptor that communicate to server to send keys.
+- [x] python webserver
+- [x] Daemon
+- [ ] Dropper
