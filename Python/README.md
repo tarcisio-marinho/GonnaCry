@@ -32,13 +32,12 @@ GonnaCry requires the pycrypto library and requests, installation below
 # Objectives:
 - [x] encrypt all user files with AES-256-CBC.
 - [x] Random AES key and IV for each file.
-- [x] Works even if computer internet connection down.
-- [x] Communication with the server to get Servers-private-key.
+- [x] Works even without internet connection.
+- [x] Communication with the server to decrypt Client-private-key.
 - [x] encrypt AES key with client-public-key RSA-2048.
 - [x] encrypt client-private-key with RSA-2048 server-public-key.
 - [x] Change computer wallpaper -> Gnome, LXDE, KDE, XFCE.
-- [x] Decryptor communicating to server
+- [x] Decryptor that communicate to server to send keys.
 - [x] python webserver
 - [x] Daemon
 - [ ] Dropper
-- [ ] Program completed.
