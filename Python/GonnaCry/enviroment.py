@@ -6,7 +6,7 @@ import pwd
 
 def get_desktop_path():
     caminho = os.path.join(os.path.expanduser('~'), '/Desktop/')
-    caminho2 = os.path.join(os.path.expanduser('~'), '/Área\ de\ Trabalho/')
+    caminho2 = os.path.join(os.path.expanduser('~'), '/Área\\ de\\ Trabalho/')
     if(os.path.isdir(caminho)):
         path = caminho
     elif(os.path.isdir(caminho2)):
