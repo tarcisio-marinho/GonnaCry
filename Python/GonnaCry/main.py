@@ -42,17 +42,15 @@ def shred(file_name,  passes=1):
         return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
 
     if not os.path.isfile(file_name):
-        print(file_name + " is not a file.")
         return False
 
     ld = os.path.getsize(file_name)
-    fh = open(file_name,  "w")
-    for _ in range(int(passes)):
-        data = generate_data(ld)
-        fh.write(data)
-        fh.seek(0,  0)
-
-    fh.close()
+    with open(file_name,  "w") as fh:
+        for _ in range(int(passes)):
+            data = generate_data(ld)
+            fh.write(data)
+            fh.seek(0,  0)
+            
     os.remove(file_name)
 
 
