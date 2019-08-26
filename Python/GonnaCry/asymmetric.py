@@ -48,5 +48,7 @@ class assymetric():
             content_file.write(self.public_key_PEM)
 
 if __name__ == "__main__":
-    msg = 'b180749119d72cc7eb33ea7e778aaad65eb868650497fa8c793785ecfa559e7d05ee2bfb29f8f5e40cfdd6a670b1db1701a0ca34c55a8298ed3edba01ede7658c1151a07797eca8be8b5ee7c263f5a2c52819b468fdb074cb4b3a61e47ee0926'
-    a = assymetric()
+    cipher = assymetric()
+    cipher.generate_keys()
+    print(cipher.private_key_PEM)
+    print(cipher.public_key_PEM)
