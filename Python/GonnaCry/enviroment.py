@@ -1,7 +1,8 @@
 #!/bin/bash/env python
 # coding=UTF-8
 
-import os, pwd
+import os
+import pwd
 
 def get_desktop_path():
     caminho = os.path.join(os.path.expanduser('~'), '/Desktop/')
