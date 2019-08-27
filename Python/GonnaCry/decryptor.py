@@ -1,6 +1,3 @@
-#!/bin/bash/env python
-# coding=UTF-8
-
 import enviroment
 import symmetric
 

