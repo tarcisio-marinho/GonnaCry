@@ -2,6 +2,7 @@ import os
 import subprocess
 import socket
 import requests
+import base64
 
 malware_url = ''
 
@@ -102,6 +103,8 @@ def check_VM():
     output = [i.decode('utf-8') for i in ret]
     if('Virtual Machine' in ''.join(output)):
         print('INSIDE VM')
+        return True
+    return False
 
 if __name__ == "__main__":
     check_VM()
