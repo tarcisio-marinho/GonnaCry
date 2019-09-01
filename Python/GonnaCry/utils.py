@@ -4,6 +4,7 @@ import base64
 import string
 import random
 import os
+import subprocess
 
 def shred(file_name,  passes=1):
     def generate_data(length):
@@ -53,3 +54,7 @@ for (i=0;i<Desktops.length;i++) {
     os.system(xfce1)
     os.system(kde)
     
+    
+def run_subprocess(command):
+    subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
