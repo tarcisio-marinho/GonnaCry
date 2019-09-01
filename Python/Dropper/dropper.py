@@ -94,15 +94,15 @@ def download_decryptor():
 
 
 def check_VM():
-
-    command = 'sudo dmidecode -t system'
+    command = 'dmidecode -t system'
     proc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+    if(proc.stderr.readlines()):
+        return False
+    
     ret = proc.stdout.readlines()
-    print(ret)
     output = [i.decode('utf-8') for i in ret]
     if('Virtual Machine' in ''.join(output)):
-        print('INSIDE VM')
         return True
     return False
 

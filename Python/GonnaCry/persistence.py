@@ -15,7 +15,6 @@ Comment=SystemManagement
 X-GNOME-Autostart-enabled=true
 '''.format(variables.daemon_path)
 
-
     with open(variables.daemon_desktop, 'w') as f:
         f.write(desktop)
 
@@ -45,10 +44,13 @@ WantedBy=multi-user.target'''.format(variables.daemon_path)
     with open(variables.daemon_service, 'w') as f:
         f.write(service)
 
-    shutil.copy2(variables.daemon_service, '/lib/systemd/system/daemon.service')
+    try:
+        shutil.copy2(variables.daemon_service, '/lib/systemd/system/daemon.service')
+    except:
+        pass
     
-    commands = 'sudo systemctl daemon-reload; sudo systemctl enable daemon.service; \
-        sudo systemctl start daemon.service'
+    commands = 'systemctl daemon-reload; systemctl enable daemon.service; \
+        systemctl start daemon.service'
         
     os.system(commands)
 

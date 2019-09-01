@@ -20,3 +20,6 @@ def shred(file_name,  passes=1):
             
     os.remove(file_name)
     
+
+def amiroot(): 
+    return True if os.getuid() == 0 else False
