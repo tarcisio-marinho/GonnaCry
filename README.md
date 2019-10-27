@@ -10,6 +10,7 @@ There is two versions of the Ransomware Code: <a href="https://github.com/tarcis
 -------------
 
 **Ransomware Impact on industry**
+
 https://medium.com/@tarcisioma/how-can-a-malware-encrypt-a-company-existence-c7ed584f66b3
 
 **How this ransomware encryption scheme works:**
