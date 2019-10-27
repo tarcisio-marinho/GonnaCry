@@ -9,15 +9,20 @@ There is two versions of the Ransomware Code: <a href="https://github.com/tarcis
     
 -------------
 
+**Ransomware Impact on industry**
+https://medium.com/@tarcisioma/how-can-a-malware-encrypt-a-company-existence-c7ed584f66b3
+
+**How this ransomware encryption scheme works:**
+
+https://medium.com/@tarcisioma/ransomware-encryption-techniques-696531d07bb9
+
+
 **How this ransomware works:**
 
 https://0x00sec.org/t/how-ransomware-works-and-gonnacry-linux-ransomware/4594
 
 https://medium.com/@tarcisioma/how-ransomware-works-and-gonnacry-linux-ransomware-17f77a549114
 
-**How this ransomware encryption scheme works:**
-
-https://medium.com/@tarcisioma/ransomware-encryption-techniques-696531d07bb9
 
 **Mentions:**
 
