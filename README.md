@@ -5,7 +5,10 @@ This project is OpenSource, feel free to use, study and/or send pull request.
 
 GonnaCry is a linux ransomware that encrypt all user files with strong encryption scheme.
 
-There is two versions of the Ransomware Code: <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/C">C</a> and <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/Python">Python</a>.
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
+[![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
+[![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/tarcisio-marinho/GonnaCry)
+[![Travis branch](https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg)](https://github.com/tarcisio-marinho/GonnaCry/stargazers)
     
 -------------
 
@@ -33,13 +36,6 @@ https://hackingvision.com/2017/07/18/gonnacry-linux-ransomware/
 
 https://www.youtube.com/watch?v=gSfa2L158Uw
 
-
-
-[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg)](https://github.com/tarcisio-marinho/GonnaCry)
-[![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
-[![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/tarcisio-marinho/GonnaCry)
-[![Travis branch](https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg)](https://github.com/tarcisio-marinho/GonnaCry/stargazers)
-    
 -------------
 
 # Disclaimer
