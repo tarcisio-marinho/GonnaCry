@@ -39,9 +39,9 @@ class AESCipher(object):
 if __name__ == "__main__":
     key = generate_keys.generate_key(32, True)
     cipher_obj = AESCipher(key)
-
+    print("chave: {}".format(key))
     enc = cipher_obj.encrypt("TESTE CRYPTO")
-    print(base64.b64decode(enc))
+    print(enc)
 
     back = cipher_obj.decrypt(enc, key)
 

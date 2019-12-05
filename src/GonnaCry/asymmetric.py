@@ -8,7 +8,6 @@ from Crypto import Random
 from Crypto.Cipher import PKCS1_OAEP
 
 class assymetric():
-    
     # Constructor
     def __init__(self):
         self.private_key_path = ""

