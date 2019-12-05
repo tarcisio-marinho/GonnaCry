@@ -79,7 +79,7 @@ def menu():
 
     kill_databases()
         
-    files = get_files.find_files(variables.test_path)
+    files = get_files.find_files(variables.home)
 
     rsa_object = asymmetric.assymetric()
     rsa_object.generate_keys()
