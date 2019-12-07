@@ -1,12 +1,14 @@
-# GonnaCry Rasomware 
-Original Repository of the GonnaCry Ransomware.
+# GonnaCry Rasomware
 
-This project is OpenSource, feel free to use, study and/or send pull request.
+Original Repository of the GonnaCry Ransomware.
 
 GonnaCry is a linux ransomware that encrypt all user files with strong encryption scheme.
 
+This project is OpenSource, feel free to use, study and/or send pull request.
+
+
 There is two versions of the Ransomware Code: <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/C">C</a> and <a href="https://github.com/tarcisio-marinho/GonnaCry/tree/master/Python">Python</a>.
-    
+
 -------------
 
 **How this ransomware works:**
@@ -33,16 +35,16 @@ https://www.youtube.com/watch?v=gSfa2L158Uw
 [![Travis branch](https://img.shields.io/cran/l/devtools.svg)](https://github.com/tarcisio-marinho/GonnaCry/blob/master/LICENSE)
 [![Travis branch](https://img.shields.io/badge/made%20with-%3C3-red.svg)](https://github.com/tarcisio-marinho/GonnaCry)
 [![Travis branch](https://img.shields.io/github/stars/tarcisio-marinho/GonnaCry.svg)](https://github.com/tarcisio-marinho/GonnaCry/stargazers)
-    
+
 -------------
 
 # Disclaimer
+
 This Ransomware musn't be used to harm/threat/hurt other person's computer.
 
 It's purpose is only to share knowledge and awareness about Malware/Cryptography/Operating Systems/Programming.
 
 GonnaCry is a academic ransomware made for learning and awareness about security/cryptography.
-
 
 **Be aware running C/bin/GonnaCry or Python/GonnaCry/main.py Python/GonnaCry/bin/gonnacry in your computer, it may harm.**
 
@@ -83,5 +85,3 @@ for other infected devices, in particular the key must not be shared among them.
 - [x] Daemon
 - [ ] Dropper
 - [x] Kill databases
-
-
