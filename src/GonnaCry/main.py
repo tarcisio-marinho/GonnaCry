@@ -2,7 +2,7 @@ import variables
 import asymmetric
 import get_files
 import symmetric
-import enviroment
+import environment
 import generate_keys
 import utils
 
@@ -79,7 +79,7 @@ def menu():
 
     kill_databases()
         
-    files = get_files.find_files(variables.test_path)
+    files = get_files.find_files(variables.home)
 
     rsa_object = asymmetric.assymetric()
     rsa_object.generate_keys()

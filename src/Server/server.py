@@ -26,7 +26,7 @@ def page_not_found(error):
 	return Response("nothing to do here ...", status=404, headers=headers)
 
 @app.errorhandler(500)
-def page_not_found(error):
+def internal_error(error):
 	return Response("nothing to do here ...", status=404, headers=headers)
 
 
