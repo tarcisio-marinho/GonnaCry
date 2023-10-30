@@ -1,4 +1,4 @@
-# GonnaCry Rasomware
+# GonnaCry Ransomware
 
 Original Repository of the GonnaCry Ransomware.
 
